@@ -7,6 +7,7 @@
 | 模块 | 章节 | 状态 | 核心问题 |
 | --- | --- | --- | --- |
 | 响应式 | [01. ref 与 effect](./01-reactivity/01-ref-and-effect.md) | 已完成 | 数据改变后，怎样让使用它的函数重新执行？ |
+| 响应式 | [02. effect 重新执行与依赖清理](./01-reactivity/02-effect-cleanup.md) | 已完成 | effect 的依赖发生变化时，怎样删除旧关系并收集新关系？ |
 
 对应的答题与批改记录保存在 [review_questions](../review_questions/README.md)。
 
@@ -14,13 +15,12 @@
 
 以下内容会在完成当前章节后逐步添加，不需要提前实现：
 
-1. effect 依赖清理与分支切换。
-2. 嵌套 effect、effect 栈与异常恢复。
-3. 使用 Proxy 实现 `reactive`。
-4. `computed` 的缓存与失效。
-5. `watch` 与调度器。
-6. 虚拟 DOM 与渲染器。
-7. 组件、props、slots 与生命周期。
+1. 嵌套 effect、effect 栈与异常恢复。
+2. 使用 Proxy 实现 `reactive`。
+3. `computed` 的缓存与失效。
+4. `watch` 与调度器。
+5. 虚拟 DOM 与渲染器。
+6. 组件、props、slots 与生命周期。
 
 ## 推荐学习方式
 

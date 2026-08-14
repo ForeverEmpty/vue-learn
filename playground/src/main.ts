@@ -1,27 +1,31 @@
-import { effect, ref } from 'mini-vue'
 import './style.css'
+import { renderHomePage } from './pages/home'
+import { renderRefEffectPage } from './pages/ref-effect'
+import { renderEffectCleanupPage } from './pages/effect-cleanup'
 
-const count = ref(0)
+type PageRenderer = (container: HTMLElement) => void
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <section class="card">
-    <p class="eyebrow">MINI VUE PLAYGROUND</p>
-    <h1>从响应式开始</h1>
-    <p>页面显示值：<strong id="count"></strong></p>
-    <button id="increment" type="button">count + 1</button>
-    <p class="hint">
-      当前按钮会修改 count.value，但页面还不会更新。这正是第一阶段要解决的问题。
-    </p>
-  </section>
-`
+const routes: Record<string, PageRenderer> = {
+  '/': renderHomePage,
+  '/chapter-1': renderRefEffectPage,
+  '/chapter-2': renderEffectCleanupPage,
+}
 
-const countElement = document.querySelector<HTMLElement>('#count')!
-const incrementButton = document.querySelector<HTMLButtonElement>('#increment')!
+const app = document.querySelector<HTMLElement>('#app')!
 
-effect(() => {
-  countElement.textContent = String(count.value)
-})
+function getCurrentPath(): string {
+  const path = window.location.hash.slice(1)
+  return path || '/'
+}
 
-incrementButton.addEventListener('click', () => {
-  count.value++
-})
+function renderCurrentPage(): void {
+  const currentPath = getCurrentPath()
+  const renderPage = routes[currentPath] ?? renderHomePage
+
+  app.replaceChildren()
+  renderPage(app)
+  window.scrollTo({ top: 0 })
+}
+
+window.addEventListener('hashchange', renderCurrentPage)
+renderCurrentPage()

@@ -5,6 +5,7 @@
 | 模块 | 章节 | 状态 |
 | --- | --- | --- |
 | 响应式 | [01. ref 与 effect](./01-reactivity/01-ref-and-effect.md) | 已批改 |
+| 响应式 | [02. effect 重新执行与依赖清理](./01-reactivity/02-effect-cleanup.md) | 已批改 |
 
 ## 后续约定
 

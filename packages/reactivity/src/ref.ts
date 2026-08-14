@@ -1,4 +1,4 @@
-import { getActiveEffect, type EffectFn } from "./effect";
+import { getActiveEffect, type Dep } from "./effect";
 import { hasChanged } from "@mini-vue/shared";
 
 export interface Ref<T> {
@@ -7,11 +7,11 @@ export interface Ref<T> {
 
 /**
  * ref 的内部实现。
- * _value 保存实际值，_effects 保存读取过当前 ref 的副作用函数。
+ * _value 保存实际值，dep 保存订阅当前 ref 的副作用对象。
  */
 class RefImpl<T> implements Ref<T> {
   private _value: T;
-  private readonly _effects = new Set<EffectFn>();
+  private readonly dep: Dep = new Set();
 
   constructor(value: T) {
     this._value = value;
@@ -25,14 +25,17 @@ class RefImpl<T> implements Ref<T> {
 
     this._value = newValue;
 
-    this._effects.forEach((effect) => effect());
+    const _dep = new Set(this.dep);
+    
+    _dep.forEach((effect) => effect.run());
   }
 
   /** 读取值时收集当前正在执行的 effect。 */
   get value() {
     const effect = getActiveEffect();
-    if (effect) {
-      this._effects.add(effect);
+    if (effect && !this.dep.has(effect)) {
+      this.dep.add(effect);
+      effect.deps.push(this.dep);
     }
 
     return this._value;
