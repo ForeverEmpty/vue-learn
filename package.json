@@ -1,0 +1,22 @@
+{
+  "name": "mini-vue-study",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "playground"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace playground",
+    "build": "npm run typecheck && npm run build --workspace playground",
+    "typecheck": "tsc -p tsconfig.json --noEmit && npm run typecheck --workspace playground",
+    "test": "vitest",
+    "test:run": "vitest run"
+  },
+  "devDependencies": {
+    "typescript": "~6.0.2",
+    "vite": "^8.2.0",
+    "vitest": "^4.1.10"
+  }
+}

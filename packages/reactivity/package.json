@@ -1,0 +1,10 @@
+{
+  "name": "@mini-vue/reactivity",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": "./src/index.ts",
+  "dependencies": {
+    "@mini-vue/shared": "0.0.0"
+  }
+}
