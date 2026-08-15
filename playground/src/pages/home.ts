@@ -23,6 +23,14 @@ export function renderHomePage(container: HTMLElement): void {
           <p>观察条件分支切换后，新依赖未收集、旧依赖未删除的问题。</p>
           <span class="enter-link">进入测试页 →</span>
         </a>
+
+        <a class="lesson-card" href="#/chapter-3">
+          <span class="chapter-number">03</span>
+          <span class="status learning">学习中</span>
+          <h2>effect 栈与异常恢复</h2>
+          <p>观察嵌套 effect 覆盖外层状态，以及异常导致 activeEffect 残留的问题。</p>
+          <span class="enter-link">进入测试页 →</span>
+        </a>
       </nav>
     </main>
   `

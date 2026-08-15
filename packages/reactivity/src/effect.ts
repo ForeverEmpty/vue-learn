@@ -24,9 +24,14 @@ export class ReactiveEffect {
   run(): void {
     cleanupEffect(this);
 
+    const parentEffect = activeEffect;
     activeEffect = this;
-    this.fn();
-    activeEffect = undefined;
+
+    try {
+      this.fn();
+    } finally {
+      activeEffect = parentEffect;
+    }
   }
 }
 

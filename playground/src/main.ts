@@ -2,6 +2,7 @@ import './style.css'
 import { renderHomePage } from './pages/home'
 import { renderRefEffectPage } from './pages/ref-effect'
 import { renderEffectCleanupPage } from './pages/effect-cleanup'
+import { renderEffectStackPage } from './pages/effect-stack'
 
 type PageRenderer = (container: HTMLElement) => void
 
@@ -9,6 +10,7 @@ const routes: Record<string, PageRenderer> = {
   '/': renderHomePage,
   '/chapter-1': renderRefEffectPage,
   '/chapter-2': renderEffectCleanupPage,
+  '/chapter-3': renderEffectStackPage,
 }
 
 const app = document.querySelector<HTMLElement>('#app')!
