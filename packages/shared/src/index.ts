@@ -3,5 +3,9 @@
  * Object.is 可以正确处理 NaN、+0 和 -0 等普通等号容易忽略的情况。
  */
 export function hasChanged(value: unknown, oldValue: unknown): boolean {
-  return !Object.is(value, oldValue)
+  return !Object.is(value, oldValue);
+}
+
+export function isObject(value: unknown): boolean {
+  return typeof value === "object" && value !== null;
 }

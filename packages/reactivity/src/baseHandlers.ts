@@ -1,5 +1,6 @@
-import { hasChanged } from "@mini-vue/shared";
+import { hasChanged, isObject } from "@mini-vue/shared";
 import { track, trigger } from "./effect";
+import { reactive } from "./reactive";
 
 export const mutableHandlers: ProxyHandler<object> = {
   /** 转发属性读取，并按原对象与属性名收集当前 effect。 */
@@ -7,6 +8,7 @@ export const mutableHandlers: ProxyHandler<object> = {
     const result = Reflect.get(target, key, receiver);
 
     track(target, key);
+    if (isObject(result)) return reactive(result);
 
     return result;
   },
