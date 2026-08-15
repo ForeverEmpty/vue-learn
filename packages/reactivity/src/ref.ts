@@ -1,4 +1,4 @@
-import { getActiveEffect, type Dep } from "./effect";
+import { trackEffect, triggerEffects, type Dep } from "./effect";
 import { hasChanged } from "@mini-vue/shared";
 
 export interface Ref<T> {
@@ -25,19 +25,12 @@ class RefImpl<T> implements Ref<T> {
 
     this._value = newValue;
 
-    const _dep = new Set(this.dep);
-    
-    _dep.forEach((effect) => effect.run());
+    triggerEffects(this.dep);
   }
 
   /** 读取值时收集当前正在执行的 effect。 */
   get value() {
-    const effect = getActiveEffect();
-    if (effect && !this.dep.has(effect)) {
-      this.dep.add(effect);
-      effect.deps.push(this.dep);
-    }
-
+    trackEffect(this.dep);
     return this._value;
   }
 }

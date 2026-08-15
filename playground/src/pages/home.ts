@@ -31,6 +31,14 @@ export function renderHomePage(container: HTMLElement): void {
           <p>观察嵌套 effect 覆盖外层状态，以及异常导致 activeEffect 残留的问题。</p>
           <span class="enter-link">进入测试页 →</span>
         </a>
+
+        <a class="lesson-card" href="#/chapter-4">
+          <span class="chapter-number">04</span>
+          <span class="status complete">已完成</span>
+          <h2>Proxy 与 reactive</h2>
+          <p>观察对象属性读写，并验证不同属性是否拥有各自独立的依赖集合。</p>
+          <span class="enter-link">进入测试页 →</span>
+        </a>
       </nav>
     </main>
   `

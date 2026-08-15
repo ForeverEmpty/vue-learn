@@ -1,16 +1,9 @@
 export type EffectFn = () => void;
 export type Dep = Set<ReactiveEffect>;
 
-/** 当前正在执行、可以被 ref 收集的副作用对象。 */
+/** 当前正在执行、可以被响应式值收集的副作用对象。 */
 let activeEffect: ReactiveEffect | undefined;
-
-/**
- * 供响应式值在 getter 中读取当前副作用。
- * effect 外部读取响应式值时返回 undefined，因此不会产生错误订阅。
- */
-export function getActiveEffect(): ReactiveEffect | undefined {
-  return activeEffect;
-}
+const targetMap = new WeakMap<object, Map<PropertyKey, Dep>>();
 
 /** 包装副作用函数，并记录该副作用加入过的所有依赖集合。 */
 export class ReactiveEffect {
@@ -39,6 +32,46 @@ function cleanupEffect(reactiveEffect: ReactiveEffect): void {
   reactiveEffect.deps.forEach((dep) => dep.delete(reactiveEffect));
 
   reactiveEffect.deps.length = 0;
+}
+
+export function trackEffect(dep: Dep): void {
+  if (activeEffect && !dep.has(activeEffect)) {
+    dep.add(activeEffect);
+    activeEffect.deps.push(dep);
+  }
+}
+
+export function triggerEffects(dep: Dep): void {
+  const _dep = new Set(dep);
+  _dep.forEach((effect) => effect.run());
+}
+
+export function track(target: object, key: PropertyKey): void {
+  if (!activeEffect) return;
+
+  let depsMap = targetMap.get(target);
+  if (!depsMap) {
+    depsMap = new Map();
+    targetMap.set(target, depsMap);
+  }
+
+  let dep = depsMap.get(key);
+  if (!dep) {
+    dep = new Set();
+    depsMap.set(key, dep);
+  }
+
+  trackEffect(dep);
+}
+
+export function trigger(target: object, key: PropertyKey): void {
+  const depsMap = targetMap.get(target);
+  if (!depsMap) return;
+
+  const dep = depsMap.get(key);
+  if (!dep) return;
+
+  triggerEffects(dep);
 }
 
 /**
