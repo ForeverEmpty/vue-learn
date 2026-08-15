@@ -9,6 +9,7 @@
 | 响应式 | [03. 嵌套 effect、effect 栈与异常恢复](./01-reactivity/03-effect-stack.md) | 已批改 |
 | 响应式 | [04. 使用 Proxy 实现浅层 reactive](./01-reactivity/04-reactive-proxy.md) | 已批改 |
 | 响应式 | [05. 深层 reactive 与 Proxy 缓存](./01-reactivity/05-deep-reactive-cache.md) | 已批改 |
+| 响应式 | [06. computed 的缓存与失效](./01-reactivity/06-computed.md) | 已批改 |
 
 ## 后续约定
 

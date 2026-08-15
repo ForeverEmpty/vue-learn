@@ -1,34 +1,38 @@
-export type EffectFn = () => void;
-export type Dep = Set<ReactiveEffect>;
+export type EffectFn<T = void> = () => T;
+export type EffectScheduler = () => void;
+
+export type Dep = Set<ReactiveEffect<unknown>>;
 
 /** 当前正在执行、可以被响应式值收集的副作用对象。 */
-let activeEffect: ReactiveEffect | undefined;
+let activeEffect: ReactiveEffect<unknown> | undefined;
 const targetMap = new WeakMap<object, Map<PropertyKey, Dep>>();
 
 /** 包装副作用函数，并记录该副作用加入过的所有依赖集合。 */
-export class ReactiveEffect {
-  private readonly fn: EffectFn;
+export class ReactiveEffect<T = void> {
+  private readonly fn: EffectFn<T>;
+  readonly scheduler?: EffectScheduler;
   readonly deps: Dep[] = [];
 
-  constructor(fn: EffectFn) {
+  constructor(fn: EffectFn<T>, scheduler?: EffectScheduler) {
     this.fn = fn;
+    this.scheduler = scheduler;
   }
 
-  run(): void {
+  run(): T {
     cleanupEffect(this);
 
     const parentEffect = activeEffect;
     activeEffect = this;
 
     try {
-      this.fn();
+      return this.fn();
     } finally {
       activeEffect = parentEffect;
     }
   }
 }
 
-function cleanupEffect(reactiveEffect: ReactiveEffect): void {
+function cleanupEffect(reactiveEffect: ReactiveEffect<unknown>): void {
   reactiveEffect.deps.forEach((dep) => dep.delete(reactiveEffect));
 
   reactiveEffect.deps.length = 0;
@@ -43,7 +47,13 @@ export function trackEffect(dep: Dep): void {
 
 export function triggerEffects(dep: Dep): void {
   const _dep = new Set(dep);
-  _dep.forEach((effect) => effect.run());
+  _dep.forEach((effect) => {
+    if (effect.scheduler) {
+      effect.scheduler();
+    } else {
+      effect.run();
+    }
+  });
 }
 
 export function track(target: object, key: PropertyKey): void {

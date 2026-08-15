@@ -47,6 +47,14 @@ export function renderHomePage(container: HTMLElement): void {
           <p>让嵌套对象惰性变成 Proxy，并保证同一原对象始终复用同一代理。</p>
           <span class="enter-link">进入测试页 →</span>
         </a>
+
+        <a class="lesson-card" href="#/chapter-6">
+          <span class="chapter-number">06</span>
+          <span class="status complete">已完成</span>
+          <h2>computed 的缓存与失效</h2>
+          <p>观察派生值的惰性计算、缓存复用，以及依赖变化后的失效通知。</p>
+          <span class="enter-link">进入测试页 →</span>
+        </a>
       </nav>
     </main>
   `

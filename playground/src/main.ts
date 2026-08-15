@@ -5,6 +5,7 @@ import { renderEffectCleanupPage } from './pages/effect-cleanup'
 import { renderEffectStackPage } from './pages/effect-stack'
 import { renderReactiveProxyPage } from './pages/reactive-proxy'
 import { renderDeepReactivePage } from './pages/deep-reactive'
+import { renderComputedPage } from './pages/computed'
 
 type PageRenderer = (container: HTMLElement) => void
 
@@ -15,6 +16,7 @@ const routes: Record<string, PageRenderer> = {
   '/chapter-3': renderEffectStackPage,
   '/chapter-4': renderReactiveProxyPage,
   '/chapter-5': renderDeepReactivePage,
+  '/chapter-6': renderComputedPage,
 }
 
 const app = document.querySelector<HTMLElement>('#app')!
