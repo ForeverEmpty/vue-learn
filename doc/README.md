@@ -12,6 +12,7 @@
 | 响应式 | [04. 使用 Proxy 实现浅层 reactive](./01-reactivity/04-reactive-proxy.md) | 已完成 | 怎样把依赖精确关联到某个对象的某个属性？ |
 | 响应式 | [05. 深层 reactive 与 Proxy 缓存](./01-reactivity/05-deep-reactive-cache.md) | 已完成 | 怎样让嵌套对象响应式且保持 Proxy 身份稳定？ |
 | 响应式 | [06. computed 的缓存与失效](./01-reactivity/06-computed.md) | 已完成 | 派生值怎样惰性计算、缓存并在依赖变化后失效？ |
+| 响应式 | [07. watch 的新旧值与调度隔离](./01-reactivity/07-watch-scheduler.md) | 已完成 | 怎样只追踪 source，并在收集阶段之外安全执行 callback？ |
 
 对应的答题与批改记录保存在 [review_questions](../review_questions/README.md)。
 
@@ -19,9 +20,8 @@
 
 以下内容会在完成当前章节后逐步添加，不需要提前实现：
 
-1. `watch` 与调度器。
-2. 虚拟 DOM 与渲染器。
-3. 组件、props、slots 与生命周期。
+1. 虚拟 DOM 与渲染器。
+2. 组件、props、slots 与生命周期。
 
 ## 推荐学习方式
 

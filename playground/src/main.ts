@@ -6,6 +6,7 @@ import { renderEffectStackPage } from './pages/effect-stack'
 import { renderReactiveProxyPage } from './pages/reactive-proxy'
 import { renderDeepReactivePage } from './pages/deep-reactive'
 import { renderComputedPage } from './pages/computed'
+import { renderWatchSchedulerPage } from './pages/watch-scheduler'
 
 type PageRenderer = (container: HTMLElement) => void
 
@@ -17,6 +18,7 @@ const routes: Record<string, PageRenderer> = {
   '/chapter-4': renderReactiveProxyPage,
   '/chapter-5': renderDeepReactivePage,
   '/chapter-6': renderComputedPage,
+  '/chapter-7': renderWatchSchedulerPage,
 }
 
 const app = document.querySelector<HTMLElement>('#app')!

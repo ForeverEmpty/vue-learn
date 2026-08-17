@@ -55,6 +55,14 @@ export function renderHomePage(container: HTMLElement): void {
           <p>观察派生值的惰性计算、缓存复用，以及依赖变化后的失效通知。</p>
           <span class="enter-link">进入测试页 →</span>
         </a>
+
+        <a class="lesson-card" href="#/chapter-7">
+          <span class="chapter-number">07</span>
+          <span class="status complete">已完成</span>
+          <h2>watch 与调度隔离</h2>
+          <p>分离 source 的依赖收集和 callback，让回调读取不会污染 watch 的依赖。</p>
+          <span class="enter-link">进入测试页 →</span>
+        </a>
       </nav>
     </main>
   `

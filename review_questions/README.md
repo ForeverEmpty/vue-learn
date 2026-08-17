@@ -10,6 +10,7 @@
 | 响应式 | [04. 使用 Proxy 实现浅层 reactive](./01-reactivity/04-reactive-proxy.md) | 已批改 |
 | 响应式 | [05. 深层 reactive 与 Proxy 缓存](./01-reactivity/05-deep-reactive-cache.md) | 已批改 |
 | 响应式 | [06. computed 的缓存与失效](./01-reactivity/06-computed.md) | 已批改 |
+| 响应式 | [07. watch 的新旧值与调度隔离](./01-reactivity/07-watch-scheduler.md) | 已批改 |
 
 ## 后续约定
 
