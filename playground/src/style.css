@@ -87,6 +87,39 @@ h2 {
   gap: 20px;
 }
 
+.lesson-section + .lesson-section {
+  margin-top: 52px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #cfe2d9;
+}
+
+.section-heading h2,
+.section-heading p {
+  margin: 0;
+}
+
+.section-heading h2 {
+  margin-top: 6px;
+  font-size: 24px;
+}
+
+.section-heading > p {
+  color: #60736a;
+  font-size: 14px;
+}
+
+.basics-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .lesson-card,
 .test-card {
   border: 1px solid #cfe2d9;
@@ -209,6 +242,24 @@ h2 {
   line-height: 1.9;
 }
 
+.event-log {
+  min-height: 184px;
+  margin: 24px 0 0;
+  padding: 20px 20px 20px 48px;
+  border: 1px solid #d7e9e1;
+  border-radius: 12px;
+  color: #35495e;
+  background: #f7fbf9;
+  line-height: 2;
+}
+
+.event-log:empty::before {
+  display: block;
+  margin-left: -28px;
+  color: #7b8d85;
+  content: '运行后会在这里显示 A、B、C、D 的实际顺序';
+}
+
 .experiment {
   margin-top: 36px;
   padding-top: 30px;
@@ -308,6 +359,12 @@ h2 {
 
   .metric-grid {
     grid-template-columns: 1fr;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
   }
 
   .result-value.text-value {

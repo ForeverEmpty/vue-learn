@@ -8,6 +8,8 @@ import { renderDeepReactivePage } from './pages/deep-reactive'
 import { renderComputedPage } from './pages/computed'
 import { renderWatchSchedulerPage } from './pages/watch-scheduler'
 import { renderEffectLifecyclePage } from './pages/effect-lifecycle'
+import { renderSchedulerPage } from './pages/scheduler'
+import { renderPromiseBasicsPage } from './pages/promise-basics'
 
 type PageRenderer = (container: HTMLElement) => void
 
@@ -21,6 +23,8 @@ const routes: Record<string, PageRenderer> = {
   '/chapter-6': renderComputedPage,
   '/chapter-7': renderWatchSchedulerPage,
   '/chapter-8': renderEffectLifecyclePage,
+  '/chapter-9': renderSchedulerPage,
+  '/basics/promise': renderPromiseBasicsPage,
 }
 
 const app = document.querySelector<HTMLElement>('#app')!

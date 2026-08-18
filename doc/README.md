@@ -14,21 +14,29 @@
 | 响应式 | [06. computed 的缓存与失效](./01-reactivity/06-computed.md) | 已完成 | 派生值怎样惰性计算、缓存并在依赖变化后失效？ |
 | 响应式 | [07. watch 的新旧值与调度隔离](./01-reactivity/07-watch-scheduler.md) | 已完成 | 怎样只追踪 source，并在收集阶段之外安全执行 callback？ |
 | 响应式 | [08. effect 生命周期与 stop](./01-reactivity/08-effect-lifecycle.md) | 已完成 | 怎样让 effect 可以手动执行、停止订阅，并保持停止后的状态一致？ |
+| 响应式 | [09. scheduler 队列与 nextTick](./01-reactivity/09-scheduler-next-tick.md) | 已完成 | 怎样把同步触发合并成微任务刷新，并在刷新后读取最新状态？ |
 
 对应的答题与批改记录保存在 [review_questions](../review_questions/README.md)。
 
+## JS/TS 基础补充
+
+`00. JS/TS 基础` 是独立的语言基础大章节，不改变 Mini Vue 主课程的章节顺序。大章节编号 `00` 表示基础模块。
+
+| 大章节 | 课程 | 状态 | 当前用途 |
+| --- | --- | --- | --- |
+| 00. JS/TS 基础 | [01. Promise 基础](./00-js-ts/01-promise-basics.md) | 已完成 | 理解第九章的微任务安排与 `currentFlushPromise`。 |
+
 ## 响应式模块状态
 
-第 1～7 章已经完成，第 8 章正在补充 effect 生命周期。即使某一章的测试全部通过，也不代表整个响应式模块已经完成；只有模块内的生命周期、调度、代理边界、ref 工具和 watch 能力都完成后，才会进入下一个模块。
+第 1～9 章已经完成。响应式模块仍未全部完成；只有模块内的生命周期、调度、代理边界、ref 工具和 watch 能力都完成后，才会进入下一个模块。
 
 ## 响应式模块后续章节
 
-以下内容会在第八章之后继续补齐：
+以下内容会在第九章之后继续补齐：
 
-1. scheduler 任务队列与 `nextTick`。
-2. reactive 的数组、属性新增/删除、readonly、shallow 和 raw 工具。
-3. ref 工具函数与对象转换。
-4. watch 的 immediate、deep、清理和停止监听。
+1. reactive 的数组、属性新增/删除、readonly、shallow 和 raw 工具。
+2. ref 工具函数与对象转换。
+3. watch 的 immediate、deep、清理和停止监听。
 
 ## 后续模块
 

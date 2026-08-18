@@ -7,7 +7,16 @@ export function renderHomePage(container: HTMLElement): void {
         <p class="lead">选择章节进入对应测试页。每个页面只演示一个核心问题，方便对照源码和测试。</p>
       </header>
 
-      <nav class="lesson-grid" aria-label="学习章节">
+      <section class="lesson-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">MINI VUE</p>
+            <h2>响应式模块</h2>
+          </div>
+          <p>主课程</p>
+        </div>
+
+        <nav class="lesson-grid" aria-label="响应式学习章节">
         <a class="lesson-card" href="#/chapter-1">
           <span class="chapter-number">01</span>
           <span class="status complete">已完成</span>
@@ -71,7 +80,36 @@ export function renderHomePage(container: HTMLElement): void {
           <p>让 effect 可以手动执行、停止订阅，并理解停止后的 runner 行为。</p>
           <span class="enter-link">进入测试页 →</span>
         </a>
-      </nav>
+
+        <a class="lesson-card" href="#/chapter-9">
+          <span class="chapter-number">09</span>
+          <span class="status complete">已完成</span>
+          <h2>scheduler 队列与 nextTick</h2>
+          <p>把同步触发改成微任务刷新，并合并同一 tick 内重复的 effect job。</p>
+          <span class="enter-link">进入测试页 →</span>
+        </a>
+        </nav>
+      </section>
+
+      <section class="lesson-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">MODULE 00 · JS / TYPESCRIPT</p>
+            <h2>00. 基础补充</h2>
+          </div>
+          <p>大章节 00 表示基础</p>
+        </div>
+
+        <nav class="lesson-grid basics-grid" aria-label="JS 和 TypeScript 基础课程">
+          <a class="lesson-card" href="#/basics/promise">
+            <span class="chapter-number">MODULE 00 · LESSON 01</span>
+            <span class="status complete">已完成</span>
+            <h2>Promise 基础</h2>
+            <p>观察同步代码、Promise 微任务，以及保存刷新 Promise 的真正含义。</p>
+            <span class="enter-link">进入实验页 →</span>
+          </a>
+        </nav>
+      </section>
     </main>
   `
 }

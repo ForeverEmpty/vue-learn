@@ -1,5 +1,8 @@
 export type EffectFn<T = void> = () => T;
 export type EffectScheduler = () => void;
+export interface EffectOptions {
+  scheduler?: EffectScheduler;
+}
 export type EffectRunner = (() => void) & {
   effect: ReactiveEffect<unknown>;
 };
@@ -102,8 +105,8 @@ export function trigger(target: object, key: PropertyKey): void {
  * 注册并立即执行一个副作用函数。
  * 执行期间通过 activeEffect 暴露当前函数，使它读取到的 ref 能够收集依赖。
  */
-export function effect(fn: EffectFn): EffectRunner {
-  const reactiveEffect = new ReactiveEffect(fn);
+export function effect(fn: EffectFn, options?: EffectOptions): EffectRunner {
+  const reactiveEffect = new ReactiveEffect(fn, options?.scheduler);
   reactiveEffect.run();
 
   const runner = reactiveEffect.run.bind(reactiveEffect) as EffectRunner;

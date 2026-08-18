@@ -1,5 +1,6 @@
-export { effect, stop, type EffectFn, type EffectRunner } from './effect'
+export { effect, stop, type EffectFn, type EffectOptions, type EffectRunner } from './effect'
 export { ref, type Ref } from './ref'
 export { reactive } from './reactive'
 export { computed, type ComputedRef } from './computed'
 export { watch, type WatchCallback, type WatchSource } from './watch'
+export { nextTick, queueJob, type SchedulerJob } from './scheduler'

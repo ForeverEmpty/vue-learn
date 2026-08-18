@@ -4,7 +4,8 @@
 
 ## 开始学习
 
-- 最近完成：[第八章：effect 生命周期与 stop](./doc/01-reactivity/08-effect-lifecycle.md)
+- 最近完成：[第九章：scheduler 队列与 nextTick](./doc/01-reactivity/09-scheduler-next-tick.md)
+- 已完成基础补充：[00. JS/TS 基础 - 01. Promise](./doc/00-js-ts/01-promise-basics.md)
 - 完整课程目录：[doc/README.md](./doc/README.md)
 - 复习题与批改记录：[review_questions/README.md](./review_questions/README.md)
 - 浏览器实验：运行 `npm run dev` 后从 playground 目录进入对应章节。
@@ -32,4 +33,4 @@ npm run build      # 构建 playground
 
 `npm run dev` 打开的首页是 playground 学习目录。点击章节卡片可进入对应测试页，也可以通过页面顶部链接返回目录。
 
-第八章已经完成，当前仍处于响应式模块。后续章节会继续补齐 scheduler、reactive 边界、ref 工具和 watch 完整能力，完成后才进入 runtime 模块。
+第 1～9 章已经完成。当前仍处于响应式模块，下一章会继续补齐 reactive 的数组、属性新增/删除、readonly、shallow 和 raw 工具等边界能力。
