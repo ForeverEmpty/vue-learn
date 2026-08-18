@@ -12,7 +12,11 @@
     "build": "npm run typecheck && npm run build --workspace playground",
     "typecheck": "tsc -p tsconfig.json --noEmit && npm run typecheck --workspace playground",
     "test": "vitest",
-    "test:run": "vitest run"
+    "test:run": "vitest run",
+    "permissions:check": "pwsh -NoProfile -File scripts/workspace-permissions.ps1",
+    "permissions:check:all": "pwsh -NoProfile -File scripts/workspace-permissions.ps1 -All",
+    "permissions:fix": "pwsh -NoProfile -File scripts/workspace-permissions.ps1 -Fix",
+    "permissions:reset": "pwsh -NoProfile -File scripts/workspace-permissions.ps1 -Fix -ResetAcl"
   },
   "devDependencies": {
     "typescript": "~6.0.2",
