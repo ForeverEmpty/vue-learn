@@ -1,5 +1,8 @@
 export type EffectFn<T = void> = () => T;
 export type EffectScheduler = () => void;
+export type EffectRunner = (() => void) & {
+  effect: ReactiveEffect<unknown>;
+};
 
 export type Dep = Set<ReactiveEffect<unknown>>;
 
@@ -12,6 +15,7 @@ export class ReactiveEffect<T = void> {
   private readonly fn: EffectFn<T>;
   readonly scheduler?: EffectScheduler;
   readonly deps: Dep[] = [];
+  private active = true;
 
   constructor(fn: EffectFn<T>, scheduler?: EffectScheduler) {
     this.fn = fn;
@@ -19,6 +23,8 @@ export class ReactiveEffect<T = void> {
   }
 
   run(): T {
+    if (!this.active) return this.fn();
+
     cleanupEffect(this);
 
     const parentEffect = activeEffect;
@@ -29,6 +35,14 @@ export class ReactiveEffect<T = void> {
     } finally {
       activeEffect = parentEffect;
     }
+  }
+
+  /** 停止自动订阅，清理当前 effect 加入过的全部 dep。 */
+  stop(): void {
+    if (!this.active) return;
+
+    cleanupEffect(this);
+    this.active = false;
   }
 }
 
@@ -88,7 +102,16 @@ export function trigger(target: object, key: PropertyKey): void {
  * 注册并立即执行一个副作用函数。
  * 执行期间通过 activeEffect 暴露当前函数，使它读取到的 ref 能够收集依赖。
  */
-export function effect(fn: EffectFn): void {
+export function effect(fn: EffectFn): EffectRunner {
   const reactiveEffect = new ReactiveEffect(fn);
   reactiveEffect.run();
+
+  const runner = reactiveEffect.run.bind(reactiveEffect) as EffectRunner;
+  runner.effect = reactiveEffect;
+
+  return runner;
+}
+
+export function stop(runner: EffectRunner): void {
+  runner.effect.stop();
 }

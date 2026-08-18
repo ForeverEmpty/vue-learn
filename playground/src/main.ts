@@ -7,6 +7,7 @@ import { renderReactiveProxyPage } from './pages/reactive-proxy'
 import { renderDeepReactivePage } from './pages/deep-reactive'
 import { renderComputedPage } from './pages/computed'
 import { renderWatchSchedulerPage } from './pages/watch-scheduler'
+import { renderEffectLifecyclePage } from './pages/effect-lifecycle'
 
 type PageRenderer = (container: HTMLElement) => void
 
@@ -19,6 +20,7 @@ const routes: Record<string, PageRenderer> = {
   '/chapter-5': renderDeepReactivePage,
   '/chapter-6': renderComputedPage,
   '/chapter-7': renderWatchSchedulerPage,
+  '/chapter-8': renderEffectLifecyclePage,
 }
 
 const app = document.querySelector<HTMLElement>('#app')!

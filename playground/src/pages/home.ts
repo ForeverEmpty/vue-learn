@@ -63,6 +63,14 @@ export function renderHomePage(container: HTMLElement): void {
           <p>分离 source 的依赖收集和 callback，让回调读取不会污染 watch 的依赖。</p>
           <span class="enter-link">进入测试页 →</span>
         </a>
+
+        <a class="lesson-card" href="#/chapter-8">
+          <span class="chapter-number">08</span>
+          <span class="status complete">已完成</span>
+          <h2>effect 生命周期与 stop</h2>
+          <p>让 effect 可以手动执行、停止订阅，并理解停止后的 runner 行为。</p>
+          <span class="enter-link">进入测试页 →</span>
+        </a>
       </nav>
     </main>
   `

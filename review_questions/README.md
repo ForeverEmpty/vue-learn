@@ -11,6 +11,7 @@
 | 响应式 | [05. 深层 reactive 与 Proxy 缓存](./01-reactivity/05-deep-reactive-cache.md) | 已批改 |
 | 响应式 | [06. computed 的缓存与失效](./01-reactivity/06-computed.md) | 已批改 |
 | 响应式 | [07. watch 的新旧值与调度隔离](./01-reactivity/07-watch-scheduler.md) | 已批改 |
+| 响应式 | [08. effect 生命周期与 stop](./01-reactivity/08-effect-lifecycle.md) | 已批改 |
 
 ## 后续约定
 

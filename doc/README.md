@@ -13,15 +13,30 @@
 | 响应式 | [05. 深层 reactive 与 Proxy 缓存](./01-reactivity/05-deep-reactive-cache.md) | 已完成 | 怎样让嵌套对象响应式且保持 Proxy 身份稳定？ |
 | 响应式 | [06. computed 的缓存与失效](./01-reactivity/06-computed.md) | 已完成 | 派生值怎样惰性计算、缓存并在依赖变化后失效？ |
 | 响应式 | [07. watch 的新旧值与调度隔离](./01-reactivity/07-watch-scheduler.md) | 已完成 | 怎样只追踪 source，并在收集阶段之外安全执行 callback？ |
+| 响应式 | [08. effect 生命周期与 stop](./01-reactivity/08-effect-lifecycle.md) | 已完成 | 怎样让 effect 可以手动执行、停止订阅，并保持停止后的状态一致？ |
 
 对应的答题与批改记录保存在 [review_questions](../review_questions/README.md)。
 
-## 后续路线
+## 响应式模块状态
 
-以下内容会在完成当前章节后逐步添加，不需要提前实现：
+第 1～7 章已经完成，第 8 章正在补充 effect 生命周期。即使某一章的测试全部通过，也不代表整个响应式模块已经完成；只有模块内的生命周期、调度、代理边界、ref 工具和 watch 能力都完成后，才会进入下一个模块。
 
-1. 虚拟 DOM 与渲染器。
-2. 组件、props、slots 与生命周期。
+## 响应式模块后续章节
+
+以下内容会在第八章之后继续补齐：
+
+1. scheduler 任务队列与 `nextTick`。
+2. reactive 的数组、属性新增/删除、readonly、shallow 和 raw 工具。
+3. ref 工具函数与对象转换。
+4. watch 的 immediate、deep、清理和停止监听。
+
+## 后续模块
+
+响应式模块完成后，运行时模块从 `02-runtime` 开始，文档放在 `doc/02-runtime`，复习题放在 `review_questions/02-runtime`：
+
+1. VNode 与 `h()`。
+2. DOM renderer 与更新。
+3. 组件、props、slots 与生命周期。
 
 ## 推荐学习方式
 
