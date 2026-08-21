@@ -88,6 +88,14 @@ export function renderHomePage(container: HTMLElement): void {
           <p>把同步触发改成微任务刷新，并合并同一 tick 内重复的 effect job。</p>
           <span class="enter-link">进入测试页 →</span>
         </a>
+
+        <a class="lesson-card" href="#/chapter-10">
+          <span class="chapter-number">10</span>
+          <span class="status complete">已完成</span>
+          <h2>对象结构操作</h2>
+          <p>让 in、Object.keys 和 delete 参与依赖追踪，并区分属性新增与更新。</p>
+          <span class="enter-link">进入测试页 →</span>
+        </a>
         </nav>
       </section>
 
@@ -106,6 +114,30 @@ export function renderHomePage(container: HTMLElement): void {
             <span class="status complete">已完成</span>
             <h2>Promise 基础</h2>
             <p>观察同步代码、Promise 微任务，以及保存刷新 Promise 的真正含义。</p>
+            <span class="enter-link">进入实验页 →</span>
+          </a>
+
+          <a class="lesson-card" href="#/basics/prototype">
+            <span class="chapter-number">MODULE 00 · LESSON 02</span>
+            <span class="status complete">已完成</span>
+            <h2>原型与属性归属</h2>
+            <p>理解 in、hasOwnProperty.call 和 Object.keys 如何看待原型链。</p>
+            <span class="enter-link">进入实验页 →</span>
+          </a>
+
+          <a class="lesson-card" href="#/basics/call-apply-bind">
+            <span class="chapter-number">MODULE 00 · LESSON 03</span>
+            <span class="status complete">已完成</span>
+            <h2>call、apply 与 bind</h2>
+            <p>理解 this 指定、参数传递方式，以及 bind 为什么返回一个新函数。</p>
+            <span class="enter-link">进入实验页 →</span>
+          </a>
+
+          <a class="lesson-card" href="#/basics/this">
+            <span class="chapter-number">MODULE 00 · LESSON 04</span>
+            <span class="status complete">已完成</span>
+            <h2>this 的指向</h2>
+            <p>比较对象方法、函数提取、call 和 bind 如何改变普通函数的调用上下文。</p>
             <span class="enter-link">进入实验页 →</span>
           </a>
         </nav>

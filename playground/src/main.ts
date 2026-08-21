@@ -10,6 +10,10 @@ import { renderWatchSchedulerPage } from './pages/watch-scheduler'
 import { renderEffectLifecyclePage } from './pages/effect-lifecycle'
 import { renderSchedulerPage } from './pages/scheduler'
 import { renderPromiseBasicsPage } from './pages/promise-basics'
+import { renderReactiveObjectOperationsPage } from './pages/reactive-object-operations'
+import { renderPrototypeBasicsPage } from './pages/prototype-basics'
+import { renderCallApplyBindPage } from './pages/call-apply-bind'
+import { renderThisBindingPage } from './pages/this-binding'
 
 type PageRenderer = (container: HTMLElement) => void
 
@@ -25,6 +29,10 @@ const routes: Record<string, PageRenderer> = {
   '/chapter-8': renderEffectLifecyclePage,
   '/chapter-9': renderSchedulerPage,
   '/basics/promise': renderPromiseBasicsPage,
+  '/chapter-10': renderReactiveObjectOperationsPage,
+  '/basics/prototype': renderPrototypeBasicsPage,
+  '/basics/call-apply-bind': renderCallApplyBindPage,
+  '/basics/this': renderThisBindingPage,
 }
 
 const app = document.querySelector<HTMLElement>('#app')!

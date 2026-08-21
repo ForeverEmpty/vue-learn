@@ -9,9 +9,13 @@ export type EffectRunner = (() => void) & {
 
 export type Dep = Set<ReactiveEffect<unknown>>;
 
+export type TriggerOpType = "add" | "set" | "delete";
+
 /** 当前正在执行、可以被响应式值收集的副作用对象。 */
 let activeEffect: ReactiveEffect<unknown> | undefined;
 const targetMap = new WeakMap<object, Map<PropertyKey, Dep>>();
+
+export const ITERATE_KEY = Symbol("iterate");
 
 /** 包装副作用函数，并记录该副作用加入过的所有依赖集合。 */
 export class ReactiveEffect<T = void> {
@@ -91,14 +95,31 @@ export function track(target: object, key: PropertyKey): void {
   trackEffect(dep);
 }
 
-export function trigger(target: object, key: PropertyKey): void {
+export function trigger(
+  target: object,
+  key: PropertyKey,
+  type: TriggerOpType,
+): void {
   const depsMap = targetMap.get(target);
   if (!depsMap) return;
 
-  const dep = depsMap.get(key);
-  if (!dep) return;
+  const effectsToRun: Dep = new Set();
 
-  triggerEffects(dep);
+  const dep = depsMap.get(key);
+
+  dep?.forEach((effect) => {
+    effectsToRun.add(effect);
+  });
+
+  if (type === "add" || type === "delete") {
+    const iterateDep = depsMap.get(ITERATE_KEY);
+
+    iterateDep?.forEach((effect) => {
+      effectsToRun.add(effect);
+    });
+  }
+
+  triggerEffects(effectsToRun);
 }
 
 /**

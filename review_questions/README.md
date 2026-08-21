@@ -13,12 +13,16 @@
 | 响应式 | [07. watch 的新旧值与调度隔离](./01-reactivity/07-watch-scheduler.md) | 已批改 |
 | 响应式 | [08. effect 生命周期与 stop](./01-reactivity/08-effect-lifecycle.md) | 已批改 |
 | 响应式 | [09. scheduler 队列与 nextTick](./01-reactivity/09-scheduler-next-tick.md) | 已批改 |
+| 响应式 | [10. reactive 对象结构操作](./01-reactivity/10-reactive-object-operations.md) | 已批改 |
 
 ## 00. JS/TS 基础补充
 
 | 小节 | 主题 | 状态 |
 | --- | --- | --- |
 | 01 | [Promise 基础](./00-js-ts/01-promise-basics.md) | 已批改 |
+| 02 | [原型与属性归属](./00-js-ts/02-prototype-and-property-ownership.md) | 已批改 |
+| 03 | [call、apply 与 bind](./00-js-ts/03-call-apply-bind.md) | 已批改 |
+| 04 | [this 的指向](./00-js-ts/04-this-binding.md) | 已批改 |
 
 ## 后续约定
 

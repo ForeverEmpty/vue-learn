@@ -15,6 +15,7 @@
 | 响应式 | [07. watch 的新旧值与调度隔离](./01-reactivity/07-watch-scheduler.md) | 已完成 | 怎样只追踪 source，并在收集阶段之外安全执行 callback？ |
 | 响应式 | [08. effect 生命周期与 stop](./01-reactivity/08-effect-lifecycle.md) | 已完成 | 怎样让 effect 可以手动执行、停止订阅，并保持停止后的状态一致？ |
 | 响应式 | [09. scheduler 队列与 nextTick](./01-reactivity/09-scheduler-next-tick.md) | 已完成 | 怎样把同步触发合并成微任务刷新，并在刷新后读取最新状态？ |
+| 响应式 | [10. reactive 对象结构操作](./01-reactivity/10-reactive-object-operations.md) | 已完成 | 怎样追踪 in、Object.keys、属性新增和删除？ |
 
 对应的答题与批改记录保存在 [review_questions](../review_questions/README.md)。
 
@@ -25,16 +26,19 @@
 | 大章节 | 课程 | 状态 | 当前用途 |
 | --- | --- | --- | --- |
 | 00. JS/TS 基础 | [01. Promise 基础](./00-js-ts/01-promise-basics.md) | 已完成 | 理解第九章的微任务安排与 `currentFlushPromise`。 |
+| 00. JS/TS 基础 | [02. 原型与属性归属](./00-js-ts/02-prototype-and-property-ownership.md) | 已完成 | 理解第十章判断自有属性的原型基础。 |
+| 00. JS/TS 基础 | [03. call、apply 与 bind](./00-js-ts/03-call-apply-bind.md) | 已完成 | 理解 `hasOwnProperty.call` 使用的函数调用机制。 |
+| 00. JS/TS 基础 | [04. this 的指向](./00-js-ts/04-this-binding.md) | 已完成 | 理解普通函数、箭头函数和显式绑定的 this 规则。 |
 
 ## 响应式模块状态
 
-第 1～9 章已经完成。响应式模块仍未全部完成；只有模块内的生命周期、调度、代理边界、ref 工具和 watch 能力都完成后，才会进入下一个模块。
+第 1～10 章已经完成。响应式模块仍未全部完成；只有模块内的生命周期、调度、代理边界、ref 工具和 watch 能力都完成后，才会进入下一个模块。
 
 ## 响应式模块后续章节
 
-以下内容会在第九章之后继续补齐：
+以下内容会在第十章之后继续补齐：
 
-1. reactive 的数组、属性新增/删除、readonly、shallow 和 raw 工具。
+1. reactive 的数组、readonly、shallow 和 raw 工具。
 2. ref 工具函数与对象转换。
 3. watch 的 immediate、deep、清理和停止监听。
 

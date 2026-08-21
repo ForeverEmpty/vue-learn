@@ -1,5 +1,5 @@
 import { hasChanged, isObject } from "@mini-vue/shared";
-import { track, trigger } from "./effect";
+import { track, trigger, ITERATE_KEY, type TriggerOpType } from "./effect";
 import { reactive } from "./reactive";
 
 export const mutableHandlers: ProxyHandler<object> = {
@@ -14,13 +14,43 @@ export const mutableHandlers: ProxyHandler<object> = {
   },
   /** 写入成功且值真正改变时，触发当前属性的订阅者。 */
   set(target, key, newValue, receiver) {
+    const hadKey = Object.prototype.hasOwnProperty.call(target, key);
     const oldValue = Reflect.get(target, key, receiver);
     const didSet = Reflect.set(target, key, newValue, receiver);
+    const operationType: TriggerOpType = hadKey ? "set" : "add";
 
-    if (didSet && hasChanged(oldValue, newValue)) {
-      trigger(target, key);
+    if (!didSet) return didSet;
+
+    if (!hadKey) {
+      trigger(target, key, operationType);
+    } else if (hasChanged(oldValue, newValue)) {
+      trigger(target, key, operationType);
     }
-    
+
     return didSet;
+  },
+
+  has(target, key) {
+    const result = Reflect.has(target, key);
+
+    track(target, key);
+
+    return result;
+  },
+
+  deleteProperty(target, key) {
+    const hadKey = Object.prototype.hasOwnProperty.call(target, key);
+    const didDelete = Reflect.deleteProperty(target, key);
+
+    if (hadKey && didDelete) {
+      trigger(target, key, "delete");
+    }
+
+    return didDelete;
+  },
+
+  ownKeys(target) {
+    track(target, ITERATE_KEY);
+    return Reflect.ownKeys(target);
   },
 };
