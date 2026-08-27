@@ -9,3 +9,24 @@ export function hasChanged(value: unknown, oldValue: unknown): boolean {
 export function isObject(value: unknown): boolean {
   return typeof value === "object" && value !== null;
 }
+
+export function isArrayIndex(value: unknown): boolean {
+  const type = typeof value;
+
+  if (type !== "number" && type !== "string") return false;
+
+  let validValue: number | undefined;
+
+  if (type === "string") {
+    validValue = Number(value);
+    const toString = validValue.toString();
+    if (toString !== value) return false;
+  } else {
+    validValue = Number(value);
+  }
+
+  const isInt = Number.isInteger(validValue);
+  const isInRange = validValue >= 0 && validValue < 2 ** 32 - 1;
+
+  return isInt && isInRange;
+}

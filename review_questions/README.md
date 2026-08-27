@@ -14,6 +14,7 @@
 | 响应式 | [08. effect 生命周期与 stop](./01-reactivity/08-effect-lifecycle.md) | 已批改 |
 | 响应式 | [09. scheduler 队列与 nextTick](./01-reactivity/09-scheduler-next-tick.md) | 已批改 |
 | 响应式 | [10. reactive 对象结构操作](./01-reactivity/10-reactive-object-operations.md) | 已批改 |
+| 响应式 | [11. 响应式数组的索引与 length](./01-reactivity/11-reactive-array-length.md) | 已批改 |
 
 ## 00. JS/TS 基础补充
 

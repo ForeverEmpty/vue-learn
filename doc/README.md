@@ -16,6 +16,7 @@
 | 响应式 | [08. effect 生命周期与 stop](./01-reactivity/08-effect-lifecycle.md) | 已完成 | 怎样让 effect 可以手动执行、停止订阅，并保持停止后的状态一致？ |
 | 响应式 | [09. scheduler 队列与 nextTick](./01-reactivity/09-scheduler-next-tick.md) | 已完成 | 怎样把同步触发合并成微任务刷新，并在刷新后读取最新状态？ |
 | 响应式 | [10. reactive 对象结构操作](./01-reactivity/10-reactive-object-operations.md) | 已完成 | 怎样追踪 in、Object.keys、属性新增和删除？ |
+| 响应式 | [11. 响应式数组的索引与 length](./01-reactivity/11-reactive-array-length.md) | 已完成 | 数组索引和 length 相互改变时，怎样通知所有受影响的依赖？ |
 
 对应的答题与批改记录保存在 [review_questions](../review_questions/README.md)。
 
@@ -32,15 +33,16 @@
 
 ## 响应式模块状态
 
-第 1～10 章已经完成。响应式模块仍未全部完成；只有模块内的生命周期、调度、代理边界、ref 工具和 watch 能力都完成后，才会进入下一个模块。
+第 1～11 章已经完成。响应式模块仍未全部完成；只有模块内的生命周期、调度、代理边界、ref 工具和 watch 能力都完成后，才会进入下一个模块。
 
 ## 响应式模块后续章节
 
 以下内容会在第十章之后继续补齐：
 
-1. reactive 的数组、readonly、shallow 和 raw 工具。
-2. ref 工具函数与对象转换。
-3. watch 的 immediate、deep、清理和停止监听。
+1. 数组方法的依赖暂停与原对象、Proxy 身份处理。
+2. readonly、shallow 和 raw 工具。
+3. ref 工具函数与对象转换。
+4. watch 的 immediate、deep、清理和停止监听。
 
 ## 后续模块
 

@@ -96,6 +96,15 @@ export function renderHomePage(container: HTMLElement): void {
           <p>让 in、Object.keys 和 delete 参与依赖追踪，并区分属性新增与更新。</p>
           <span class="enter-link">进入测试页 →</span>
         </a>
+
+        <a class="lesson-card" href="#/chapter-11">
+          <span class="chapter-number">11</span>
+          <span class="status complete">已完成</span>
+          <h2>数组索引与 length</h2>
+          <p>处理新增索引导致 length 变化，以及缩短 length 删除多个索引的依赖联动。</p>
+          <span class="enter-link">进入测试页 →</span>
+        </a>
+
         </nav>
       </section>
 

@@ -1,3 +1,5 @@
+import { isArrayIndex } from "@mini-vue/shared";
+
 export type EffectFn<T = void> = () => T;
 export type EffectScheduler = () => void;
 export interface EffectOptions {
@@ -99,7 +101,15 @@ export function trigger(
   target: object,
   key: PropertyKey,
   type: TriggerOpType,
+  oldLength?: number,
 ): void {
+  const shouldTriggerLength =
+    Array.isArray(target) &&
+    type === "add" &&
+    isArrayIndex(key) &&
+    oldLength !== undefined &&
+    Number(key) >= oldLength;
+
   const depsMap = targetMap.get(target);
   if (!depsMap) return;
 
@@ -110,6 +120,37 @@ export function trigger(
   dep?.forEach((effect) => {
     effectsToRun.add(effect);
   });
+
+  if (shouldTriggerLength) {
+    const lengthDep = depsMap.get("length");
+
+    lengthDep?.forEach((effect) => {
+      effectsToRun.add(effect);
+    });
+  }
+
+  if (Array.isArray(target) && key === "length" && oldLength !== undefined) {
+    const newLength = target.length;
+
+    if (newLength < oldLength) {
+      depsMap.forEach((indexDep, depKey) => {
+        const isRemovedIndex =
+          isArrayIndex(depKey) && Number(depKey) >= newLength;
+
+        if (isRemovedIndex) {
+          indexDep.forEach((effect) => {
+            effectsToRun.add(effect);
+          });
+        }
+      });
+
+      const iterateDep = depsMap.get(ITERATE_KEY);
+
+      iterateDep?.forEach((effect) => {
+        effectsToRun.add(effect);
+      });
+    }
+  }
 
   if (type === "add" || type === "delete") {
     const iterateDep = depsMap.get(ITERATE_KEY);

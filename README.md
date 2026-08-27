@@ -4,7 +4,7 @@
 
 ## 开始学习
 
-- 最近完成：[第十章：reactive 对象结构操作](./doc/01-reactivity/10-reactive-object-operations.md)
+- 最近完成：[第十一章：响应式数组的索引与 length](./doc/01-reactivity/11-reactive-array-length.md)
 - 已完成基础补充：[00. JS/TS 基础 - 01. Promise](./doc/00-js-ts/01-promise-basics.md)
 - 已完成基础补充：[00. JS/TS 基础 - 02. 原型与属性归属](./doc/00-js-ts/02-prototype-and-property-ownership.md)
 - 已完成基础补充：[00. JS/TS 基础 - 03. call、apply 与 bind](./doc/00-js-ts/03-call-apply-bind.md)
@@ -36,4 +36,4 @@ npm run build      # 构建 playground
 
 `npm run dev` 打开的首页是 playground 学习目录。点击章节卡片可进入对应测试页，也可以通过页面顶部链接返回目录。
 
-第 1～10 章已经完成。当前仍处于响应式模块，数组与 readonly 等能力会在后续章节继续处理。
+第 1～11 章已经完成。当前仍处于响应式模块，数组方法插桩、readonly 等能力会在后续章节继续处理。

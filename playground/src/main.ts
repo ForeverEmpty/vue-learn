@@ -14,6 +14,7 @@ import { renderReactiveObjectOperationsPage } from './pages/reactive-object-oper
 import { renderPrototypeBasicsPage } from './pages/prototype-basics'
 import { renderCallApplyBindPage } from './pages/call-apply-bind'
 import { renderThisBindingPage } from './pages/this-binding'
+import { renderReactiveArrayLengthPage } from './pages/reactive-array-length'
 
 type PageRenderer = (container: HTMLElement) => void
 
@@ -33,6 +34,7 @@ const routes: Record<string, PageRenderer> = {
   '/basics/prototype': renderPrototypeBasicsPage,
   '/basics/call-apply-bind': renderCallApplyBindPage,
   '/basics/this': renderThisBindingPage,
+  '/chapter-11': renderReactiveArrayLengthPage,
 }
 
 const app = document.querySelector<HTMLElement>('#app')!

@@ -14,6 +14,8 @@ export const mutableHandlers: ProxyHandler<object> = {
   },
   /** 写入成功且值真正改变时，触发当前属性的订阅者。 */
   set(target, key, newValue, receiver) {
+    const isArrayTarget = Array.isArray(target);
+    const oldLength = isArrayTarget ? target.length : undefined;
     const hadKey = Object.prototype.hasOwnProperty.call(target, key);
     const oldValue = Reflect.get(target, key, receiver);
     const didSet = Reflect.set(target, key, newValue, receiver);
@@ -22,9 +24,9 @@ export const mutableHandlers: ProxyHandler<object> = {
     if (!didSet) return didSet;
 
     if (!hadKey) {
-      trigger(target, key, operationType);
+      trigger(target, key, operationType, oldLength);
     } else if (hasChanged(oldValue, newValue)) {
-      trigger(target, key, operationType);
+      trigger(target, key, operationType, oldLength);
     }
 
     return didSet;
