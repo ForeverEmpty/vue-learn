@@ -16,6 +16,7 @@
 | 响应式 | [10. reactive 对象结构操作](./01-reactivity/10-reactive-object-operations.md) | 已批改 |
 | 响应式 | [11. 响应式数组的索引与 length](./01-reactivity/11-reactive-array-length.md) | 已批改 |
 | 响应式 | [12. 数组方法的身份处理与依赖暂停](./01-reactivity/12-reactive-array-methods.md) | 已批改 |
+| 响应式 | [13. readonly 与代理身份工具](./01-reactivity/13-readonly-and-proxy-identity.md) | 已批改 |
 
 ## 00. JS/TS 基础补充
 

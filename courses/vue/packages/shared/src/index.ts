@@ -6,7 +6,7 @@ export function hasChanged(value: unknown, oldValue: unknown): boolean {
   return !Object.is(value, oldValue);
 }
 
-export function isObject(value: unknown): boolean {
+export function isObject(value: unknown): value is object {
   return typeof value === "object" && value !== null;
 }
 

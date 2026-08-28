@@ -112,6 +112,14 @@ export function renderHomePage(container: HTMLElement): void {
           <p>统一搜索方法中的 raw/Proxy 身份，并暂停修改方法产生的内部依赖收集。</p>
           <span class="enter-link">进入测试页 →</span>
         </a>
+
+        <a class="lesson-card" href="#/chapter-13">
+          <span class="chapter-number">13</span>
+          <span class="status complete">已完成</span>
+          <h2>readonly 与代理身份</h2>
+          <p>建立深层只读视图，并用身份工具区分 raw、reactive 与 readonly。</p>
+          <span class="enter-link">进入测试页 →</span>
+        </a>
         </nav>
       </section>
 

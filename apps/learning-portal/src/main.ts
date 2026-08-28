@@ -16,6 +16,7 @@ import { renderCallApplyBindPage } from './pages/vue/call-apply-bind'
 import { renderThisBindingPage } from './pages/vue/this-binding'
 import { renderReactiveArrayLengthPage } from './pages/vue/reactive-array-length'
 import { renderReactiveArrayMethodsPage } from './pages/vue/reactive-array-methods'
+import { renderReadonlyIdentityPage } from './pages/vue/readonly-identity'
 import { renderJavaHomePage } from './pages/java/home'
 import { renderJavaThreadBasicsPage } from './pages/java/thread-basics'
 
@@ -39,6 +40,7 @@ const routes: Record<string, PageRenderer> = {
   '/basics/this': renderThisBindingPage,
   '/chapter-11': renderReactiveArrayLengthPage,
   '/chapter-12': renderReactiveArrayMethodsPage,
+  '/chapter-13': renderReadonlyIdentityPage,
   '/java': renderJavaHomePage,
   '/java/chapter-1': renderJavaThreadBasicsPage,
 }
