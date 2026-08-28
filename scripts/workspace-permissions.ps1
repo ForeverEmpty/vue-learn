@@ -10,6 +10,23 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
+$dependencyDirectoryNames = [Collections.Generic.HashSet[string]]::new(
+  [StringComparer]::OrdinalIgnoreCase
+)
+@(
+  'node_modules'
+  '.pnpm-store'
+  '.yarn'
+  'bower_components'
+  'jspm_packages'
+  'vendor'
+  '.venv'
+  'venv'
+  '__pypackages__'
+  '.gradle'
+  '.gradle-user-home'
+) | ForEach-Object { [void]$dependencyDirectoryNames.Add($_) }
+
 if (-not $IsWindows -and $PSVersionTable.PSEdition -eq 'Core') {
   throw 'This tool only supports Windows.'
 }
@@ -30,18 +47,72 @@ if ([string]::IsNullOrWhiteSpace($expectedOwner)) {
   throw 'Could not determine the expected workspace owner. Pass -Owner explicitly.'
 }
 
+function Test-PathContainsDependencyDirectory {
+  param(
+    [Parameter(Mandatory)]
+    [string]$Path,
+    [Parameter(Mandatory)]
+    [Collections.Generic.HashSet[string]]$DependencyDirectoryNames
+  )
+
+  foreach ($pathSegment in $Path -split '[\\/]') {
+    if ($DependencyDirectoryNames.Contains($pathSegment)) {
+      return $true
+    }
+  }
+
+  return $false
+}
+
+function Get-AllWorkspacePermissionItems {
+  param(
+    [Parameter(Mandatory)]
+    [string]$WorkspaceRoot,
+    [Parameter(Mandatory)]
+    [Collections.Generic.HashSet[string]]$DependencyDirectoryNames
+  )
+
+  $rootItem = Get-Item -Force -LiteralPath $WorkspaceRoot
+  Write-Output $rootItem
+
+  $pendingDirectories = [Collections.Generic.Stack[IO.DirectoryInfo]]::new()
+  $pendingDirectories.Push($rootItem)
+
+  while ($pendingDirectories.Count -gt 0) {
+    $currentDirectory = $pendingDirectories.Pop()
+    foreach ($item in Get-ChildItem -Force -LiteralPath $currentDirectory.FullName) {
+      if ($item.PSIsContainer -and $DependencyDirectoryNames.Contains($item.Name)) {
+        continue
+      }
+
+      Write-Output $item
+
+      if (
+        $item.PSIsContainer -and
+        -not ($item.Attributes -band [IO.FileAttributes]::ReparsePoint)
+      ) {
+        $pendingDirectories.Push($item)
+      }
+    }
+  }
+}
+
 function Get-WorkspacePermissionIssues {
   param(
     [Parameter(Mandatory)]
     [string]$WorkspaceRoot,
     [Parameter(Mandatory)]
     [string]$ExpectedOwner,
+    [Parameter(Mandatory)]
+    [Collections.Generic.HashSet[string]]$DependencyDirectoryNames,
     [switch]$IncludeAll
   )
 
   if ($IncludeAll) {
-    $items = @((Get-Item -Force -LiteralPath $WorkspaceRoot)) + @(
-      Get-ChildItem -Force -LiteralPath $WorkspaceRoot -Recurse
+    $items = @(
+      Get-AllWorkspacePermissionItems `
+        -WorkspaceRoot $WorkspaceRoot `
+        -DependencyDirectoryNames $DependencyDirectoryNames
     )
   }
   else {
@@ -56,6 +127,14 @@ function Get-WorkspacePermissionIssues {
     [void]$workspacePaths.Add($WorkspaceRoot)
 
     foreach ($relativePath in $relativePaths) {
+      if (
+        Test-PathContainsDependencyDirectory `
+          -Path $relativePath `
+          -DependencyDirectoryNames $DependencyDirectoryNames
+      ) {
+        continue
+      }
+
       $fullPath = [IO.Path]::GetFullPath((Join-Path $WorkspaceRoot $relativePath))
       if (-not (Test-Path -LiteralPath $fullPath)) {
         continue
@@ -140,6 +219,83 @@ function Get-WorkspacePermissionIssues {
   return @($issues)
 }
 
+function Invoke-IcaclsForWorkspaceTree {
+  param(
+    [Parameter(Mandatory)]
+    [string]$WorkspaceRoot,
+    [Parameter(Mandatory)]
+    [Collections.Generic.HashSet[string]]$DependencyDirectoryNames,
+    [Parameter(Mandatory)]
+    [string[]]$OperationArguments,
+    [Parameter(Mandatory)]
+    [string]$OperationName
+  )
+
+  $operationTargets = [Collections.Generic.List[object]]::new()
+  $operationTargets.Add([pscustomobject]@{
+      Path = $WorkspaceRoot
+      DisplayPath = $WorkspaceRoot
+    })
+  $pendingDirectories = [Collections.Generic.Stack[IO.DirectoryInfo]]::new()
+  $pendingDirectories.Push((Get-Item -Force -LiteralPath $WorkspaceRoot))
+
+  while ($pendingDirectories.Count -gt 0) {
+    $currentDirectory = $pendingDirectories.Pop()
+    $childItems = @(Get-ChildItem -Force -LiteralPath $currentDirectory.FullName)
+    if ($childItems.Count -eq 0) {
+      continue
+    }
+
+    $operationTargets.Add([pscustomobject]@{
+        Path = Join-Path $currentDirectory.FullName '*'
+        DisplayPath = $currentDirectory.FullName
+      })
+
+    foreach ($childDirectory in $childItems | Where-Object { $_.PSIsContainer }) {
+      if ($DependencyDirectoryNames.Contains($childDirectory.Name)) {
+        continue
+      }
+      if ($childDirectory.Attributes -band [IO.FileAttributes]::ReparsePoint) {
+        continue
+      }
+
+      $pendingDirectories.Push($childDirectory)
+    }
+  }
+
+  $operationCount = $operationTargets.Count
+  $completedOperationCount = 0
+  $progressActivity = 'Applying workspace permissions'
+
+  Write-Progress `
+    -Id 2 `
+    -ParentId 1 `
+    -Activity $progressActivity `
+    -Status "$OperationName`: 0 of $operationCount directory batches" `
+    -PercentComplete 0
+
+  try {
+    foreach ($operationTarget in $operationTargets) {
+      & icacls.exe $operationTarget.Path @OperationArguments /C /Q | Out-Null
+      if ($LASTEXITCODE -ne 0) {
+        throw "Failed to $OperationName under $($operationTarget.DisplayPath) (icacls exit code $LASTEXITCODE)."
+      }
+
+      $completedOperationCount++
+      Write-Progress `
+        -Id 2 `
+        -ParentId 1 `
+        -Activity $progressActivity `
+        -Status "$OperationName`: $completedOperationCount of $operationCount directory batches" `
+        -CurrentOperation $operationTarget.DisplayPath `
+        -PercentComplete ([Math]::Floor(($completedOperationCount / $operationCount) * 100))
+    }
+  }
+  finally {
+    Write-Progress -Id 2 -ParentId 1 -Activity $progressActivity -Completed
+  }
+}
+
 function Test-IsAdministrator {
   $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
   $principal = [Security.Principal.WindowsPrincipal]::new($identity)
@@ -193,10 +349,11 @@ if ($Fix) {
       -Status 'Setting workspace owner' `
       -PercentComplete 0
 
-    & icacls.exe $resolvedRoot /setowner $expectedOwner /T /C /Q
-    if ($LASTEXITCODE -ne 0) {
-      throw "Failed to set workspace owner (icacls exit code $LASTEXITCODE)."
-    }
+    Invoke-IcaclsForWorkspaceTree `
+      -WorkspaceRoot $resolvedRoot `
+      -DependencyDirectoryNames $dependencyDirectoryNames `
+      -OperationArguments @('/setowner', $expectedOwner) `
+      -OperationName 'set workspace owner'
     $completedRepairOperations++
 
     Write-Progress `
@@ -205,10 +362,11 @@ if ($Fix) {
       -Status 'Enabling ACL inheritance' `
       -PercentComplete ([Math]::Floor(($completedRepairOperations / $repairOperationCount) * 100))
 
-    & icacls.exe $resolvedRoot /inheritance:e /T /C /Q
-    if ($LASTEXITCODE -ne 0) {
-      throw "Failed to enable ACL inheritance (icacls exit code $LASTEXITCODE)."
-    }
+    Invoke-IcaclsForWorkspaceTree `
+      -WorkspaceRoot $resolvedRoot `
+      -DependencyDirectoryNames $dependencyDirectoryNames `
+      -OperationArguments @('/inheritance:e') `
+      -OperationName 'enable ACL inheritance'
     $completedRepairOperations++
 
     if ($ResetAcl) {
@@ -218,10 +376,11 @@ if ($Fix) {
         -Status 'Resetting workspace ACLs' `
         -PercentComplete ([Math]::Floor(($completedRepairOperations / $repairOperationCount) * 100))
 
-      & icacls.exe $resolvedRoot /reset /T /C /Q
-      if ($LASTEXITCODE -ne 0) {
-        throw "Failed to reset workspace ACLs (icacls exit code $LASTEXITCODE)."
-      }
+      Invoke-IcaclsForWorkspaceTree `
+        -WorkspaceRoot $resolvedRoot `
+        -DependencyDirectoryNames $dependencyDirectoryNames `
+        -OperationArguments @('/reset') `
+        -OperationName 'reset workspace ACLs'
     }
   }
   finally {
@@ -230,12 +389,14 @@ if ($Fix) {
 }
 
 Write-Host "Scanning workspace permissions under $resolvedRoot"
-Write-Host "Scope: $(if ($All) { 'all files' } else { 'source and unignored files' })"
+Write-Host "Scope: $(if ($All) { 'all files except dependency directories' } else { 'source and unignored files except dependency directories' })"
+Write-Host "Skipped directories: $([string]::Join(', ', $dependencyDirectoryNames))"
 Write-Host "Expected owner: $expectedOwner"
 $issues = @(
   Get-WorkspacePermissionIssues `
     -WorkspaceRoot $resolvedRoot `
     -ExpectedOwner $expectedOwner `
+    -DependencyDirectoryNames $dependencyDirectoryNames `
     -IncludeAll:$All
 )
 
