@@ -1,10 +1,21 @@
 import { hasChanged, isObject } from "@mini-vue/shared";
 import { track, trigger, ITERATE_KEY, type TriggerOpType } from "./effect";
 import { reactive } from "./reactive";
+import { arrayInstrumentations } from "./arrayInstrumentations";
 
 export const mutableHandlers: ProxyHandler<object> = {
   /** 转发属性读取，并按原对象与属性名收集当前 effect。 */
   get(target, key, receiver) {
+    const isArrayTarget = Array.isArray(target);
+
+    const hasArrayInstrumentation =
+      isArrayTarget &&
+      Object.prototype.hasOwnProperty.call(arrayInstrumentations, key);
+
+    if (hasArrayInstrumentation) {
+      return Reflect.get(arrayInstrumentations, key, receiver)
+    }
+
     const result = Reflect.get(target, key, receiver);
 
     track(target, key);

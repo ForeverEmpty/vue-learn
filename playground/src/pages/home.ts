@@ -105,6 +105,13 @@ export function renderHomePage(container: HTMLElement): void {
           <span class="enter-link">进入测试页 →</span>
         </a>
 
+        <a class="lesson-card" href="#/chapter-12">
+          <span class="chapter-number">12</span>
+          <span class="status complete">已完成</span>
+          <h2>数组方法插桩</h2>
+          <p>统一搜索方法中的 raw/Proxy 身份，并暂停修改方法产生的内部依赖收集。</p>
+          <span class="enter-link">进入测试页 →</span>
+        </a>
         </nav>
       </section>
 

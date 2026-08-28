@@ -16,6 +16,8 @@ export type TriggerOpType = "add" | "set" | "delete";
 /** 当前正在执行、可以被响应式值收集的副作用对象。 */
 let activeEffect: ReactiveEffect<unknown> | undefined;
 const targetMap = new WeakMap<object, Map<PropertyKey, Dep>>();
+let shouldTrack = true;
+const trackStack: boolean[] = [];
 
 export const ITERATE_KEY = Symbol("iterate");
 
@@ -37,12 +39,16 @@ export class ReactiveEffect<T = void> {
     cleanupEffect(this);
 
     const parentEffect = activeEffect;
+    const previousShouldTrack = shouldTrack;
+
     activeEffect = this;
+    shouldTrack = true;
 
     try {
       return this.fn();
     } finally {
       activeEffect = parentEffect;
+      shouldTrack = previousShouldTrack;
     }
   }
 
@@ -55,6 +61,17 @@ export class ReactiveEffect<T = void> {
   }
 }
 
+export function pauseTracking(): void {
+  trackStack.push(shouldTrack);
+  shouldTrack = false;
+}
+
+export function resetTracking(): void {
+  const lastShouldTrack = trackStack.pop();
+
+  shouldTrack = lastShouldTrack ?? true;
+}
+
 function cleanupEffect(reactiveEffect: ReactiveEffect<unknown>): void {
   reactiveEffect.deps.forEach((dep) => dep.delete(reactiveEffect));
 
@@ -62,6 +79,8 @@ function cleanupEffect(reactiveEffect: ReactiveEffect<unknown>): void {
 }
 
 export function trackEffect(dep: Dep): void {
+  if (!shouldTrack) return;
+
   if (activeEffect && !dep.has(activeEffect)) {
     dep.add(activeEffect);
     activeEffect.deps.push(dep);
