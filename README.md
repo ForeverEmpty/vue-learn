@@ -1,39 +1,48 @@
-# Mini Vue Study
+# Programming Study Lab
 
-使用原生 TypeScript 从零学习 Vue 核心机制。仓库采用简化的 Vue 分包结构，框架源码、浏览器实验场和教学文档彼此分离。
+这是一个多语言学习仓库。根目录只负责提供课程入口和通用命令；每门课程的进度、路线、文档和复习题都放在自己的学习区，避免不同语言互相混杂。
 
-## 开始学习
+## 学习入口
 
-- 最近完成：[第十二章：数组方法的身份处理与依赖暂停](./doc/01-reactivity/12-reactive-array-methods.md)
-- 已完成基础补充：[00. JS/TS 基础 - 01. Promise](./doc/00-js-ts/01-promise-basics.md)
-- 已完成基础补充：[00. JS/TS 基础 - 02. 原型与属性归属](./doc/00-js-ts/02-prototype-and-property-ownership.md)
-- 已完成基础补充：[00. JS/TS 基础 - 03. call、apply 与 bind](./doc/00-js-ts/03-call-apply-bind.md)
-- 已完成基础补充：[00. JS/TS 基础 - 04. this 的指向](./doc/00-js-ts/04-this-binding.md)
-- 完整课程目录：[doc/README.md](./doc/README.md)
-- 复习题与批改记录：[review_questions/README.md](./review_questions/README.md)
-- 浏览器实验：运行 `npm run dev` 后从 playground 目录进入对应章节。
+| 优先级 | 课程 | 入口 | 当前定位 |
+| --- | --- | --- | --- |
+| 主线 | TypeScript / Vue：Mini Vue | [Vue 学习区](./courses/vue/README.md) | 当前主要学习内容 |
+| 支线 | Java 21：并发编程 | [Java 学习区](./courses/java/README.md) | 基础只做快速复习，从多线程开始 |
 
-## 项目结构
+## 通用目录
 
 ```text
-packages/
-  shared/       公共工具
-  reactivity/   响应式源码与测试
-  vue/          mini-vue 统一入口
-playground/     浏览器实验项目
-doc/            课程文档
-review_questions/ 复习题、答案与批改记录
+courses/             每门课程各自的 README、源码与工具入口
+courses/vue/
+  docs/              Vue / TypeScript 教学文档
+  review_questions/  Vue 复习题与批改
+  packages/          Mini Vue 源码和测试
+courses/java/
+  docs/              Java 教学文档
+  review_questions/  Java 复习题与批改
+  src/               Java 源码和学习测试
+  scripts/           Java 编译、运行和测试脚本
+apps/learning-portal/
+  src/pages/vue/     Vue 浏览器实验页
+  src/pages/java/    Java 课程说明页
 ```
 
 ## 常用命令
 
 ```bash
-npm run dev        # 启动 playground
-npm run test:run   # 运行一次测试
-npm run typecheck  # 检查 TypeScript
-npm run build      # 构建 playground
+# Vue 主线
+npm run dev
+npm run test:run
+npm run typecheck
+npm run vue:build
+
+# Java 支线
+npm run java:compile
+npm run java:run
+npm run java:test
+
+# 编译当前所有项目
+npm run build
 ```
 
-`npm run dev` 打开的首页是 playground 学习目录。点击章节卡片可进入对应测试页，也可以通过页面顶部链接返回目录。
-
-第 1～12 章已经完成。当前仍处于响应式模块，readonly 等能力会在后续章节继续处理。
+课程细节分别记录在 [Vue 学习区](./courses/vue/README.md) 和 [Java 学习区](./courses/java/README.md)，根目录不混排各语言章节。
