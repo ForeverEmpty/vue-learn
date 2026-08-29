@@ -17,6 +17,7 @@ import { renderThisBindingPage } from './pages/vue/this-binding'
 import { renderReactiveArrayLengthPage } from './pages/vue/reactive-array-length'
 import { renderReactiveArrayMethodsPage } from './pages/vue/reactive-array-methods'
 import { renderReadonlyIdentityPage } from './pages/vue/readonly-identity'
+import { renderShallowReactivityPage } from './pages/vue/shallow-reactivity'
 import { renderJavaHomePage } from './pages/java/home'
 import { renderJavaThreadBasicsPage } from './pages/java/thread-basics'
 
@@ -41,6 +42,7 @@ const routes: Record<string, PageRenderer> = {
   '/chapter-11': renderReactiveArrayLengthPage,
   '/chapter-12': renderReactiveArrayMethodsPage,
   '/chapter-13': renderReadonlyIdentityPage,
+  '/chapter-14': renderShallowReactivityPage,
   '/java': renderJavaHomePage,
   '/java/chapter-1': renderJavaThreadBasicsPage,
 }

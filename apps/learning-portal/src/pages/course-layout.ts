@@ -81,7 +81,7 @@ export function renderCourseLayout(
               <span class="language-icon">TS</span>
               <span class="language-copy">
                 <strong>TypeScript / Vue</strong>
-                <small>当前主课程 · 13 章完成</small>
+                <small>当前主课程 · 14 章完成</small>
               </span>
               <span class="language-arrow" aria-hidden="true">→</span>
             </a>

@@ -12,8 +12,8 @@ export function renderHomePage(container: HTMLElement): void {
         <h1>Mini Vue 学习路径</h1>
         <p class="lead">用原生 TypeScript 从响应式开始实现 Vue。每一章都配有源码检查点、自动测试、浏览器实验和复习题。</p>
         <div class="course-summary" aria-label="Vue 学习进度">
-          <div><strong>13</strong><span>已完成章节</span></div>
-          <div><strong>93</strong><span>通过的测试</span></div>
+          <div><strong>14</strong><span>已完成章节</span></div>
+          <div><strong>113</strong><span>通过的测试</span></div>
           <div><strong>进行中</strong><span>响应式模块</span></div>
         </div>
       </header>
@@ -24,7 +24,7 @@ export function renderHomePage(container: HTMLElement): void {
             <p class="eyebrow">MODULE 01 · REACTIVITY</p>
             <h2>Mini Vue · 响应式模块</h2>
           </div>
-          <p>第 1～13 章已完成</p>
+          <p>第 1～14 章已完成</p>
         </div>
 
         <nav class="lesson-grid" aria-label="响应式学习章节">
@@ -129,6 +129,14 @@ export function renderHomePage(container: HTMLElement): void {
             <span class="status complete">已完成</span>
             <h2>readonly 与代理身份</h2>
             <p>建立深层只读视图，并用身份工具区分 raw、reactive 与 readonly。</p>
+            <span class="enter-link">进入测试页 →</span>
+          </a>
+
+          <a class="lesson-card" href="#/chapter-14">
+            <span class="chapter-number">14</span>
+            <span class="status complete">已完成</span>
+            <h2>shallow 响应式工具</h2>
+            <p>只代理或保护根对象，让嵌套对象保持 raw，并为不同代理深度建立独立缓存。</p>
             <span class="enter-link">进入测试页 →</span>
           </a>
         </nav>

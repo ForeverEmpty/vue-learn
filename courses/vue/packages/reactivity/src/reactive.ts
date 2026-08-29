@@ -2,6 +2,10 @@ import { isObject } from "@mini-vue/shared";
 import { mutableHandlers } from "./baseHandlers";
 import { readonlyHandlers } from "./readonlyHandlers";
 import { ReactiveFlags } from "./reactiveFlags";
+import {
+  shallowReactiveHandlers,
+  shallowReadonlyHandlers,
+} from "./shallowHandlers";
 
 type Proxy = object;
 type Raw = object;
@@ -9,6 +13,8 @@ type Raw = object;
 const reactiveMap = new WeakMap<Raw, Proxy>();
 const rawMap = new WeakMap<Proxy, Raw>();
 const readonlyMap = new WeakMap<Raw, Proxy>();
+const shallowReactiveMap = new WeakMap<Raw, Proxy>();
+const shallowReadonlyMap = new WeakMap<Raw, Proxy>();
 
 export function toRaw<T>(observed: T): T {
   if (!isObject(observed)) {
@@ -51,7 +57,44 @@ export function readonly<T extends object>(target: T): Readonly<T> {
   readonlyMap.set(rawTarget, proxy);
   rawMap.set(proxy, rawTarget);
 
-  return proxy as Readonly<T>;
+  return proxy;
+}
+
+/** 创建只追踪根层属性的响应式代理，并复用同一 raw 的 shallow Proxy。 */
+export function shallowReactive<T extends object>(target: T): T {
+  if (rawMap.has(target)) return target;
+
+  const existingProxy = shallowReactiveMap.get(target);
+
+  if (existingProxy) return existingProxy as T;
+
+  const proxy = new Proxy(target, shallowReactiveHandlers) as T;
+
+  shallowReactiveMap.set(target, proxy);
+  rawMap.set(proxy, target);
+
+  return proxy;
+}
+
+/** 创建只保护根层属性的只读代理，并复用同一 raw 的 shallow Proxy。 */
+export function shallowReadonly<T extends object>(target: T): Readonly<T> {
+  if (isReadonly(target)) return target as Readonly<T>;
+
+  const rawTarget = toRaw(target);
+
+  const existingProxy = shallowReadonlyMap.get(rawTarget);
+
+  if (existingProxy) return existingProxy as Readonly<T>;
+
+  const shallowView = new Proxy(
+    rawTarget,
+    shallowReadonlyHandlers,
+  ) as Readonly<T>;
+
+  rawMap.set(shallowView, rawTarget);
+  shallowReadonlyMap.set(rawTarget, shallowView);
+
+  return shallowView;
 }
 
 export function isReactive(value: unknown): boolean {

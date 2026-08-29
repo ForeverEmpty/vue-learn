@@ -19,6 +19,7 @@
 | 响应式 | [11. 响应式数组的索引与 length](./01-reactivity/11-reactive-array-length.md) | 已完成 | 数组索引和 length 相互改变时，怎样通知所有受影响的依赖？ |
 | 响应式 | [12. 数组方法的身份处理与依赖暂停](./01-reactivity/12-reactive-array-methods.md) | 已完成 | 怎样统一 raw/Proxy 搜索身份，并阻止修改方法收集内部依赖？ |
 | 响应式 | [13. readonly 与代理身份工具](./01-reactivity/13-readonly-and-proxy-identity.md) | 已完成 | 怎样提供深层只读视图，并区分 raw、reactive 与 readonly？ |
+| 响应式 | [14. shallowReactive 与 shallowReadonly](./01-reactivity/14-shallow-reactivity.md) | 已完成 | 怎样只处理根层代理，同时保留嵌套 raw 对象？ |
 
 对应的答题与批改记录保存在 [Vue 复习题目录](../review_questions/README.md)。
 
@@ -35,13 +36,13 @@
 
 ## 响应式模块状态
 
-第 1～13 章已经完成。响应式模块仍未全部完成；只有模块内的 shallow、ref 工具和 watch 能力都完成后，才会进入下一个模块。
+第 1～14 章已经完成。响应式模块仍未全部完成；只有模块内的 raw、ref 工具和 watch 能力都完成后，才会进入下一个模块。
 
 ## 响应式模块后续章节
 
 以下内容会在第十章之后继续补齐：
 
-1. shallowReactive 与 shallowReadonly。
+1. raw 标记与跳过代理能力。
 2. ref 工具函数与对象转换。
 3. watch 的 immediate、deep、清理和停止监听。
 
