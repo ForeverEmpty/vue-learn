@@ -14,10 +14,12 @@ import { renderReactiveObjectOperationsPage } from './pages/vue/reactive-object-
 import { renderPrototypeBasicsPage } from './pages/vue/prototype-basics'
 import { renderCallApplyBindPage } from './pages/vue/call-apply-bind'
 import { renderThisBindingPage } from './pages/vue/this-binding'
+import { renderObjectDefinePropertyPage } from './pages/vue/object-define-property'
 import { renderReactiveArrayLengthPage } from './pages/vue/reactive-array-length'
 import { renderReactiveArrayMethodsPage } from './pages/vue/reactive-array-methods'
 import { renderReadonlyIdentityPage } from './pages/vue/readonly-identity'
 import { renderShallowReactivityPage } from './pages/vue/shallow-reactivity'
+import { renderMarkRawPage } from './pages/vue/mark-raw'
 import { renderJavaHomePage } from './pages/java/home'
 import { renderJavaThreadBasicsPage } from './pages/java/thread-basics'
 
@@ -39,10 +41,12 @@ const routes: Record<string, PageRenderer> = {
   '/basics/prototype': renderPrototypeBasicsPage,
   '/basics/call-apply-bind': renderCallApplyBindPage,
   '/basics/this': renderThisBindingPage,
+  '/basics/object-define-property': renderObjectDefinePropertyPage,
   '/chapter-11': renderReactiveArrayLengthPage,
   '/chapter-12': renderReactiveArrayMethodsPage,
   '/chapter-13': renderReadonlyIdentityPage,
   '/chapter-14': renderShallowReactivityPage,
+  '/chapter-15': renderMarkRawPage,
   '/java': renderJavaHomePage,
   '/java/chapter-1': renderJavaThreadBasicsPage,
 }

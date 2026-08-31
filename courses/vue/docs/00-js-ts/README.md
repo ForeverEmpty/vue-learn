@@ -12,6 +12,7 @@
 | 02 | [原型与属性归属](./02-prototype-and-property-ownership.md) | 已完成 | 理解自有属性、原型属性，以及 `hasOwnProperty.call`。 |
 | 03 | [call、apply 与 bind](./03-call-apply-bind.md) | 已完成 | 理解函数 this 的指定、参数传递和延迟调用。 |
 | 04 | [this 的指向](./04-this-binding.md) | 已完成 | 理解普通函数、箭头函数和显式绑定的 this 规则。 |
+| 05 | [Object.defineProperty 与属性描述符](./05-object-define-property.md) | 已完成 | 理解 `markRaw` 如何保存不可枚举的内部 SKIP 标记。 |
 
 ## 学习方式
 

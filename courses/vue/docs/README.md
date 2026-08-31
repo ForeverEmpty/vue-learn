@@ -20,6 +20,7 @@
 | 响应式 | [12. 数组方法的身份处理与依赖暂停](./01-reactivity/12-reactive-array-methods.md) | 已完成 | 怎样统一 raw/Proxy 搜索身份，并阻止修改方法收集内部依赖？ |
 | 响应式 | [13. readonly 与代理身份工具](./01-reactivity/13-readonly-and-proxy-identity.md) | 已完成 | 怎样提供深层只读视图，并区分 raw、reactive 与 readonly？ |
 | 响应式 | [14. shallowReactive 与 shallowReadonly](./01-reactivity/14-shallow-reactivity.md) | 已完成 | 怎样只处理根层代理，同时保留嵌套 raw 对象？ |
+| 响应式 | [15. markRaw 与跳过代理](./01-reactivity/15-mark-raw.md) | 已完成 | 怎样让指定对象与不可扩展对象保持 raw 身份？ |
 
 对应的答题与批改记录保存在 [Vue 复习题目录](../review_questions/README.md)。
 
@@ -33,18 +34,24 @@
 | 00. JS/TS 基础 | [02. 原型与属性归属](./00-js-ts/02-prototype-and-property-ownership.md) | 已完成 | 理解第十章判断自有属性的原型基础。 |
 | 00. JS/TS 基础 | [03. call、apply 与 bind](./00-js-ts/03-call-apply-bind.md) | 已完成 | 理解 `hasOwnProperty.call` 使用的函数调用机制。 |
 | 00. JS/TS 基础 | [04. this 的指向](./00-js-ts/04-this-binding.md) | 已完成 | 理解普通函数、箭头函数和显式绑定的 this 规则。 |
+| 00. JS/TS 基础 | [05. Object.defineProperty 与属性描述符](./00-js-ts/05-object-define-property.md) | 已完成 | 理解第十五章的不可枚举 SKIP 内部标记。 |
 
 ## 响应式模块状态
 
-第 1～14 章已经完成。响应式模块仍未全部完成；只有模块内的 raw、ref 工具和 watch 能力都完成后，才会进入下一个模块。
+第 1～15 章已经完成。响应式模块计划在第 20 章完成，从第 16 章算起还剩 5 章。只有 ref、watch 与集合边界都完成后，才会进入下一个模块。
 
 ## 响应式模块后续章节
 
-以下内容会在第十章之后继续补齐：
+后续路线不是简单按 API 数量切章，而是按可以独立理解和测试的机制拆分：
 
-1. raw 标记与跳过代理能力。
-2. ref 工具函数与对象转换。
-3. watch 的 immediate、deep、清理和停止监听。
+1. 第 15 章：`markRaw`、内部跳过标记与不可扩展对象。
+2. 第 16 章：ref 对象转换、`shallowRef` 与 `triggerRef`。
+3. 第 17 章：`isRef`、`unref`、`toRef`、`toRefs`、`proxyRefs` 与可写 computed。
+4. 第 18 章：watch 的 `immediate`、回调清理与停止监听。
+5. 第 19 章：deep watch、`watchEffect` 与监听调度。
+6. 第 20 章：Map/Set 集合响应式与整个响应式模块的最终边界验收。
+
+`customRef`、完整 WeakMap/WeakSet 支持和 effectScope 细节先列为进阶扩展，不阻塞进入运行时模块。
 
 ## 后续模块
 

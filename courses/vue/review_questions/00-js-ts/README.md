@@ -6,3 +6,4 @@
 | 02 | [原型与属性归属](./02-prototype-and-property-ownership.md) | 已批改 |
 | 03 | [call、apply 与 bind](./03-call-apply-bind.md) | 已批改 |
 | 04 | [this 的指向](./04-this-binding.md) | 已批改 |
+| 05 | [Object.defineProperty 与属性描述符](./05-object-define-property.md) | 已批改 |

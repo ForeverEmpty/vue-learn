@@ -12,8 +12,8 @@ export function renderHomePage(container: HTMLElement): void {
         <h1>Mini Vue 学习路径</h1>
         <p class="lead">用原生 TypeScript 从响应式开始实现 Vue。每一章都配有源码检查点、自动测试、浏览器实验和复习题。</p>
         <div class="course-summary" aria-label="Vue 学习进度">
-          <div><strong>14</strong><span>已完成章节</span></div>
-          <div><strong>113</strong><span>通过的测试</span></div>
+          <div><strong>15</strong><span>已完成章节</span></div>
+          <div><strong>130</strong><span>通过的测试</span></div>
           <div><strong>进行中</strong><span>响应式模块</span></div>
         </div>
       </header>
@@ -24,7 +24,7 @@ export function renderHomePage(container: HTMLElement): void {
             <p class="eyebrow">MODULE 01 · REACTIVITY</p>
             <h2>Mini Vue · 响应式模块</h2>
           </div>
-          <p>第 1～14 章已完成</p>
+          <p>第 1～15 章已完成</p>
         </div>
 
         <nav class="lesson-grid" aria-label="响应式学习章节">
@@ -139,6 +139,14 @@ export function renderHomePage(container: HTMLElement): void {
             <p>只代理或保护根对象，让嵌套对象保持 raw，并为不同代理深度建立独立缓存。</p>
             <span class="enter-link">进入测试页 →</span>
           </a>
+
+          <a class="lesson-card" href="#/chapter-15">
+            <span class="chapter-number">15</span>
+            <span class="status complete">已完成</span>
+            <h2>markRaw 与跳过代理</h2>
+            <p>用不可枚举的内部标记控制代理资格，并让不可扩展对象保持原始身份。</p>
+            <span class="enter-link">进入测试页 →</span>
+          </a>
         </nav>
       </section>
 
@@ -181,6 +189,14 @@ export function renderHomePage(container: HTMLElement): void {
             <span class="status complete">已完成</span>
             <h2>this 的指向</h2>
             <p>比较普通调用、对象方法和显式绑定。</p>
+            <span class="enter-link">进入实验页 →</span>
+          </a>
+
+          <a class="lesson-card compact-lesson" href="#/basics/object-define-property">
+            <span class="chapter-number">00 · 05</span>
+            <span class="status complete">已完成</span>
+            <h2>Object.defineProperty</h2>
+            <p>理解属性描述符、不可枚举内部键，以及 markRaw 标记的配置方式。</p>
             <span class="enter-link">进入实验页 →</span>
           </a>
         </nav>

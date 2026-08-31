@@ -18,6 +18,7 @@
 | 响应式 | [12. 数组方法的身份处理与依赖暂停](./01-reactivity/12-reactive-array-methods.md) | 已批改 |
 | 响应式 | [13. readonly 与代理身份工具](./01-reactivity/13-readonly-and-proxy-identity.md) | 已批改 |
 | 响应式 | [14. shallowReactive 与 shallowReadonly](./01-reactivity/14-shallow-reactivity.md) | 已批改 |
+| 响应式 | [15. markRaw 与跳过代理](./01-reactivity/15-mark-raw.md) | 已批改 |
 
 ## 00. JS/TS 基础补充
 
@@ -27,6 +28,7 @@
 | 02 | [原型与属性归属](./00-js-ts/02-prototype-and-property-ownership.md) | 已批改 |
 | 03 | [call、apply 与 bind](./00-js-ts/03-call-apply-bind.md) | 已批改 |
 | 04 | [this 的指向](./00-js-ts/04-this-binding.md) | 已批改 |
+| 05 | [Object.defineProperty 与属性描述符](./00-js-ts/05-object-define-property.md) | 已批改 |
 
 ## 后续约定
 
