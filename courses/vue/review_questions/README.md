@@ -19,6 +19,7 @@
 | 响应式 | [13. readonly 与代理身份工具](./01-reactivity/13-readonly-and-proxy-identity.md) | 已批改 |
 | 响应式 | [14. shallowReactive 与 shallowReadonly](./01-reactivity/14-shallow-reactivity.md) | 已批改 |
 | 响应式 | [15. markRaw 与跳过代理](./01-reactivity/15-mark-raw.md) | 已批改 |
+| 响应式 | [16. ref 对象转换、shallowRef 与 triggerRef](./01-reactivity/16-ref-object-shallow-ref.md) | 已批改 |
 
 ## 00. JS/TS 基础补充
 

@@ -1,5 +1,5 @@
 export { effect, stop, type EffectFn, type EffectOptions, type EffectRunner } from './effect'
-export { ref, type Ref } from './ref'
+export { ref, shallowRef, triggerRef, type Ref } from './ref'
 export {
   isProxy,
   isReactive,
