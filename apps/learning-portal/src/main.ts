@@ -21,6 +21,7 @@ import { renderReadonlyIdentityPage } from './pages/vue/readonly-identity'
 import { renderShallowReactivityPage } from './pages/vue/shallow-reactivity'
 import { renderMarkRawPage } from './pages/vue/mark-raw'
 import { renderRefObjectPage } from './pages/vue/ref-object'
+import { renderRefUtilitiesPage } from './pages/vue/ref-utilities'
 import { renderJavaHomePage } from './pages/java/home'
 import { renderJavaThreadBasicsPage } from './pages/java/thread-basics'
 
@@ -49,6 +50,7 @@ const routes: Record<string, PageRenderer> = {
   '/chapter-14': renderShallowReactivityPage,
   '/chapter-15': renderMarkRawPage,
   '/chapter-16': renderRefObjectPage,
+  '/chapter-17': renderRefUtilitiesPage,
   '/java': renderJavaHomePage,
   '/java/chapter-1': renderJavaThreadBasicsPage,
 }

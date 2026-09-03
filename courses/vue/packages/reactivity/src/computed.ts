@@ -1,7 +1,21 @@
-import { ReactiveEffect, trackEffect, triggerEffects, type Dep } from "./effect";
+import {
+  ReactiveEffect,
+  trackEffect,
+  triggerEffects,
+  type Dep,
+} from "./effect";
+import { ReactiveFlags } from "./reactiveFlags";
+import type { Ref } from "./ref";
 
 export interface ComputedRef<T> {
   readonly value: T;
+}
+
+export interface WritableComputedRef<T> extends Ref<T> {}
+
+export interface WritableComputedOptions<T> {
+  get: () => T;
+  set: (value: T) => void;
 }
 
 /**
@@ -13,19 +27,27 @@ class ComputedRefImpl<T> implements ComputedRef<T> {
   private _value!: T;
   private _dirty: boolean = true;
   private readonly dep: Dep = new Set();
+  private readonly setter?: (value: T) => void;
+  readonly [ReactiveFlags.IS_REF] = true;
 
-  constructor(getter: () => T) {
+  constructor(getter: () => T, setter?: (value: T) => void) {
+    this.setter = setter;
+
     this.computedEffect = new ReactiveEffect(getter, () => {
       if (!this._dirty) {
         this._dirty = true;
-        triggerEffects(this.dep)
+        triggerEffects(this.dep);
       }
     });
   }
 
+  set value(newValue: T) {
+    this.setter?.(newValue);
+  }
+
   get value(): T {
-    trackEffect(this.dep)
-    
+    trackEffect(this.dep);
+
     if (this._dirty) {
       this._value = this.computedEffect.run();
       this._dirty = false;
@@ -34,6 +56,15 @@ class ComputedRefImpl<T> implements ComputedRef<T> {
   }
 }
 
-export function computed<T>(getter: () => T): ComputedRef<T> {
-  return new ComputedRefImpl(getter);
+export function computed<T>(getter: () => T): ComputedRef<T>;
+export function computed<T>(
+  options: WritableComputedOptions<T>,
+): WritableComputedRef<T>;
+export function computed<T>(
+  source: (() => T) | WritableComputedOptions<T>,
+): ComputedRef<T> | WritableComputedRef<T> {
+  const getter = typeof source === "function" ? source : source.get;
+  const setter = typeof source === "function" ? undefined : source.set;
+
+  return new ComputedRefImpl(getter, setter);
 }

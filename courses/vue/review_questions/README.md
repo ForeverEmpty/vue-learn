@@ -20,6 +20,7 @@
 | 响应式 | [14. shallowReactive 与 shallowReadonly](./01-reactivity/14-shallow-reactivity.md) | 已批改 |
 | 响应式 | [15. markRaw 与跳过代理](./01-reactivity/15-mark-raw.md) | 已批改 |
 | 响应式 | [16. ref 对象转换、shallowRef 与 triggerRef](./01-reactivity/16-ref-object-shallow-ref.md) | 已批改 |
+| 响应式 | [17. ref 工具链与可写 computed](./01-reactivity/17-ref-utilities-writable-computed.md) | 已批改 |
 
 ## 00. JS/TS 基础补充
 

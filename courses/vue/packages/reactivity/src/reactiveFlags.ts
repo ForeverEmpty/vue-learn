@@ -5,4 +5,5 @@ export const ReactiveFlags = {
   IS_REACTIVE: Symbol('mini-vue.isReactive'),
   IS_READONLY: Symbol('mini-vue.isReadonly'),
   SKIP: Symbol('mini-vue.skipReactive'),
+  IS_REF: Symbol('mini-vue.isRef'),
 } as const

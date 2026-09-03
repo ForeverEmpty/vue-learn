@@ -24,7 +24,7 @@ export function renderHomePage(container: HTMLElement): void {
             <p class="eyebrow">MODULE 01 · REACTIVITY</p>
             <h2>Mini Vue · 响应式模块</h2>
           </div>
-          <p>第 1～16 章已完成</p>
+          <p>第 1～17 章已完成 · 下一章：watch 生命周期</p>
         </div>
 
         <nav class="lesson-grid" aria-label="响应式学习章节">
@@ -153,6 +153,14 @@ export function renderHomePage(container: HTMLElement): void {
             <span class="status complete">已完成</span>
             <h2>ref 对象转换与 shallowRef</h2>
             <p>区分 ref 的 raw 比较值与对外 Proxy，并用 shallowRef 和 triggerRef 控制浅层更新。</p>
+            <span class="enter-link">进入测试页 →</span>
+          </a>
+
+          <a class="lesson-card" href="#/chapter-17">
+            <span class="chapter-number">17</span>
+            <span class="status complete">已完成</span>
+            <h2>ref 工具链与可写 computed</h2>
+            <p>实现 ref 身份判断、属性桥接、自动解包，以及 computed 的反向写入。</p>
             <span class="enter-link">进入测试页 →</span>
           </a>
         </nav>
