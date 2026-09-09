@@ -166,9 +166,17 @@ export function renderHomePage(container: HTMLElement): void {
 
           <a class="lesson-card" href="#/chapter-18">
             <span class="chapter-number">18</span>
-            <span class="status learning">学习中</span>
+            <span class="status complete">已完成</span>
             <h2>watch 生命周期</h2>
             <p>实现 immediate、回调失效清理和停止监听，让 watch 可以安全管理持续副作用。</p>
+            <span class="enter-link">进入测试页 →</span>
+          </a>
+
+          <a class="lesson-card" href="#/chapter-19">
+            <span class="chapter-number">19</span>
+            <span class="status learning">学习中</span>
+            <h2>deep watch 与 watchEffect</h2>
+            <p>深入追踪嵌套对象、实现无需 source 的 watchEffect，以及控制回调时机的 flush 调度。</p>
             <span class="enter-link">进入测试页 →</span>
           </a>
         </nav>

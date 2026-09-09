@@ -31,12 +31,16 @@ export {
 } from './computed'
 export {
   watch,
+  watchEffect,
   type OnCleanup,
   type WatchCallback,
   type WatchCleanup,
+  type WatchEffectCallback,
+  type WatchEffectOptions,
+  type WatchFlushMode,
   type WatchOptions,
   type WatchSource,
   type WatchStopHandle,
 } from './watch'
-export { nextTick, queueJob, type SchedulerJob } from './scheduler'
+export { nextTick, queueJob, queuePostFlushJob, type SchedulerJob } from './scheduler'
 export { markRaw } from './raw'

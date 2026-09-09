@@ -23,6 +23,7 @@ import { renderMarkRawPage } from './pages/vue/mark-raw'
 import { renderRefObjectPage } from './pages/vue/ref-object'
 import { renderRefUtilitiesPage } from './pages/vue/ref-utilities'
 import { renderWatchLifecyclePage } from './pages/vue/watch-lifecycle'
+import { renderWatchDeepEffectPage } from './pages/vue/watch-deep-effect'
 import { renderTypeSystemPage } from './pages/vue/typescript/type-system'
 import { renderGenericsPage } from './pages/vue/typescript/generics'
 import { renderMappedTypesPage } from './pages/vue/typescript/mapped-types'
@@ -61,6 +62,7 @@ const routes: Record<string, PageRenderer> = {
   '/chapter-16': renderRefObjectPage,
   '/chapter-17': renderRefUtilitiesPage,
   '/chapter-18': renderWatchLifecyclePage,
+  '/chapter-19': renderWatchDeepEffectPage,
   '/java': renderJavaHomePage,
   '/java/chapter-1': renderJavaThreadBasicsPage,
 }

@@ -22,6 +22,7 @@
 | 响应式 | [16. ref 对象转换、shallowRef 与 triggerRef](./01-reactivity/16-ref-object-shallow-ref.md) | 已批改 |
 | 响应式 | [17. ref 工具链与可写 computed](./01-reactivity/17-ref-utilities-writable-computed.md) | 已批改 |
 | 响应式 | [18. watch 的 immediate、清理与停止](./01-reactivity/18-watch-lifecycle.md) | 已批改 |
+| 响应式 | [19. deep watch、watchEffect 与监听调度](./01-reactivity/19-deep-watch-effect.md) | 待完成 |
 
 ## 00. JS/TS 基础补充
 
