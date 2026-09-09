@@ -31,6 +31,10 @@
 | 03 | [call、apply 与 bind](./00-js-ts/03-call-apply-bind.md) | 已批改 |
 | 04 | [this 的指向](./00-js-ts/04-this-binding.md) | 已批改 |
 | 05 | [Object.defineProperty 与属性描述符](./00-js-ts/05-object-define-property.md) | 已批改 |
+| 06 | [TypeScript 类型系统、联合类型与安全收窄](./00-js-ts/06-type-system-and-narrowing.md) | 已批改 |
+| 07 | [泛型、约束、keyof 与索引访问类型](./00-js-ts/07-generics-keyof-indexed-access.md) | 已批改 |
+| 08 | [映射类型、修饰符与工具类型](./00-js-ts/08-mapped-types-and-utilities.md) | 已批改 |
+| 09 | [条件类型、分发、infer、类型守卫与函数重载](./00-js-ts/09-conditional-infer-overloads.md) | 已批改 |
 
 ## 后续约定
 

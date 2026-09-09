@@ -37,6 +37,10 @@
 | 00. JS/TS 基础 | [03. call、apply 与 bind](./00-js-ts/03-call-apply-bind.md) | 已完成 | 理解 `hasOwnProperty.call` 使用的函数调用机制。 |
 | 00. JS/TS 基础 | [04. this 的指向](./00-js-ts/04-this-binding.md) | 已完成 | 理解普通函数、箭头函数和显式绑定的 this 规则。 |
 | 00. JS/TS 基础 | [05. Object.defineProperty 与属性描述符](./00-js-ts/05-object-define-property.md) | 已完成 | 理解第十五章的不可枚举 SKIP 内部标记。 |
+| 00. JS/TS 基础 | [06. TypeScript 类型系统、联合类型与安全收窄](./00-js-ts/06-type-system-and-narrowing.md) | 已完成 | 区分编译时类型、运行时值与安全收窄。 |
+| 00. JS/TS 基础 | [07. 泛型、约束、keyof 与索引访问](./00-js-ts/07-generics-keyof-indexed-access.md) | 已完成 | 理解类型参数怎样保存对象、键和值之间的关系。 |
+| 00. JS/TS 基础 | [08. 映射类型、修饰符与工具类型](./00-js-ts/08-mapped-types-and-utilities.md) | 已完成 | 理解对象类型的批量转换规则。 |
+| 00. JS/TS 基础 | [09. 条件类型、infer、类型守卫与重载](./00-js-ts/09-conditional-infer-overloads.md) | 已完成 | 理解第十七章使用的高级类型组合。 |
 
 ## 响应式模块状态
 

@@ -22,6 +22,10 @@ import { renderShallowReactivityPage } from './pages/vue/shallow-reactivity'
 import { renderMarkRawPage } from './pages/vue/mark-raw'
 import { renderRefObjectPage } from './pages/vue/ref-object'
 import { renderRefUtilitiesPage } from './pages/vue/ref-utilities'
+import { renderTypeSystemPage } from './pages/vue/typescript/type-system'
+import { renderGenericsPage } from './pages/vue/typescript/generics'
+import { renderMappedTypesPage } from './pages/vue/typescript/mapped-types'
+import { renderConditionalTypesPage } from './pages/vue/typescript/conditional-types'
 import { renderJavaHomePage } from './pages/java/home'
 import { renderJavaThreadBasicsPage } from './pages/java/thread-basics'
 
@@ -44,6 +48,10 @@ const routes: Record<string, PageRenderer> = {
   '/basics/call-apply-bind': renderCallApplyBindPage,
   '/basics/this': renderThisBindingPage,
   '/basics/object-define-property': renderObjectDefinePropertyPage,
+  '/basics/typescript/type-system': renderTypeSystemPage,
+  '/basics/typescript/generics': renderGenericsPage,
+  '/basics/typescript/mapped-types': renderMappedTypesPage,
+  '/basics/typescript/conditional-types': renderConditionalTypesPage,
   '/chapter-11': renderReactiveArrayLengthPage,
   '/chapter-12': renderReactiveArrayMethodsPage,
   '/chapter-13': renderReadonlyIdentityPage,

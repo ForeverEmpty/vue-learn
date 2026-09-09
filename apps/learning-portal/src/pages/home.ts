@@ -12,8 +12,8 @@ export function renderHomePage(container: HTMLElement): void {
         <h1>Mini Vue 学习路径</h1>
         <p class="lead">用原生 TypeScript 从响应式开始实现 Vue。每一章都配有源码检查点、自动测试、浏览器实验和复习题。</p>
         <div class="course-summary" aria-label="Vue 学习进度">
-          <div><strong>16</strong><span>已完成章节</span></div>
-          <div><strong>150</strong><span>通过的测试</span></div>
+          <div><strong>17</strong><span>已完成章节</span></div>
+          <div><strong>173</strong><span>通过的测试</span></div>
           <div><strong>进行中</strong><span>响应式模块</span></div>
         </div>
       </header>
@@ -214,6 +214,38 @@ export function renderHomePage(container: HTMLElement): void {
             <h2>Object.defineProperty</h2>
             <p>理解属性描述符、不可枚举内部键，以及 markRaw 标记的配置方式。</p>
             <span class="enter-link">进入实验页 →</span>
+          </a>
+
+          <a class="lesson-card compact-lesson" href="#/basics/typescript/type-system">
+            <span class="chapter-number">00 · 06</span>
+            <span class="status complete">已完成</span>
+            <h2>TS 类型系统与安全收窄</h2>
+            <p>区分编译时类型和运行时值，理解联合类型、unknown、never 与判别联合。</p>
+            <span class="enter-link">进入观察页 →</span>
+          </a>
+
+          <a class="lesson-card compact-lesson" href="#/basics/typescript/generics">
+            <span class="chapter-number">00 · 07</span>
+            <span class="status complete">已完成</span>
+            <h2>泛型、keyof 与索引访问</h2>
+            <p>保存输入输出的类型关系，并连接对象、属性键与属性值。</p>
+            <span class="enter-link">进入观察页 →</span>
+          </a>
+
+          <a class="lesson-card compact-lesson" href="#/basics/typescript/mapped-types">
+            <span class="chapter-number">00 · 08</span>
+            <span class="status complete">已完成</span>
+            <h2>映射类型与工具类型</h2>
+            <p>逐键转换对象类型，掌握属性修饰符、键重映射和常用工具类型。</p>
+            <span class="enter-link">进入观察页 →</span>
+          </a>
+
+          <a class="lesson-card compact-lesson" href="#/basics/typescript/conditional-types">
+            <span class="chapter-number">00 · 09</span>
+            <span class="status complete">已完成</span>
+            <h2>条件类型、infer 与重载</h2>
+            <p>理解联合分发、类型提取、类型守卫，以及输入与返回类型的精确对应。</p>
+            <span class="enter-link">进入观察页 →</span>
           </a>
         </nav>
       </section>
