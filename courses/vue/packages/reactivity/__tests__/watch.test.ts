@@ -4,7 +4,7 @@ import { computed, ref, watch } from '../src'
 describe('watch 的新旧值与调度隔离：第七章', () => {
   it('创建时只收集依赖，变化后才使用新旧值调用 callback', () => {
     const count = ref(0)
-    const records: Array<[number, number]> = []
+    const records: Array<[number, number | undefined]> = []
 
     watch(
       () => count.value,
@@ -22,7 +22,7 @@ describe('watch 的新旧值与调度隔离：第七章', () => {
 
   it('连续变化时把上一次结果作为下一次 oldValue', () => {
     const count = ref(0)
-    const records: Array<[number, number]> = []
+    const records: Array<[number, number | undefined]> = []
 
     watch(
       () => count.value,
@@ -65,7 +65,7 @@ describe('watch 的新旧值与调度隔离：第七章', () => {
     const useFirst = ref(true)
     const first = ref(1)
     const second = ref(10)
-    const records: Array<[number, number]> = []
+    const records: Array<[number, number | undefined]> = []
 
     watch(
       () => (useFirst.value ? first.value : second.value),
@@ -109,7 +109,7 @@ describe('watch 的新旧值与调度隔离：第七章', () => {
   it('可以把 computed 作为 watch source', () => {
     const count = ref(1)
     const doubled = computed(() => count.value * 2)
-    const records: Array<[number, number]> = []
+    const records: Array<[number, number | undefined]> = []
 
     watch(
       () => doubled.value,

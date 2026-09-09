@@ -23,6 +23,7 @@
 | 响应式 | [15. markRaw 与跳过代理](./01-reactivity/15-mark-raw.md) | 已完成 | 怎样让指定对象与不可扩展对象保持 raw 身份？ |
 | 响应式 | [16. ref 对象转换、shallowRef 与 triggerRef](./01-reactivity/16-ref-object-shallow-ref.md) | 已完成 | ref 怎样区分 raw 比较值、对外 Proxy 与浅层手动触发？ |
 | 响应式 | [17. ref 工具链与可写 computed](./01-reactivity/17-ref-utilities-writable-computed.md) | 已完成 | 怎样桥接对象属性、自动解包 ref，并让 computed 反向写入？ |
+| 响应式 | [18. watch 的 immediate、清理与停止](./01-reactivity/18-watch-lifecycle.md) | 已完成 | 怎样管理 watch 的首次执行、失效副作用和停止生命周期？ |
 
 对应的答题与批改记录保存在 [Vue 复习题目录](../review_questions/README.md)。
 
@@ -44,7 +45,7 @@
 
 ## 响应式模块状态
 
-第 1～17 章已经完成。响应式模块计划在第 20 章完成，目前还剩 3 章。只有 watch 与集合边界都完成后，才会进入下一个模块。
+第 1～18 章已经完成。响应式模块计划在第 20 章完成，还剩 2 章。只有 watch 与集合边界都完成后，才会进入下一个模块。
 
 ## 响应式模块后续章节
 

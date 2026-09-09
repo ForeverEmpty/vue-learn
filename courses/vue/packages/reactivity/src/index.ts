@@ -29,6 +29,14 @@ export {
   type WritableComputedOptions,
   type WritableComputedRef,
 } from './computed'
-export { watch, type WatchCallback, type WatchSource } from './watch'
+export {
+  watch,
+  type OnCleanup,
+  type WatchCallback,
+  type WatchCleanup,
+  type WatchOptions,
+  type WatchSource,
+  type WatchStopHandle,
+} from './watch'
 export { nextTick, queueJob, type SchedulerJob } from './scheduler'
 export { markRaw } from './raw'

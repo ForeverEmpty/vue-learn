@@ -2,7 +2,18 @@ import { hasChanged } from "@mini-vue/shared";
 import { ReactiveEffect } from "./effect";
 
 export type WatchSource<T> = () => T;
-export type WatchCallback<T> = (newValue: T, oldValue: T) => void;
+export type WatchCleanup = () => void;
+export type OnCleanup = (cleanup: WatchCleanup) => void;
+export type WatchCallback<T> = (
+  newValue: T,
+  oldValue: T | undefined,
+  onCleanup: OnCleanup,
+) => void;
+export type WatchStopHandle = () => void;
+
+export interface WatchOptions {
+  immediate?: boolean;
+}
 
 /**
  * 观察 source 的响应式依赖，并在结果变化后向 callback 提供新旧值。
@@ -11,21 +22,52 @@ export type WatchCallback<T> = (newValue: T, oldValue: T) => void;
 export function watch<T>(
   source: WatchSource<T>,
   callback: WatchCallback<T>,
-): void {
-  let oldValue!: T;
+  options: WatchOptions = {},
+): WatchStopHandle {
+  let oldValue: T | undefined;
   let watcherEffect: ReactiveEffect<T>;
+  let cleanup: WatchCleanup | undefined;
+  const immediate = options.immediate ?? false;
+
+  let initialized = false;
+
+  const onCleanup: OnCleanup = (cleanupFunction) => {
+    cleanup = cleanupFunction;
+  };
+
+  const runCleanup = () => {
+    const cleanupFunction = cleanup;
+    cleanup = undefined;
+    cleanupFunction?.();
+  };
 
   const job = () => {
     const newValue = watcherEffect.run();
 
-    if (!hasChanged(newValue, oldValue)) return;
+    if (initialized && !hasChanged(newValue, oldValue)) return;
 
-    callback(newValue, oldValue);
+    runCleanup();
+    callback(newValue, oldValue, onCleanup);
 
     oldValue = newValue;
+
+    initialized = true;
   };
 
   watcherEffect = new ReactiveEffect(source, job);
 
-  oldValue = watcherEffect.run();
+  if (immediate) {
+    job();
+  } else {
+    oldValue = watcherEffect.run();
+    initialized = true;
+  }
+
+  const stopWatch: WatchStopHandle = () => {
+    watcherEffect.stop();
+    runCleanup();
+  };
+
+  // 第十八章起点：暂未处理 immediate、用户清理和停止监听。
+  return stopWatch;
 }
