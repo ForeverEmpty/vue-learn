@@ -670,6 +670,10 @@ code {
   display: block;
   margin-left: -28px;
   color: #7b8d85;
+  content: '运行后会在这里显示事件记录';
+}
+
+#promise-events:empty::before {
   content: '运行后会在这里显示 A、B、C、D 的实际顺序';
 }
 

@@ -33,7 +33,8 @@ function traverse(value: unknown, seen = new Set<object>()): void {
       traverse(value[i], seen);
     }
   } else {
-    for (const key of Object.keys(value)) {
+    for (const key of Reflect.ownKeys(value)) {
+      if (!Object.prototype.propertyIsEnumerable.call(value, key)) continue;
       traverse(Reflect.get(value, key), seen);
     }
   }
@@ -83,12 +84,12 @@ export function watch<T>(
 
     if (initialized && !deep && !hasChanged(newValue, oldValue)) return;
 
-    runCleanup();
-    callback(newValue, oldValue, onCleanup);
-
+    const previousValue = oldValue;
     oldValue = newValue;
-
     initialized = true;
+
+    runCleanup();
+    callback(newValue, previousValue, onCleanup);
   };
 
   switch (flush) {
@@ -118,13 +119,11 @@ export function watch<T>(
     runCleanup();
   };
 
-  // 第十九章起点：暂未处理 deep 与 flush 调度。
   return stopWatch;
 }
 
 /**
- * 第十九章起点：watchEffect 尚未实现。
- * 它应当立即执行 effect 收集依赖，并在依赖变化后重新执行。
+ * 立即执行副作用并自动收集其响应式依赖；依赖变化后按 flush 配置重新执行。
  */
 export function watchEffect(
   effect: WatchEffectCallback,

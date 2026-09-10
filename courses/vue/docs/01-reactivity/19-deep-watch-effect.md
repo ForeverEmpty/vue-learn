@@ -60,7 +60,8 @@ function traverse(value: unknown, seen = new Set<object>()): void {
       traverse(value[i], seen)
     }
   } else {
-    for (const key of Object.keys(value)) {
+    for (const key of Reflect.ownKeys(value)) {
+      if (!Object.prototype.propertyIsEnumerable.call(value, key)) continue
       traverse(Reflect.get(value, key), seen)
     }
   }
@@ -80,10 +81,29 @@ Array.isArray(value)
 → 数组按索引遍历每个元素
 
 否则
-→ 普通对象按 Object.keys 遍历每个属性值
+→ Reflect.ownKeys 同时取得字符串键和 Symbol 键
+→ propertyIsEnumerable 只保留可枚举属性
+→ 读取每个属性值并继续向下遍历
 ```
 
 关键点：`value` 必须是 **reactive Proxy**（或包含 reactive Proxy 的对象）时，读取 `value[key]` 才会触发 get trap 并收集依赖。如果传入的是普通 raw 对象，遍历只是读了一遍普通属性，不会产生任何订阅。
+
+这里不能只使用 `Object.keys(value)`。它只返回可枚举的字符串键，会漏掉下面的 `profileKey`：
+
+```ts
+const profileKey = Symbol("profile")
+const state = reactive({
+  [profileKey]: { score: 0 },
+})
+```
+
+`Reflect.ownKeys` 会拿到字符串键与 Symbol 键，但也会包含不可枚举属性，所以还要用：
+
+```ts
+Object.prototype.propertyIsEnumerable.call(value, key)
+```
+
+它的结构与之前学过的 `hasOwnProperty.call` 相同：从 `Object.prototype` 取得可靠的原型方法，再用 `call` 把本次检查的 `this` 指向 `value`。这样即使 `value` 自己覆盖了同名方法，也不会调用错函数。
 
 ## 3. traverse 必须在 activeEffect 内执行
 
@@ -118,6 +138,8 @@ if (initialized && !deep && !hasChanged(newValue, oldValue)) return
 ```
 
 deep 时只要依赖触发就执行 callback——因为引用没变、内容变了，引用比较无法察觉这种变化。
+
+这也意味着 deep watch 的 `oldValue` 不是修改前的快照：嵌套属性变化时，`newValue` 和 `oldValue` 指向同一个 Proxy，两者看到的都是修改后的内容。若业务真的需要修改前的深层数据，必须自行复制快照，不能把 `oldValue` 当成自动快照。
 
 ## 4. WatchOptions 与 WatchEffectOptions
 
@@ -217,6 +239,32 @@ watcherEffect.run()
 → watcherEffect.run() 再次执行 effect
 ```
 
+### 防止 watchEffect 同步触发自己
+
+watchEffect 的函数既会读取响应式值，也可能写入响应式值：
+
+```ts
+const count = ref(0)
+
+watchEffect(() => {
+  count.value++
+})
+```
+
+`count.value++` 同时包含一次读取和一次写入。如果写入时立即再次运行当前 watchEffect，就会形成：
+
+```text
+第一次执行 → 写 count → 第二次执行 → 再写 count → …… → 调用栈溢出
+```
+
+因此 `triggerEffects` 在遍历依赖时要跳过当前仍在执行的 `activeEffect`：
+
+```ts
+if (effect === activeEffect) return
+```
+
+这里跳过的只是“本次执行期间由自己造成的同步触发”。等本次 `run()` 结束后，其他代码再次修改 `count`，这个 watchEffect 仍然会正常执行。
+
 变量名建议：
 
 | 含义 | 推荐名称 |
@@ -274,6 +322,35 @@ if (flush === "sync") {
 watcherEffect = new ReactiveEffect(getter, scheduler)
 ```
 
+### sync 模式为什么要先更新 oldValue
+
+用户 callback 不是只读函数，它可能再次修改正在监听的 source：
+
+```ts
+watch(
+  () => count.value,
+  (newValue) => {
+    if (newValue === 1) count.value = 2
+  },
+  { flush: "sync" },
+)
+```
+
+第一次 callback 尚未返回时，`count.value = 2` 会同步进入第二次 job，这叫“重入”。如果等 callback 返回后才保存 `oldValue = newValue`，第二次 job 仍会读到过期的 oldValue；并且第二次保存的新值还会被外层 job 覆盖。
+
+正确顺序是先保存本次状态，再进入用户代码：
+
+```ts
+const previousValue = oldValue
+oldValue = newValue
+initialized = true
+
+runCleanup()
+callback(newValue, previousValue, onCleanup)
+```
+
+于是连续的变化记录才是 `0 → 1`、`1 → 2`、`2 → 3`，而不会出现 oldValue 落后一轮。
+
 ## 9. pre 队列与 post 队列
 
 第九章的 scheduler 已经提供 `queueJob`（去重队列 + 微任务刷新）。`pre` 直接复用即可。`post` 需要一个独立的 post 队列，它必须在 pre 队列清空之后执行。
@@ -282,32 +359,49 @@ watcherEffect = new ReactiveEffect(getter, scheduler)
 
 ```ts
 const pendingPostFlushCbs = new Set<SchedulerJob>()
-let isFlushPostPending = false
+
+function flushJobs(): void {
+  try {
+    do {
+      queue.forEach((job) => job())
+      queue.clear()
+      flushPostJobs()
+    } while (queue.size > 0 || pendingPostFlushCbs.size > 0)
+  } finally {
+    queue.clear()
+    pendingPostFlushCbs.clear()
+    isFlushPending = false
+    currentFlushPromise = null
+  }
+}
 
 function flushPostJobs(): void {
-  try {
-    pendingPostFlushCbs.forEach((job) => job())
-  } finally {
-    pendingPostFlushCbs.clear()
-    isFlushPostPending = false
-  }
+  pendingPostFlushCbs.forEach((job) => job())
+  pendingPostFlushCbs.clear()
+}
+
+function queueFlush(): void {
+  if (isFlushPending) return
+
+  isFlushPending = true
+  currentFlushPromise = resolvedPromise.then(flushJobs)
 }
 
 export function queuePostFlushJob(job: SchedulerJob): void {
   pendingPostFlushCbs.add(job)
-
-  if (isFlushPostPending) return
-
-  isFlushPostPending = true
-  queueJob(flushPostJobs)
+  queueFlush()
 }
 ```
 
-关键点一：`queuePostFlushJob` 把 `flushPostJobs` 当作一个普通 pre job 入队。当 pre 队列刷新到它时，post 队列才被清空，从而保证 post 永远在 pre 之后。
+关键点一：`flushJobs` 自己控制两个阶段，先执行并清空普通队列，再调用 `flushPostJobs`。因此顺序不依赖 watch 的订阅顺序；即使 post watcher 比 pre watcher 更早订阅，也一定先刷新 pre。
 
-关键点二：`flushPostJobs` 与 `flushJobs` 一样直接对 Set 做 `forEach`，不需要 while。`Set.prototype.forEach` 是活迭代——运行中新增的元素会被继续访问，所以 post job 运行中注册的新 post job 会在同一轮被处理。
+一个容易写错的方案，是把 `flushPostJobs` 本身当作普通 job 插入 `queue`。`Set` 按插入顺序执行；若 post watcher 先触发，`flushPostJobs` 就会比后加入的 pre job 更早执行，结果反而变成 `post → pre`。
 
-关键点三：`try/finally` 保证无论 job 是否抛异常，队列都会被清空、`isFlushPostPending` 都会复位，不会出现"标志卡住、后续 post job 永不刷新"的死状态。若某个 job 抛异常，forEach 中断、尚未执行的 job 被丢弃，这与 `flushJobs` 的错误语义一致（本项目接受的简化）。
+关键点二：`Set.prototype.forEach` 是活迭代——运行中新增的不同 job 会被继续访问，所以 post job 运行中注册的新 post job 会在同一轮被处理。外层 `do...while` 还负责一种额外情况：如果 post job 又加入了 pre job，会再开始一轮“pre 后 post”，而不是把新任务直接丢掉。
+
+关键点三：pre 与 post 共用 `queueFlush` 和同一个 `currentFlushPromise`。因此只有 post job 时也会安排微任务，`nextTick()` 也会等待 post 阶段执行结束。
+
+关键点四：外层 `try/finally` 保证无论 job 是否抛异常，两个队列都会清空，`isFlushPending` 与 `currentFlushPromise` 都会复位，不会出现“标志卡住、后续 job 永不刷新”的死状态。若某个 job 抛异常，尚未执行的 job 会被丢弃，这是本项目接受的简化错误语义。
 
 ## 10. 已入队的 job 在 stop 后不应执行
 
@@ -367,7 +461,7 @@ npm run test:run -- courses/vue/packages/reactivity/__tests__/watch-deep-effect.
 
 ## 检查点二：实现 deep
 
-1. 新增模块私有 `traverse`（参考第 2 节）。
+1. 新增模块私有 `traverse`（参考第 2 节），普通对象同时遍历可枚举的字符串键和 Symbol 键。
 2. watch 读取 `options.deep`。
 3. 新增 getter：先 `source()` 得到 value，若 deep 则 `traverse(value)`，再返回 value。
 4. `ReactiveEffect` 使用这个 getter，而不是原始 source。
@@ -389,6 +483,7 @@ npm run test:run -- courses/vue/packages/reactivity/__tests__/watch-deep-effect.
 4. `ReactiveEffect` 的 fn 是 `() => effect(onCleanup)`。
 5. 创建时立即 `watcherEffect.run()`。
 6. 返回 stop：`watcherEffect.stop()` + `runCleanup()`。
+7. `triggerEffects` 跳过当前 `activeEffect`，防止 watchEffect 的同步自写入无限递归。
 
 本检查点 watchEffect 暂用同步 scheduler（`flush` 下一检查点统一处理）。
 
@@ -406,6 +501,8 @@ npm run test:run -- courses/vue/packages/reactivity/__tests__/watch-deep-effect.
 3. 根据 `sync` / `pre` / `post` 选择 scheduler。
 4. 把 scheduler 传给 `ReactiveEffect` 构造器——watch 传的是 deep 包装后的 `getter`，不是原始 source。
 5. 给 job 增加 `stopped` 守卫（参考第 10 节）：stop 后已入队的 job 不应再执行。
+6. watch 的 job 在 callback 前更新内部 oldValue，保证 `sync` 重入时的新旧值连续。
+7. post 队列由 `flushJobs` 在全部 pre job 后显式刷新，不能把 `flushPostJobs` 当作普通 pre job 入队。
 
 完成后预期：
 
@@ -422,6 +519,17 @@ npm run test:run -- courses/vue/packages/reactivity/__tests__/watch-deep-effect.
 - watchEffect 条件分支的依赖重收集。
 - `flush: "pre"` 下 stop 与 cleanup 的时序。
 - post 队列中继续注册 post job 仍能全部执行。
+- post 队列中注册的新普通 job 不会丢失，且 `nextTick` 会等待它。
+- post watcher 先订阅时仍然后于 pre watcher 执行。
+- watchEffect 修改自己读取的依赖时不会无限递归。
+- `sync` watch 重入时 oldValue 不会落后一轮。
+- deep watch 能追踪可枚举 Symbol 属性。
+
+最终预期：
+
+```text
+22 passed
+```
 
 ## 本章暂不处理
 
@@ -437,7 +545,9 @@ npm run test:run -- courses/vue/packages/reactivity/__tests__/watch-deep-effect.
 - `deep: true` 能在首次与每次变化时收集深层依赖。
 - 非 deep 不追踪嵌套变化，行为与第 18 章一致。
 - traverse 对循环引用安全。
+- traverse 不漏掉可枚举 Symbol 属性。
 - watchEffect 立即执行、自动收集、变化后重新执行。
+- watchEffect 同步写入自己的依赖时不会递归溢出。
 - watchEffect 支持 onCleanup 与停止。
-- `flush: "sync"` 同步执行，`"pre"` 批量合并，`"post"` 在 pre 之后。
+- `flush: "sync"` 同步执行且重入时 oldValue 连续，`"pre"` 批量合并，`"post"` 不受订阅顺序影响且总在 pre 之后。
 - 前 18 章测试继续通过（默认同步行为不变）。

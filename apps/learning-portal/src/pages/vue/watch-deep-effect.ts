@@ -1,9 +1,10 @@
-import { reactive, watch, watchEffect } from "mini-vue";
+import { nextTick, reactive, ref, watch, watchEffect } from "mini-vue";
 
 export function renderWatchDeepEffectPage(container: HTMLElement): void {
   const state = reactive({
     user: { name: "Ada", score: 0 },
   });
+  const scheduleCount = ref(0);
 
   const events: string[] = [];
   let deepRuns = 0;
@@ -40,14 +41,16 @@ export function renderWatchDeepEffectPage(container: HTMLElement): void {
         <div class="actions">
           <button id="deep-set-name" type="button">修改 name</button>
           <button id="deep-set-score" class="secondary" type="button">score + 1</button>
+          <button id="deep-run-flush" class="secondary" type="button">演示 pre / post</button>
         </div>
 
-        <p id="deep-status" class="status-panel warning-status">起点会忽略 deep 与 watchEffect。正确实现后，修改 name 或 score 应同时更新 deep watch 计数与 watchEffect 结果。</p>
+        <p id="deep-status" class="status-panel">点击按钮观察 deep watch、watchEffect 与 pre/post 调度。</p>
         <ol id="deep-events" class="event-log" aria-live="polite"></ol>
 
         <ol class="steps">
           <li>deep watch 应追踪 user 内部的 name 与 score 变化。</li>
           <li>watchEffect 应立即执行一次，并在依赖变化后自动重新计算。</li>
+          <li>调度演示会故意先创建 post watch；正确顺序仍应是 pre → post → nextTick。</li>
         </ol>
       </section>
     </main>
@@ -89,6 +92,23 @@ export function renderWatchDeepEffectPage(container: HTMLElement): void {
     greeting = `Hello ${state.user.name}（${state.user.score} 分）`;
   });
 
+  // 故意让 post 先订阅，用来验证执行顺序不依赖订阅顺序。
+  watch(
+    () => scheduleCount.value,
+    (newValue) => {
+      events.push(`post:${newValue}`);
+    },
+    { flush: "post" },
+  );
+
+  watch(
+    () => scheduleCount.value,
+    (newValue) => {
+      events.push(`pre:${newValue}`);
+    },
+    { flush: "pre" },
+  );
+
   container.querySelector<HTMLButtonElement>("#deep-set-name")!.addEventListener("click", () => {
     const previousRuns = deepRuns;
     state.user.name = state.user.name === "Ada" ? "Grace" : "Ada";
@@ -110,6 +130,34 @@ export function renderWatchDeepEffectPage(container: HTMLElement): void {
       ? "deep watch 已捕捉到 score 的嵌套变化。"
       : "score 已修改，但 deep watch 没有触发。";
     statusElement.className = `status-panel ${didRun ? "success-status" : "warning-status"}`;
+    updateView();
+  });
+
+  container.querySelector<HTMLButtonElement>("#deep-run-flush")!.addEventListener("click", async () => {
+    events.length = 0;
+    events.push("sync:start");
+    scheduleCount.value++;
+    events.push("sync:end");
+    updateView();
+
+    await nextTick();
+
+    events.push("nextTick");
+    const expectedEvents = [
+      "sync:start",
+      "sync:end",
+      `pre:${scheduleCount.value}`,
+      `post:${scheduleCount.value}`,
+      "nextTick",
+    ];
+    const hasExpectedOrder =
+      events.length === expectedEvents.length &&
+      events.every((event, index) => event === expectedEvents[index]);
+
+    statusElement.textContent = hasExpectedOrder
+      ? "调度顺序正确：同步代码 → pre → post → nextTick。"
+      : `调度顺序异常：${events.join(" → ")}`;
+    statusElement.className = `status-panel ${hasExpectedOrder ? "success-status" : "warning-status"}`;
     updateView();
   });
 

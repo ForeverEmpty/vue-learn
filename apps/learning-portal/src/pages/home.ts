@@ -12,8 +12,8 @@ export function renderHomePage(container: HTMLElement): void {
         <h1>Mini Vue 学习路径</h1>
         <p class="lead">用原生 TypeScript 从响应式开始实现 Vue。每一章都配有源码检查点、自动测试、浏览器实验和复习题。</p>
         <div class="course-summary" aria-label="Vue 学习进度">
-          <div><strong>17</strong><span>已完成章节</span></div>
-          <div><strong>173</strong><span>通过的测试</span></div>
+          <div><strong>19</strong><span>已完成章节</span></div>
+          <div><strong>208</strong><span>通过的测试</span></div>
           <div><strong>进行中</strong><span>响应式模块</span></div>
         </div>
       </header>
@@ -24,7 +24,7 @@ export function renderHomePage(container: HTMLElement): void {
             <p class="eyebrow">MODULE 01 · REACTIVITY</p>
             <h2>Mini Vue · 响应式模块</h2>
           </div>
-          <p>第 1～17 章已完成 · 第 18 章学习中</p>
+          <p>第 1～19 章已完成 · 第 20 章即将开始</p>
         </div>
 
         <nav class="lesson-grid" aria-label="响应式学习章节">
@@ -174,7 +174,7 @@ export function renderHomePage(container: HTMLElement): void {
 
           <a class="lesson-card" href="#/chapter-19">
             <span class="chapter-number">19</span>
-            <span class="status learning">学习中</span>
+            <span class="status complete">已完成</span>
             <h2>deep watch 与 watchEffect</h2>
             <p>深入追踪嵌套对象、实现无需 source 的 watchEffect，以及控制回调时机的 flush 调度。</p>
             <span class="enter-link">进入测试页 →</span>

@@ -90,6 +90,9 @@ export function trackEffect(dep: Dep): void {
 export function triggerEffects(dep: Dep): void {
   const _dep = new Set(dep);
   _dep.forEach((effect) => {
+    // 当前 effect 写入自己刚读取的依赖时，不应同步递归执行自己。
+    if (effect === activeEffect) return;
+
     if (effect.scheduler) {
       effect.scheduler();
     } else {

@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   nextTick,
+  queueJob,
   queuePostFlushJob,
   reactive,
   ref,
@@ -59,21 +60,43 @@ describe("deep watch、watchEffect 与监听调度：第十九章", () => {
     expect(callbackRuns).toBe(1);
   });
 
-  it("deep watch 嵌套变化时提供正确的对象新旧值", () => {
+  it("deep watch 追踪可枚举 Symbol 属性内部的变化", () => {
+    const profileKey = Symbol("profile");
+    const state = reactive({ [profileKey]: { score: 0 } });
+    let callbackRuns = 0;
+
+    watch(
+      () => state,
+      () => {
+        callbackRuns++;
+      },
+      { deep: true },
+    );
+
+    state[profileKey].score++;
+
+    expect(callbackRuns).toBe(1);
+  });
+
+  it("deep watch 嵌套变化时的新旧值是同一个已更新对象", () => {
     const state = reactive({ user: { name: "Ada" } });
-    let newName = "";
+    let currentUser: { name: string } | undefined;
+    let previousUser: { name: string } | undefined;
 
     watch(
       () => state.user,
-      (newValue) => {
-        newName = newValue.name;
+      (newValue, oldValue) => {
+        currentUser = newValue;
+        previousUser = oldValue;
       },
       { deep: true },
     );
 
     state.user.name = "Grace";
 
-    expect(newName).toBe("Grace");
+    expect(currentUser).toBe(previousUser);
+    expect(currentUser?.name).toBe("Grace");
+    expect(previousUser?.name).toBe("Grace");
   });
 
   it("watchEffect 创建时立即执行一次", () => {
@@ -99,6 +122,19 @@ describe("deep watch、watchEffect 与监听调度：第十九章", () => {
     count.value = 5;
 
     expect(latest).toBe(5);
+  });
+
+  it("watchEffect 修改自己读取的依赖时不会同步递归执行", () => {
+    const count = ref(0);
+    let runs = 0;
+
+    watchEffect(() => {
+      runs++;
+      count.value++;
+    });
+
+    expect(count.value).toBe(1);
+    expect(runs).toBe(1);
   });
 
   it("watchEffect 的 onCleanup 在下一次执行前运行", () => {
@@ -171,6 +207,29 @@ describe("deep watch、watchEffect 与监听调度：第十九章", () => {
     expect(records).toEqual([1, 2]);
   });
 
+  it('flush: "sync" 重入时为下一次 callback 保存最近的 oldValue', () => {
+    const count = ref(0);
+    const records: Array<[number, number | undefined]> = [];
+
+    watch(
+      () => count.value,
+      (newValue, oldValue) => {
+        records.push([newValue, oldValue]);
+        if (newValue === 1) count.value = 2;
+      },
+      { flush: "sync" },
+    );
+
+    count.value = 1;
+    count.value = 3;
+
+    expect(records).toEqual([
+      [1, 0],
+      [2, 1],
+      [3, 2],
+    ]);
+  });
+
   it('flush: "pre" 将同一轮多次变化合并为一次微任务执行', async () => {
     const count = ref(0);
     const records: number[] = [];
@@ -217,6 +276,32 @@ describe("deep watch、watchEffect 与监听调度：第十九章", () => {
     count.value = 1;
     expect(events).toEqual([]);
 
+    await nextTick();
+
+    expect(events).toEqual(["pre", "post"]);
+  });
+
+  it('post watcher 先订阅时，flush: "post" 仍在 pre 之后执行', async () => {
+    const count = ref(0);
+    const events: string[] = [];
+
+    watch(
+      () => count.value,
+      () => {
+        events.push("post");
+      },
+      { flush: "post" },
+    );
+
+    watch(
+      () => count.value,
+      () => {
+        events.push("pre");
+      },
+      { flush: "pre" },
+    );
+
+    count.value = 1;
     await nextTick();
 
     expect(events).toEqual(["pre", "post"]);
@@ -328,5 +413,20 @@ describe("deep watch、watchEffect 与监听调度：第十九章", () => {
     await nextTick();
 
     expect(events).toEqual(["outer", "inner"]);
+  });
+
+  it("post flush 中注册的普通 job 不会丢失，nextTick 会等待它执行", async () => {
+    const events: string[] = [];
+
+    queuePostFlushJob(() => {
+      events.push("post");
+      queueJob(() => {
+        events.push("next-pre");
+      });
+    });
+
+    await nextTick();
+
+    expect(events).toEqual(["post", "next-pre"]);
   });
 });
