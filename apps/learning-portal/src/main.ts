@@ -25,6 +25,7 @@ import { renderRefUtilitiesPage } from './pages/vue/ref-utilities'
 import { renderWatchLifecyclePage } from './pages/vue/watch-lifecycle'
 import { renderWatchDeepEffectPage } from './pages/vue/watch-deep-effect'
 import { renderCollectionReactivityPage } from './pages/vue/collection-reactivity'
+import { renderWatchSourcesPage } from './pages/vue/watch-sources'
 import { renderTypeSystemPage } from './pages/vue/typescript/type-system'
 import { renderGenericsPage } from './pages/vue/typescript/generics'
 import { renderMappedTypesPage } from './pages/vue/typescript/mapped-types'
@@ -65,6 +66,7 @@ const routes: Record<string, PageRenderer> = {
   '/chapter-18': renderWatchLifecyclePage,
   '/chapter-19': renderWatchDeepEffectPage,
   '/chapter-20': renderCollectionReactivityPage,
+  '/chapter-21': renderWatchSourcesPage,
   '/java': renderJavaHomePage,
   '/java/chapter-1': renderJavaThreadBasicsPage,
 }

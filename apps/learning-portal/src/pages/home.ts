@@ -14,7 +14,7 @@ export function renderHomePage(container: HTMLElement): void {
         <div class="course-summary" aria-label="Vue 学习进度">
           <div><strong>20</strong><span>已完成章节</span></div>
           <div><strong>235</strong><span>通过的测试</span></div>
-          <div><strong>收尾审查</strong><span>响应式模块</span></div>
+          <div><strong>第 21 章</strong><span>当前学习</span></div>
         </div>
       </header>
 
@@ -24,7 +24,7 @@ export function renderHomePage(container: HTMLElement): void {
             <p class="eyebrow">MODULE 01 · REACTIVITY</p>
             <h2>Mini Vue · 响应式模块</h2>
           </div>
-          <p>第 1～20 章已完成 · 下一步进行模块缺口审查</p>
+          <p>第 1～20 章已完成 · 第 21 章进行中</p>
         </div>
 
         <nav class="lesson-grid" aria-label="响应式学习章节">
@@ -185,6 +185,14 @@ export function renderHomePage(container: HTMLElement): void {
             <span class="status complete">已完成</span>
             <h2>Map/Set 集合响应式</h2>
             <p>完成 receiver 修正、依赖分类、迭代器、raw 身份和 deep watch，27 项章节测试通过。</p>
+            <span class="enter-link">进入实验页 →</span>
+          </a>
+
+          <a class="lesson-card" href="#/chapter-21">
+            <span class="chapter-number">21</span>
+            <span class="status learning">进行中</span>
+            <h2>watch 数据源标准化</h2>
+            <p>直接监听 ref、reactive 和多个 source，并区分 reactive 数组与 source 数组。</p>
             <span class="enter-link">进入实验页 →</span>
           </a>
         </nav>

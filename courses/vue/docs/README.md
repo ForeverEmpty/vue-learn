@@ -26,10 +26,11 @@
 | 响应式 | [18. watch 的 immediate、清理与停止](./01-reactivity/18-watch-lifecycle.md) | 已完成 | 怎样管理 watch 的首次执行、失效副作用和停止生命周期？ |
 | 响应式 | [19. deep watch、watchEffect 与监听调度](./01-reactivity/19-deep-watch-effect.md) | 已完成 | 怎样追踪嵌套对象、实现 watchEffect 并控制回调时机？ |
 | 响应式 | [20. Map/Set 集合响应式](./01-reactivity/20-collection-reactivity.md) | 已完成 | 怎样修正 receiver、分类集合依赖并接上 deep watch？ |
+| 响应式 | [21. watch 数据源标准化与多数据源](./01-reactivity/21-watch-sources.md) | 进行中 | 怎样把 getter、ref、reactive 与多个 source 统一成一个内部协议？ |
 
 对应的答题与批改记录保存在 [Vue 复习题目录](../review_questions/README.md)。
 
-第 20 章已按 2A/2B、3A/3B、4A/4B、5A/5B、6、7 完成学习，27 项章节测试和复习题均已通过。
+第 20 章的 27 项章节测试和复习题均已通过。第 21 章已创建起点骨架，目前按 1、2A、2B、3A、3B、3C、4 的顺序学习。
 
 ## JS/TS 基础补充
 
@@ -49,20 +50,18 @@
 
 ## 响应式模块状态
 
-第 1～20 章已经完成。接下来核对 watch 输入类型、更多清理语义和模块边界；剩余章数由收尾评估决定，不能只凭现有测试通过就宣布整个响应式模块完成。必修缺口补完后才进入下一个模块。
+第 1～20 章已经完成，第 21 章正在补齐 watch 输入类型。之后继续处理 watcher 控制、reactive 中的 ref 自动解包，以及响应式模块的最终边界审查。不能只凭现有测试通过就宣布整个响应式模块完成；必修缺口补完后才进入下一个模块。
 
 ## 响应式模块后续章节
 
-后续路线不是简单按 API 数量切章，而是按可以独立理解和测试的机制拆分：
+当前预计再用四章完成响应式主线，最终章会再次核对缺口，而不是机械按编号结束：
 
-1. 第 15 章：`markRaw`、内部跳过标记与不可扩展对象。
-2. 第 16 章：ref 对象转换、`shallowRef` 与 `triggerRef`。
-3. 第 17 章：`isRef`、`unref`、`toRef`、`toRefs`、`proxyRefs` 与可写 computed。
-4. 第 18 章：watch 的 `immediate`、回调清理与停止监听。
-5. 第 19 章：deep watch、`watchEffect` 与监听调度。
-6. 第 20 章：Map/Set 集合响应式、集合 deep watch 衔接与收尾缺口审查。
+1. 第 21 章：watch 数据源标准化、直接监听 ref/reactive 与多个 source。
+2. 第 22 章：数字 deep、`once`、pause/resume 与 watcher 清理控制。
+3. 第 23 章：reactive 对象属性中的 ref 自动解包与赋值联动。
+4. 第 24 章：目标分类、WeakMap/WeakSet、数组迭代器与模块最终审查。
 
-`customRef`、完整 WeakMap/WeakSet 支持和 effectScope 细节先列为进阶扩展，不阻塞进入运行时模块。
+`customRef` 和完整 `effectScope` 细节先列为进阶扩展；`effectScope` 也可以在组件卸载清理阶段结合运行时学习。
 
 ## 后续模块
 

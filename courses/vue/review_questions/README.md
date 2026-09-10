@@ -24,8 +24,9 @@
 | 响应式 | [18. watch 的 immediate、清理与停止](./01-reactivity/18-watch-lifecycle.md) | 已批改 |
 | 响应式 | [19. deep watch、watchEffect 与监听调度](./01-reactivity/19-deep-watch-effect.md) | 已批改 |
 | 响应式 | [20. Map/Set 集合响应式](./01-reactivity/20-collection-reactivity.md) | 已批改 |
+| 响应式 | [21. watch 数据源标准化与多数据源](./01-reactivity/21-watch-sources.md) | 待完成 |
 
-第 20 章的调用过程、依赖选择、键身份、迭代协议和 deep watch 衔接共 5 题已作答并批改。
+第 20 章的调用过程、依赖选择、键身份、迭代协议和 deep watch 衔接共 5 题已作答并批改。第 21 章复习题已经提前创建，待章节实现与测试完成后作答。
 
 ## 00. JS/TS 基础补充
 

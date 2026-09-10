@@ -38,8 +38,12 @@ export {
   type WatchEffectCallback,
   type WatchEffectOptions,
   type WatchFlushMode,
+  type WatchGetter,
   type WatchOptions,
   type WatchSource,
+  type WatchSourceList,
+  type WatchSourceValue,
+  type WatchSourceValues,
   type WatchStopHandle,
 } from './watch'
 export { nextTick, queueJob, queuePostFlushJob, type SchedulerJob } from './scheduler'
