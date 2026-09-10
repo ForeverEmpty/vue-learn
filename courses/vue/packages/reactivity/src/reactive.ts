@@ -3,6 +3,13 @@ import { mutableHandlers } from "./baseHandlers";
 import { readonlyHandlers } from "./readonlyHandlers";
 import { ReactiveFlags } from "./reactiveFlags";
 import { shouldSkipReactive } from "./raw";
+import { isCollection } from "./collectionEffect";
+import {
+  mutableCollectionHandlers,
+  readonlyCollectionHandlers,
+  shallowCollectionHandlers,
+  shallowReadonlyCollectionHandlers,
+} from "./collectionHandlers";
 import {
   shallowReactiveHandlers,
   shallowReadonlyHandlers,
@@ -28,7 +35,7 @@ export function toRaw<T>(observed: T): T {
 }
 
 /**
- * 为普通对象创建响应式代理，并复用原对象已有的 Proxy。
+ * 根据普通对象/集合选择处理器，并复用原对象已有的 Proxy。
  * 嵌套对象由 getter 在首次读取时惰性转换。
  */
 export function reactive<T extends object>(target: T): T {
@@ -40,7 +47,8 @@ export function reactive<T extends object>(target: T): T {
 
   if (existingProxy) return existingProxy as T;
 
-  const proxy = new Proxy(target, mutableHandlers) as T;
+  const handlers = isCollection(target) ? mutableCollectionHandlers : mutableHandlers;
+  const proxy = new Proxy(target, handlers) as T;
   reactiveMap.set(target, proxy);
   rawMap.set(proxy, target);
 
@@ -59,7 +67,8 @@ export function readonly<T extends object>(target: T): Readonly<T> {
 
   if (existingProxy) return existingProxy as Readonly<T>;
 
-  const proxy = new Proxy(rawTarget, readonlyHandlers) as Readonly<T>;
+  const handlers = isCollection(rawTarget) ? readonlyCollectionHandlers : readonlyHandlers;
+  const proxy = new Proxy(rawTarget, handlers) as Readonly<T>;
   readonlyMap.set(rawTarget, proxy);
   rawMap.set(proxy, rawTarget);
 
@@ -76,7 +85,8 @@ export function shallowReactive<T extends object>(target: T): T {
 
   if (existingProxy) return existingProxy as T;
 
-  const proxy = new Proxy(target, shallowReactiveHandlers) as T;
+  const handlers = isCollection(target) ? shallowCollectionHandlers : shallowReactiveHandlers;
+  const proxy = new Proxy(target, handlers) as T;
 
   shallowReactiveMap.set(target, proxy);
   rawMap.set(proxy, target);
@@ -96,10 +106,10 @@ export function shallowReadonly<T extends object>(target: T): Readonly<T> {
 
   if (existingProxy) return existingProxy as Readonly<T>;
 
-  const shallowView = new Proxy(
-    rawTarget,
-    shallowReadonlyHandlers,
-  ) as Readonly<T>;
+  const handlers = isCollection(rawTarget)
+    ? shallowReadonlyCollectionHandlers
+    : shallowReadonlyHandlers;
+  const shallowView = new Proxy(rawTarget, handlers) as Readonly<T>;
 
   rawMap.set(shallowView, rawTarget);
   shallowReadonlyMap.set(rawTarget, shallowView);

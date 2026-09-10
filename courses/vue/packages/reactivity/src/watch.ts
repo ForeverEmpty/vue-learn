@@ -32,6 +32,10 @@ function traverse(value: unknown, seen = new Set<object>()): void {
     for (let i = 0; i < value.length; i++) {
       traverse(value[i], seen);
     }
+  } else if (value instanceof Map || value instanceof Set) {
+    value.forEach((entryValue) => {
+      traverse(entryValue, seen);
+    });
   } else {
     for (const key of Reflect.ownKeys(value)) {
       if (!Object.prototype.propertyIsEnumerable.call(value, key)) continue;

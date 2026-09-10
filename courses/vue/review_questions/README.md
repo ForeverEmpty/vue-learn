@@ -23,7 +23,9 @@
 | 响应式 | [17. ref 工具链与可写 computed](./01-reactivity/17-ref-utilities-writable-computed.md) | 已批改 |
 | 响应式 | [18. watch 的 immediate、清理与停止](./01-reactivity/18-watch-lifecycle.md) | 已批改 |
 | 响应式 | [19. deep watch、watchEffect 与监听调度](./01-reactivity/19-deep-watch-effect.md) | 已批改 |
-| 响应式 | [20. Map/Set 集合响应式](./01-reactivity/20-collection-reactivity.md) | 待完成 |
+| 响应式 | [20. Map/Set 集合响应式](./01-reactivity/20-collection-reactivity.md) | 已批改 |
+
+第 20 章的调用过程、依赖选择、键身份、迭代协议和 deep watch 衔接共 5 题已作答并批改。
 
 ## 00. JS/TS 基础补充
 

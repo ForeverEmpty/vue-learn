@@ -12,9 +12,9 @@ export function renderHomePage(container: HTMLElement): void {
         <h1>Mini Vue 学习路径</h1>
         <p class="lead">用原生 TypeScript 从响应式开始实现 Vue。每一章都配有源码检查点、自动测试、浏览器实验和复习题。</p>
         <div class="course-summary" aria-label="Vue 学习进度">
-          <div><strong>19</strong><span>已完成章节</span></div>
-          <div><strong>208</strong><span>通过的测试</span></div>
-          <div><strong>进行中</strong><span>响应式模块</span></div>
+          <div><strong>20</strong><span>已完成章节</span></div>
+          <div><strong>235</strong><span>通过的测试</span></div>
+          <div><strong>收尾审查</strong><span>响应式模块</span></div>
         </div>
       </header>
 
@@ -24,7 +24,7 @@ export function renderHomePage(container: HTMLElement): void {
             <p class="eyebrow">MODULE 01 · REACTIVITY</p>
             <h2>Mini Vue · 响应式模块</h2>
           </div>
-          <p>第 1～19 章已完成 · 第 20 章正在学习</p>
+          <p>第 1～20 章已完成 · 下一步进行模块缺口审查</p>
         </div>
 
         <nav class="lesson-grid" aria-label="响应式学习章节">
@@ -182,10 +182,10 @@ export function renderHomePage(container: HTMLElement): void {
 
           <a class="lesson-card" href="#/chapter-20">
             <span class="chapter-number">20</span>
-            <span class="status learning">学习中</span>
+            <span class="status complete">已完成</span>
             <h2>Map/Set 集合响应式</h2>
-            <p>从普通对象的属性依赖扩展到集合键、size、迭代器和集合变更触发。</p>
-            <span class="enter-link">进入学习页 →</span>
+            <p>完成 receiver 修正、依赖分类、迭代器、raw 身份和 deep watch，27 项章节测试通过。</p>
+            <span class="enter-link">进入实验页 →</span>
           </a>
         </nav>
       </section>
