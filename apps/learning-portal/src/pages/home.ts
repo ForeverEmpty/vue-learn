@@ -24,7 +24,7 @@ export function renderHomePage(container: HTMLElement): void {
             <p class="eyebrow">MODULE 01 · REACTIVITY</p>
             <h2>Mini Vue · 响应式模块</h2>
           </div>
-          <p>第 1～19 章已完成 · 第 20 章即将开始</p>
+          <p>第 1～19 章已完成 · 第 20 章正在学习</p>
         </div>
 
         <nav class="lesson-grid" aria-label="响应式学习章节">
@@ -178,6 +178,14 @@ export function renderHomePage(container: HTMLElement): void {
             <h2>deep watch 与 watchEffect</h2>
             <p>深入追踪嵌套对象、实现无需 source 的 watchEffect，以及控制回调时机的 flush 调度。</p>
             <span class="enter-link">进入测试页 →</span>
+          </a>
+
+          <a class="lesson-card" href="#/chapter-20">
+            <span class="chapter-number">20</span>
+            <span class="status learning">学习中</span>
+            <h2>Map/Set 集合响应式</h2>
+            <p>从普通对象的属性依赖扩展到集合键、size、迭代器和集合变更触发。</p>
+            <span class="enter-link">进入学习页 →</span>
           </a>
         </nav>
       </section>

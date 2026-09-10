@@ -25,6 +25,7 @@
 | 响应式 | [17. ref 工具链与可写 computed](./01-reactivity/17-ref-utilities-writable-computed.md) | 已完成 | 怎样桥接对象属性、自动解包 ref，并让 computed 反向写入？ |
 | 响应式 | [18. watch 的 immediate、清理与停止](./01-reactivity/18-watch-lifecycle.md) | 已完成 | 怎样管理 watch 的首次执行、失效副作用和停止生命周期？ |
 | 响应式 | [19. deep watch、watchEffect 与监听调度](./01-reactivity/19-deep-watch-effect.md) | 已完成 | 怎样追踪嵌套对象、实现 watchEffect 并控制回调时机？ |
+| 响应式 | [20. Map/Set 集合响应式](./01-reactivity/20-collection-reactivity.md) | 学习中 | 怎样追踪集合键、size、迭代器，并精确触发 add、delete、clear？ |
 
 对应的答题与批改记录保存在 [Vue 复习题目录](../review_questions/README.md)。
 
@@ -46,7 +47,7 @@
 
 ## 响应式模块状态
 
-第 1～19 章已经完成，第 20 章开始学习集合响应式。响应式模块计划在第 20 章完成，目前还剩 1 章。只有 watch 与集合边界都完成后，才会进入下一个模块。
+第 1～19 章已经完成，第 20 章正在学习集合响应式。响应式模块计划在第 20 章完成，目前还剩 1 章。只有 watch 与集合边界都完成后，才会进入下一个模块。
 
 ## 响应式模块后续章节
 
