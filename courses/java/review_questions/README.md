@@ -5,5 +5,6 @@
 | 章节 | 主题 | 状态 |
 | --- | --- | --- |
 | 01·01 | [线程创建与生命周期](./01-concurrency/01-thread-creation-and-lifecycle.md) | 已批改 |
+| 01·02 | [共享变量、竞态条件与 synchronized](./01-concurrency/02-shared-state-race-and-synchronized.md) | 已批改 |
 
 `docs/00-foundation/` 下的基础知识小章不创建对应复习题；需要练习时由学习者主动提出。

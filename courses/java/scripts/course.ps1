@@ -1,7 +1,9 @@
 param(
   [Parameter(Mandatory)]
   [ValidateSet('Compile', 'Run', 'Test')]
-  [string]$Action
+  [string]$Action,
+
+  [string]$TestClass
 )
 
 $ErrorActionPreference = 'Stop'
@@ -44,6 +46,19 @@ function Get-JavaSourceFiles {
   }
 
   return $sourceFiles
+}
+
+function Get-JavaTestClasses {
+  $sourceFiles = Get-JavaSourceFiles -SourceRoot $testSourceRoot
+
+  return @(
+    $sourceFiles | ForEach-Object {
+      $relativePath = [IO.Path]::GetRelativePath($testSourceRoot, $_)
+      $extensionLength = [IO.Path]::GetExtension($relativePath).Length
+      $classPath = $relativePath.Substring(0, $relativePath.Length - $extensionLength)
+      $classPath -replace '[\\/]', '.'
+    }
+  )
 }
 
 function Compile-MainSources {
@@ -94,9 +109,24 @@ switch ($Action) {
     Compile-MainSources
     Compile-TestSources
     $classPath = "$mainOutput$([IO.Path]::PathSeparator)$testOutput"
-    & java.exe @javaEncodingArguments -cp $classPath study.concurrency.ThreadBasicsTest
-    if ($LASTEXITCODE -ne 0) {
-      exit $LASTEXITCODE
+
+    $testClasses = if ($TestClass) {
+      @($TestClass)
+    } else {
+      @(Get-JavaTestClasses)
+    }
+
+    $failedTestClasses = @()
+    foreach ($currentTestClass in $testClasses) {
+      & java.exe @javaEncodingArguments -cp $classPath $currentTestClass
+      if ($LASTEXITCODE -ne 0) {
+        $failedTestClasses += $currentTestClass
+      }
+    }
+
+    if ($failedTestClasses.Count -gt 0) {
+      Write-Host "`nFailed Java test classes: $($failedTestClasses -join ', ')"
+      exit 1
     }
   }
 }

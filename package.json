@@ -21,6 +21,8 @@
     "java:compile": "pwsh -NoProfile -File courses/java/scripts/course.ps1 -Action Compile",
     "java:run": "pwsh -NoProfile -File courses/java/scripts/course.ps1 -Action Run",
     "java:test": "pwsh -NoProfile -File courses/java/scripts/course.ps1 -Action Test",
+    "java:test:chapter-01": "pwsh -NoProfile -File courses/java/scripts/course.ps1 -Action Test -TestClass study.concurrency.ThreadBasicsTest",
+    "java:test:chapter-02": "pwsh -NoProfile -File courses/java/scripts/course.ps1 -Action Test -TestClass study.concurrency.SharedCounterTest",
     "permissions:check": "pwsh -NoProfile -File scripts/workspace-permissions.ps1",
     "permissions:check:all": "pwsh -NoProfile -File scripts/workspace-permissions.ps1 -All",
     "permissions:fix": "pwsh -NoProfile -File scripts/workspace-permissions.ps1 -Fix",

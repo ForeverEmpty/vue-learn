@@ -27,8 +27,9 @@ courses/java/
 ## 当前章节
 
 1. [第一章：线程创建与生命周期](./docs/01-concurrency/01-thread-creation-and-lifecycle.md) 已完成。
-2. 三个实现检查点和 4 道复习题均已通过，测试为 `2 passed, 0 failed`。
-3. [00. Java 基础补充](./docs/00-foundation/README.md) 仅在遇到相关卡点时按需进入；每个知识点独立成章，且不设置复习题。
+2. [第二章：共享变量、竞态条件与 synchronized](./docs/01-concurrency/02-shared-state-race-and-synchronized.md) 已完成。
+3. `increment()` 已使用对象内置锁保护，第二章测试为 `3 passed, 0 failed`，复习题已完成批改。
+4. [00. Java 基础补充](./docs/00-foundation/README.md) 仅在遇到相关卡点时按需进入；每个知识点独立成章，且不设置复习题。
 
 ## 命令
 
@@ -36,8 +37,9 @@ courses/java/
 
 ```bash
 npm run java:compile  # 只编译，起点应成功
-npm run java:run      # 运行演示；完成本章实现前会抛出 TODO 异常
-npm run java:test     # 运行第一章测试；起点预期 2 个失败
+npm run java:run      # 运行第一章的线程创建演示
+npm run java:test     # 运行当前全部 Java 章节测试
+npm run java:test:chapter-02  # 只运行第二章测试
 ```
 
 生成的 `.class` 文件位于 `courses/java/.build/`，不会提交到 Git。
