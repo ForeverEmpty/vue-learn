@@ -1,6 +1,8 @@
-# Java 第一章：线程创建与生命周期
+# Java 并发 01·01：线程创建与生命周期
 
 这一章先建立最小多线程闭环：在 main 线程中创建一个工作线程，让工作线程执行任务，并让 main 线程等待它完成。
+
+> 当前进度：已完成。工作线程按 `start()`、`join()` 的顺序启动并等待，测试为 `2 passed, 0 failed`，演示程序最终观察到 `TERMINATED`，4 道复习题均已通过批改。
 
 ## 本章目标
 
@@ -249,4 +251,4 @@ assertEquals    → 比较期望值与实际值
 - `createWorker` 创建线程但不提前启动。
 - `startAndWait` 先启动，再等待结束。
 - Java 第一章 2 个测试通过。
-- 完成 [第一章复习题](../review_questions/01-thread-creation-and-lifecycle.md)。
+- 完成 [第一章复习题](../../review_questions/01-concurrency/01-thread-creation-and-lifecycle.md)。

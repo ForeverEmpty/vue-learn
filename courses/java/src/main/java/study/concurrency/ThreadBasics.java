@@ -17,7 +17,7 @@ public final class ThreadBasics {
      * @return 状态仍为 NEW 的 Thread 对象
      */
     public static Thread createWorker(String workerName, Runnable task) {
-        throw new UnsupportedOperationException("检查点二：请创建并返回工作线程");
+        return new Thread(task, workerName);
     }
 
     /**
@@ -27,6 +27,7 @@ public final class ThreadBasics {
      * @throws InterruptedException 当前等待线程被中断时抛出
      */
     public static void startAndWait(Thread worker) throws InterruptedException {
-        throw new UnsupportedOperationException("检查点三：请启动线程并等待结束");
+        worker.start();
+        worker.join();
     }
 }

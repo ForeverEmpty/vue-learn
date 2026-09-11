@@ -4,6 +4,6 @@
 
 | 章节 | 主题 | 状态 |
 | --- | --- | --- |
-| 01 | [线程创建与生命周期](./01-thread-creation-and-lifecycle.md) | 待完成 |
+| 01·01 | [线程创建与生命周期](./01-concurrency/01-thread-creation-and-lifecycle.md) | 已批改 |
 
-基础快速复习不单独考试；相关语法会在多线程章节的代码和问题中自然复现。
+`docs/00-foundation/` 下的基础知识小章不创建对应复习题；需要练习时由学习者主动提出。
