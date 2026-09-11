@@ -12,9 +12,9 @@ export function renderHomePage(container: HTMLElement): void {
         <h1>Mini Vue 学习路径</h1>
         <p class="lead">用原生 TypeScript 从响应式开始实现 Vue。每一章都配有源码检查点、自动测试、浏览器实验和复习题。</p>
         <div class="course-summary" aria-label="Vue 学习进度">
-          <div><strong>20</strong><span>已完成章节</span></div>
-          <div><strong>235</strong><span>通过的测试</span></div>
-          <div><strong>第 21 章</strong><span>当前学习</span></div>
+          <div><strong>21</strong><span>已完成章节</span></div>
+          <div><strong>253</strong><span>通过的测试</span></div>
+          <div><strong>第 22 章</strong><span>下一阶段</span></div>
         </div>
       </header>
 
@@ -24,7 +24,7 @@ export function renderHomePage(container: HTMLElement): void {
             <p class="eyebrow">MODULE 01 · REACTIVITY</p>
             <h2>Mini Vue · 响应式模块</h2>
           </div>
-          <p>第 1～20 章已完成 · 第 21 章进行中</p>
+          <p>第 1～21 章已完成 · 下一步学习 watcher 控制</p>
         </div>
 
         <nav class="lesson-grid" aria-label="响应式学习章节">
@@ -190,9 +190,9 @@ export function renderHomePage(container: HTMLElement): void {
 
           <a class="lesson-card" href="#/chapter-21">
             <span class="chapter-number">21</span>
-            <span class="status learning">进行中</span>
+            <span class="status complete">已完成</span>
             <h2>watch 数据源标准化</h2>
-            <p>直接监听 ref、reactive 和多个 source，并区分 reactive 数组与 source 数组。</p>
+            <p>直接监听 ref、reactive 和多个 source，并区分 reactive 数组与 source 数组；18 项测试通过。</p>
             <span class="enter-link">进入实验页 →</span>
           </a>
         </nav>

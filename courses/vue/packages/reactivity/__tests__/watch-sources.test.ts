@@ -127,15 +127,16 @@ describe("watch 数据源标准化与多数据源：第二十一章", () => {
   it("21 / 3A：多个 source 中可以包含 computed", () => {
     const count = ref(1);
     const doubled = computed(() => count.value * 2);
-    const records: Array<[number, number]> = [];
+    const status = ref("ready");
+    const records: Array<[string, number]> = [];
 
-    watch([count, doubled] as const, ([nextCount, nextDouble]) => {
-      records.push([nextCount, nextDouble]);
+    watch([status, doubled] as const, ([nextStatus, nextDouble]) => {
+      records.push([nextStatus, nextDouble]);
     });
 
     count.value = 2;
 
-    expect(records).toEqual([[2, 4]]);
+    expect(records).toEqual([["ready", 4]]);
   });
 
   it("21 / 3A：多个 source 中的 reactive 对象默认深入监听", () => {

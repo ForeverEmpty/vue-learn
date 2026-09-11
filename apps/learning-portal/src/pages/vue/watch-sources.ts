@@ -125,9 +125,9 @@ export function renderWatchSourcesPage(container: HTMLElement): void {
         <h1>watch 数据源标准化与多数据源</h1>
         <p class="lead">把 getter、ref、reactive 对象和 source 数组转换成统一内部协议，再复用已有的调度与生命周期。</p>
         <div class="metric-grid">
-          <div class="metric"><span class="result-label">章节状态</span><strong class="metric-value small-value">进行中</strong></div>
-          <div class="metric"><span class="result-label">起点通过</span><strong class="metric-value small-value">4 / 18</strong></div>
-          <div class="metric"><span class="result-label">待实现</span><strong class="metric-value small-value">14 项</strong></div>
+          <div class="metric"><span class="result-label">章节状态</span><strong class="metric-value small-value">已完成</strong></div>
+          <div class="metric"><span class="result-label">章节测试</span><strong class="metric-value small-value">18 项通过</strong></div>
+          <div class="metric"><span class="result-label">完整回归</span><strong class="metric-value small-value">253 项通过</strong></div>
         </div>
         <p class="lead">先运行 getter 基线，再按 2A、2B、3、4 的顺序完成。实验失败时会显示当前缺失的机制。</p>
         <div class="actions">
@@ -137,7 +137,7 @@ export function renderWatchSourcesPage(container: HTMLElement): void {
           <button type="button" class="secondary" data-experiment="multiple">测试多个 source</button>
           <button type="button" class="secondary" data-experiment="arrays">区分数组身份</button>
         </div>
-        <p id="watch-sources-status" class="status-panel warning-status" aria-live="polite">本章进行中。先阅读文档并完成检查点一的问题。</p>
+        <p id="watch-sources-status" class="status-panel success-status" aria-live="polite">全部检查点和复习题已完成。点击按钮可以重新验证各类 source。</p>
         <ol id="watch-sources-events" class="event-log" aria-live="polite"></ol>
         <ol class="steps">
           <li>ref 的标准化 getter 必须读取 .value，才能收集依赖。</li>
@@ -176,4 +176,3 @@ export function renderWatchSourcesPage(container: HTMLElement): void {
     });
   }
 }
-

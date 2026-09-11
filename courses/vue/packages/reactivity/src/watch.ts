@@ -1,7 +1,8 @@
 import { hasChanged, isObject } from "@mini-vue/shared";
 import { ReactiveEffect, type EffectScheduler } from "./effect";
-import type { Ref } from "./ref";
+import { isRef, type Ref } from "./ref";
 import { queueJob, queuePostFlushJob } from "./scheduler";
+import { isReactive } from "./reactive";
 
 export type WatchGetter<T> = () => T;
 export type WatchSource<T> =
@@ -13,13 +14,14 @@ export type WatchSourceList = readonly (
   | WatchGetter<unknown>
   | object
 )[];
-export type WatchSourceValue<Source> = Source extends Ref<infer Value>
-  ? Value
-  : Source extends WatchGetter<infer Value>
+export type WatchSourceValue<Source> =
+  Source extends Ref<infer Value>
     ? Value
-    : Source extends object
-      ? Source
-      : never;
+    : Source extends WatchGetter<infer Value>
+      ? Value
+      : Source extends object
+        ? Source
+        : never;
 export type WatchSourceValues<Sources extends WatchSourceList> = {
   -readonly [Index in keyof Sources]: WatchSourceValue<Sources[Index]>;
 };
@@ -52,11 +54,41 @@ interface NormalizedWatchSource {
   isMultiSource: boolean;
 }
 
-/**
- * 第 21 章起点：先让旧的 getter source 保持可用。
- * ref、reactive 与多个 source 的标准化分支由本章各检查点逐步补齐。
- */
+/** 将 getter、ref、reactive 对象或 source 数组转换为统一的内部执行描述。 */
 function normalizeWatchSource(source: WatchInput): NormalizedWatchSource {
+  if (isRef(source)) {
+    return {
+      getter: () => source.value,
+      forceTrigger: false,
+      isMultiSource: false,
+    };
+  }
+
+  if (isReactive(source)) {
+    return {
+      getter: () => {
+        traverse(source);
+        return source;
+      },
+      forceTrigger: true,
+      isMultiSource: false,
+    };
+  }
+
+  if (Array.isArray(source)) {
+    const sourceList = source as WatchSourceList;
+
+    const normalizedItems = sourceList.map((item) =>
+      normalizeWatchSource(item),
+    );
+
+    return {
+      getter: () => normalizedItems.map((item) => item.getter()),
+      forceTrigger: normalizedItems.some((item) => item.forceTrigger),
+      isMultiSource: true,
+    };
+  }
+
   const getter: WatchGetter<unknown> =
     typeof source === "function"
       ? (source as WatchGetter<unknown>)
@@ -141,9 +173,25 @@ export function watch(
 
   const job = () => {
     if (stopped) return;
+    let sourceChanged = true;
     const newValue = watcherEffect.run();
 
-    if (initialized && !deep && !hasChanged(newValue, oldValue)) return;
+    if (initialized) {
+      if (deep || normalizedSource.forceTrigger) {
+        sourceChanged = true;
+      } else if (normalizedSource.isMultiSource) {
+        const newValues = newValue as unknown[];
+        const oldValues = oldValue as unknown[];
+
+        sourceChanged = newValues.some((value, index) =>
+          hasChanged(value, oldValues[index]),
+        );
+      } else {
+        sourceChanged = hasChanged(newValue, oldValue);
+      }
+    }
+
+    if (!sourceChanged) return;
 
     const previousValue = oldValue;
     oldValue = newValue;
