@@ -10,10 +10,12 @@
 | --- | --- | --- | --- |
 | 01 | [类、对象与静态方法](./01-classes-objects-and-static-methods.md) | 按需学习 | 看懂 `ThreadBasics` 工具类与静态方法。 |
 | 02 | [`main` 方法与当前线程](./02-main-method-and-current-thread.md) | 按需学习 | 理解 Java 程序入口本身已经运行在线程中。 |
-| 03 | [`Runnable`、函数式接口与 lambda](./03-runnable-functional-interface-and-lambda.md) | 按需学习 | 分开理解“任务是什么”和“由哪个线程执行”。 |
+| 03 | [`Runnable`、`@FunctionalInterface` 与 lambda](./03-runnable-functional-interface-and-lambda.md) | 已补充 | 理解函数式接口约束，以及为什么 `InterruptibleTask` 能传播受检异常。 |
 | 04 | [方法引用](./04-method-references.md) | 按需学习 | 看懂测试中的 `taskRuns::incrementAndGet`。 |
 | 05 | [受检异常与 `InterruptedException`](./05-checked-exceptions-and-interruption.md) | 按需学习 | 看懂 `join()` 为什么影响方法签名。 |
 | 06 | [`AtomicInteger` 入门](./06-atomic-integer-preview.md) | 按需学习 | 看懂工作线程和测试线程之间使用的安全计数器。 |
+| 07 | [泛型与 `Deque`、`List`](./07-generics-and-deque.md) | 已补充 | 为有界缓冲区保存任意类型的元素，并在综合场景中传递一组数据。 |
+| 08 | [`AtomicReference` 与跨线程结果槽](./08-atomic-reference.md) | 已补充 | 让多个工作线程安全地发布失败，并由 main 在线程结束后统一处理。 |
 
 ## 学习方式
 

@@ -28,8 +28,8 @@ courses/java/
 
 1. [第一章：线程创建与生命周期](./docs/01-concurrency/01-thread-creation-and-lifecycle.md) 已完成。
 2. [第二章：共享变量、竞态条件与 synchronized](./docs/01-concurrency/02-shared-state-race-and-synchronized.md) 已完成。
-3. `increment()` 已使用对象内置锁保护，第二章测试为 `3 passed, 0 failed`，复习题已完成批改。
-4. [00. Java 基础补充](./docs/00-foundation/README.md) 仅在遇到相关卡点时按需进入；每个知识点独立成章，且不设置复习题。
+3. [第三章：wait、notifyAll 与有界缓冲区](./docs/01-concurrency/03-wait-notify-and-bounded-buffer.md) 已完成：7 项实现测试全部通过，6 道复习题已完成修正复核。
+4. 本章按需补充了无复习题的 [00·07：泛型与 Deque、List](./docs/00-foundation/07-generics-and-deque.md)、[00·08：AtomicReference](./docs/00-foundation/08-atomic-reference.md)，并扩充 [00·03：@FunctionalInterface 与 lambda](./docs/00-foundation/03-runnable-functional-interface-and-lambda.md)。
 
 ## 命令
 
@@ -40,6 +40,7 @@ npm run java:compile  # 只编译，起点应成功
 npm run java:run      # 运行第一章的线程创建演示
 npm run java:test     # 运行当前全部 Java 章节测试
 npm run java:test:chapter-02  # 只运行第二章测试
+npm run java:test:chapter-03  # 只运行第三章测试
 ```
 
 生成的 `.class` 文件位于 `courses/java/.build/`，不会提交到 Git。

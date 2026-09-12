@@ -14,6 +14,7 @@
 | --- | --- | --- | --- |
 | 01·01 | [线程创建与生命周期](./01-concurrency/01-thread-creation-and-lifecycle.md) | 已完成 | `Thread` 对象何时真正启动，怎样等待工作线程完成？ |
 | 01·02 | [共享变量、竞态条件与 synchronized](./01-concurrency/02-shared-state-race-and-synchronized.md) | 已完成 | 多个线程都执行了加一，为什么仍会丢失更新，怎样保护临界区？ |
+| 01·03 | [wait、notifyAll 与有界缓冲区](./01-concurrency/03-wait-notify-and-bounded-buffer.md) | 已完成 | 线程怎样在条件不满足时释放锁等待，并在状态改变后重新检查条件？ |
 
 ## 学习约定
 
@@ -31,10 +32,9 @@
 
 ## 后续路线
 
-1. `wait`、`notifyAll` 与线程协作：逐步实现一个有容量限制、可阻塞等待的生产者—消费者缓冲区。
-2. `volatile` 与 Java 内存模型的可见性。
-3. `Lock`、`Condition` 和原子类。
-4. 线程池、`ExecutorService`、`Future` 与 `CompletableFuture`。
-5. 并发集合与常见并发设计。
+1. `volatile` 与 Java 内存模型的可见性。
+2. `Lock`、`Condition` 和原子类。
+3. 线程池、`ExecutorService`、`Future` 与 `CompletableFuture`。
+4. 并发集合与常见并发设计。
 
 章节会根据理解难度调整检查点和复习题数量，不固定每章题数。
