@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 courses/java/.build/
+courses/spring/target/
 
 # Editor directories and files
 .vscode/*

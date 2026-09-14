@@ -16,6 +16,10 @@
 | 06 | [`AtomicInteger` 入门](./06-atomic-integer-preview.md) | 按需学习 | 看懂工作线程和测试线程之间使用的安全计数器。 |
 | 07 | [泛型与 `Deque`、`List`](./07-generics-and-deque.md) | 已补充 | 为有界缓冲区保存任意类型的元素，并在综合场景中传递一组数据。 |
 | 08 | [`AtomicReference` 与跨线程结果槽](./08-atomic-reference.md) | 已补充 | 让多个工作线程安全地发布失败，并由 main 在线程结束后统一处理。 |
+| 09 | [注解与元注解](./09-annotations-and-meta-annotations.md) | 按需学习 | 区分 Java 注解语法、元注解，以及 Spring 如何读取注解元数据。 |
+| 10 | [`record` 数据载体](./10-record-data-carriers.md) | 按需学习 | 为 Spring MVC 的响应对象声明不可变数据结构。 |
+| 11 | [`Optional` 表达可能缺失的结果](./11-optional.md) | 按需学习 | 让查询服务明确表达“可能找不到”，再由 Web 层决定 HTTP 404。 |
+| 12 | [`Stream`、`filter` 与 `findFirst`](./12-stream-filter-and-find-first.md) | 已补充 | 看懂 Spring 首章中以查询流水线实现的主题查找。 |
 
 ## 学习方式
 

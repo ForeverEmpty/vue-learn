@@ -30,6 +30,7 @@ courses/java/
 2. [第二章：共享变量、竞态条件与 synchronized](./docs/01-concurrency/02-shared-state-race-and-synchronized.md) 已完成。
 3. [第三章：wait、notifyAll 与有界缓冲区](./docs/01-concurrency/03-wait-notify-and-bounded-buffer.md) 已完成：7 项实现测试全部通过，6 道复习题已完成修正复核。
 4. 本章按需补充了无复习题的 [00·07：泛型与 Deque、List](./docs/00-foundation/07-generics-and-deque.md)、[00·08：AtomicReference](./docs/00-foundation/08-atomic-reference.md)，并扩充 [00·03：@FunctionalInterface 与 lambda](./docs/00-foundation/03-runnable-functional-interface-and-lambda.md)。
+5. 为独立的 Spring 课程按需增加了 [00·09：注解与元注解](./docs/00-foundation/09-annotations-and-meta-annotations.md)、[00·10：record](./docs/00-foundation/10-record-data-carriers.md)、[00·11：Optional](./docs/00-foundation/11-optional.md) 和 [00·12：Stream、filter 与 findFirst](./docs/00-foundation/12-stream-filter-and-find-first.md)；这些仍属于 Java 语言基础，不计入 Spring 正式章节。
 
 ## 命令
 
