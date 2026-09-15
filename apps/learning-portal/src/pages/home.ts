@@ -24,7 +24,7 @@ export function renderHomePage(container: HTMLElement): void {
             <p class="eyebrow">MODULE 01 · REACTIVITY</p>
             <h2>Mini Vue · 响应式模块</h2>
           </div>
-          <p>第 1～21 章已完成 · 下一步学习 watcher 控制</p>
+          <p>第 1～21 章已完成 · 下一步进入运行时模块</p>
         </div>
 
         <nav class="lesson-grid" aria-label="响应式学习章节">

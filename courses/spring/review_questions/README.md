@@ -5,6 +5,7 @@
 | 章节 | 主题 | 状态 |
 | --- | --- | --- |
 | 01·01 | [应用启动、IoC/依赖注入与第一个 HTTP API](./01-spring-boot/01-bootstrap-ioc-di-and-http-api.md) | 已批改 |
+| 01·02 | [外部化配置、类型安全绑定与 Profile](./01-spring-boot/02-externalized-configuration-binding-and-profiles.md) | 已批改；第 4 题由 Codex 讲解 |
 
 Spring 学习过程中补到 `courses/java/docs/00-foundation/` 的 Java 基础小章不创建复习题。
 

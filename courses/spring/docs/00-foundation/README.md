@@ -15,6 +15,11 @@
 | 05 | HTTP | [`ResponseEntity` 与 `HttpStatus`](./05-response-entity-and-http-status.md) | `TopicExceptionHandler.handle` |
 | 06 | 设计 | [依赖倒置、IoC 与依赖注入](./06-dependency-inversion-ioc-and-dependency-injection.md) | Controller 构造器注入 |
 | 07 | 设计 | [异常翻译与统一错误边界](./07-exception-translation-and-error-boundaries.md) | 未知主题的 404 映射 |
+| 08 | 配置 | [`@ConfigurationProperties` 与配置对象注册](./08-configuration-properties-and-registration.md) | `StudyPlanProperties` |
+| 09 | 配置 | [`Environment`、`PropertySource` 与覆盖优先级](./09-environment-property-sources-and-precedence.md) | 基础配置、环境变量与命令行覆盖 |
+| 10 | 配置 | [Profile 与 Profile 特定配置文件](./10-profiles-and-profile-specific-configuration.md) | `application-local.properties` |
+| 11 | 设计 | [类型化配置边界与快速失败](./11-typed-configuration-boundary-and-fail-fast.md) | 配置对象注入 `StudyPlanService` |
+| 12 | 设计 | [数据变化、行为变化与条件 Bean](./12-data-variation-behavior-variation-and-conditional-beans.md) | Profile 数据覆盖与 `@Profile` 实现选择 |
 
 ## 每篇基础说明回答什么
 

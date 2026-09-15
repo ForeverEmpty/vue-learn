@@ -1,4 +1,4 @@
-export type CourseLanguage = "vue" | "java";
+export type CourseLanguage = "vue" | "java" | "spring";
 
 type CourseLayoutOptions = {
   activeLanguage: CourseLanguage;
@@ -22,6 +22,32 @@ const languageModules: Record<CourseLanguage, ModuleItem[]> = {
     { label: "并发编程", status: "当前", active: true },
     { label: "JVM 与工程化", status: "规划中" },
   ],
+  spring: [
+    { label: "Spring 基础", status: "查询" },
+    { label: "Spring Boot", status: "当前", active: true },
+    { label: "数据与安全", status: "后续" },
+  ],
+};
+
+const courseContext: Record<
+  CourseLanguage,
+  { label: string; route: string; description: string }
+> = {
+  vue: {
+    label: "TypeScript / Vue",
+    route: "Mini Vue 响应式",
+    description: "响应式模块已完成，下一阶段进入运行时。",
+  },
+  java: {
+    label: "Java 21",
+    route: "Java 并发编程",
+    description: "并发前三章已完成，基础知识继续按需补充。",
+  },
+  spring: {
+    label: "Spring Boot 4",
+    route: "Spring Boot 后端",
+    description: "前两章已完成，下一章将继续扩展后端能力。",
+  },
 };
 
 function renderModuleTabs(activeLanguage: CourseLanguage): string {
@@ -43,6 +69,8 @@ export function renderCourseLayout(
 ): void {
   const vueActive = activeLanguage === "vue";
   const javaActive = activeLanguage === "java";
+  const springActive = activeLanguage === "spring";
+  const context = courseContext[activeLanguage];
 
   container.innerHTML = `
     <div class="portal-frame language-${activeLanguage}">
@@ -61,7 +89,7 @@ export function renderCourseLayout(
 
         <div class="topbar-context">
           <span>当前语言</span>
-          <strong>${vueActive ? "TypeScript / Vue" : "Java 21"}</strong>
+          <strong>${context.label}</strong>
         </div>
       </header>
 
@@ -81,7 +109,7 @@ export function renderCourseLayout(
               <span class="language-icon">TS</span>
               <span class="language-copy">
                 <strong>TypeScript / Vue</strong>
-                <small>当前主课程 · 20 章完成</small>
+                <small>当前主课程 · 21 章完成</small>
               </span>
               <span class="language-arrow" aria-hidden="true">→</span>
             </a>
@@ -98,12 +126,25 @@ export function renderCourseLayout(
               </span>
               <span class="language-arrow" aria-hidden="true">→</span>
             </a>
+
+            <a
+              class="language-option spring-option${springActive ? " is-active" : ""}"
+              href="#/spring"
+              ${springActive ? 'aria-current="page"' : ""}
+            >
+              <span class="language-icon">SB</span>
+              <span class="language-copy">
+                <strong>Spring Boot</strong>
+                <small>后端课程 · 前两章完成</small>
+              </span>
+              <span class="language-arrow" aria-hidden="true">→</span>
+            </a>
           </nav>
 
           <div class="sidebar-note">
             <span>当前路线</span>
-            <strong>${vueActive ? "Mini Vue 响应式" : "Java 并发编程"}</strong>
-            <p>${vueActive ? "继续完善响应式模块，再进入运行时。" : "快速复习语法后，从线程生命周期开始。"}</p>
+            <strong>${context.route}</strong>
+            <p>${context.description}</p>
           </div>
         </aside>
 

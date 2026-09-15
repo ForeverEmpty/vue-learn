@@ -158,6 +158,16 @@ button.secondary:hover {
   background: #c96f18;
 }
 
+.language-spring .module-tab.is-active {
+  border-color: #b9d4f7;
+  color: #1d5fa7;
+  background: #eaf3ff;
+}
+
+.language-spring .module-tab.is-active small {
+  background: #3478c7;
+}
+
 .topbar-context {
   display: grid;
   justify-items: end;
@@ -254,6 +264,11 @@ button.secondary:hover {
   background: #fff8f1;
 }
 
+.language-option.spring-option.is-active {
+  border-color: #83b8ef;
+  background: #f3f8ff;
+}
+
 .language-icon {
   display: grid;
   width: 40px;
@@ -270,6 +285,11 @@ button.secondary:hover {
 .java-option .language-icon {
   color: #713a08;
   background: #f4bd86;
+}
+
+.spring-option .language-icon {
+  color: #153f72;
+  background: #9bc8f4;
 }
 
 .language-copy {
@@ -346,6 +366,13 @@ button.secondary:hover {
     white;
 }
 
+.spring-hero {
+  border-color: #c8daf0;
+  background:
+    radial-gradient(circle at 92% 8%, rgb(52 120 199 / 20%), transparent 31%),
+    white;
+}
+
 .course-hero-meta {
   display: flex;
   align-items: center;
@@ -365,6 +392,11 @@ button.secondary:hover {
 .java-badge {
   color: #92500f;
   background: #fff0df;
+}
+
+.spring-badge {
+  color: #205c9f;
+  background: #e7f2ff;
 }
 
 .course-hero h1 {
@@ -406,6 +438,14 @@ button.secondary:hover {
   color: #ad5d12;
 }
 
+.spring-summary > div {
+  background: #f2f7fd;
+}
+
+.spring-summary strong {
+  color: #286bb7;
+}
+
 .foundation-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -421,6 +461,10 @@ button.secondary:hover {
 
 .java-section-heading {
   border-bottom-color: #ead5bf;
+}
+
+.spring-section-heading {
+  border-bottom-color: #c8daf0;
 }
 
 .shell {
@@ -444,6 +488,10 @@ button.secondary:hover {
 
 .java-eyebrow {
   color: #c96f18;
+}
+
+.spring-eyebrow {
+  color: #3478c7;
 }
 
 h1 {
@@ -505,6 +553,7 @@ h2 {
 
 .lesson-card,
 .test-card {
+  min-width: 0;
   border: 1px solid #cfe2d9;
   border-radius: 20px;
   background: white;
@@ -531,6 +580,14 @@ h2 {
 
 .java-card .enter-link {
   color: #ad5d12;
+}
+
+.spring-card:hover {
+  border-color: #438bd7;
+}
+
+.spring-card .enter-link {
+  color: #286bb7;
 }
 
 .lesson-card p {
@@ -597,11 +654,107 @@ h2 {
   border-color: #ead5bf;
 }
 
+.spring-panel {
+  border-color: #c8daf0;
+}
+
+.endpoint-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 18px 0 28px;
+}
+
+.endpoint-link {
+  display: grid;
+  gap: 7px;
+  padding: 16px 18px;
+  border: 1px solid #c8daf0;
+  border-radius: 12px;
+  color: #205c9f;
+  background: #f4f8fd;
+  text-decoration: none;
+  transition: border-color 160ms ease, transform 160ms ease;
+}
+
+.endpoint-link:hover {
+  border-color: #438bd7;
+  transform: translateY(-2px);
+}
+
+.endpoint-link code {
+  overflow-wrap: anywhere;
+}
+
+.endpoint-link small {
+  color: #69839f;
+}
+
+.checkpoint-list {
+  display: grid;
+  gap: 10px;
+  margin: 20px 0 28px;
+  padding: 0;
+  list-style: none;
+}
+
+.checkpoint-item {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid #d8e5f3;
+  border-radius: 12px;
+  color: #4d637a;
+  background: #f8fbff;
+}
+
+.checkpoint-item strong:first-child {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 9px;
+  color: #286bb7;
+  background: #e7f2ff;
+}
+
+.checkpoint-item small {
+  color: #7b8fa4;
+}
+
+.checkpoint-item.is-current {
+  border-color: #76abe3;
+  background: #edf6ff;
+}
+
+.resource-list {
+  display: grid;
+  gap: 10px;
+  padding: 0;
+  list-style: none;
+}
+
+.resource-list li {
+  padding: 13px 15px;
+  border-left: 3px solid #76abe3;
+  color: #536c84;
+  background: #f5f9fd;
+  line-height: 1.6;
+}
+
+.resource-list code {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
 code {
   font-family: 'Cascadia Code', 'SFMono-Regular', Consolas, monospace;
 }
 
 .command-block {
+  max-width: 100%;
   overflow-x: auto;
   margin: 18px 0 28px;
   padding: 18px 20px;
@@ -857,6 +1010,18 @@ code {
 
   .metric-grid {
     grid-template-columns: 1fr;
+  }
+
+  .endpoint-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .checkpoint-item {
+    grid-template-columns: 38px minmax(0, 1fr);
+  }
+
+  .checkpoint-item small {
+    grid-column: 2;
   }
 
   .section-heading {

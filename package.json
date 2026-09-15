@@ -28,6 +28,7 @@
     "spring:run": "courses\\spring\\mvnw.cmd -f courses\\spring\\pom.xml spring-boot:run",
     "spring:test": "courses\\spring\\mvnw.cmd -f courses\\spring\\pom.xml test",
     "spring:test:chapter-01": "courses\\spring\\mvnw.cmd -f courses\\spring\\pom.xml -Dtest=SpringCourseApplicationTests,TopicCatalogServiceTest,TopicControllerWebTest test",
+    "spring:test:chapter-02": "courses\\spring\\mvnw.cmd -f courses\\spring\\pom.xml -Dtest=StudyPlanPropertiesTest,StudyPlanPropertiesBindingTest,StudyPlanServiceTest,StudyPlanControllerWebTest,StudyPlanLocalProfileTest test",
     "spring:example:di": "java -cp courses/spring/target/classes study.spring.design.di.DependencyInjectionExample",
     "permissions:check": "pwsh -NoProfile -File scripts/workspace-permissions.ps1",
     "permissions:check:all": "pwsh -NoProfile -File scripts/workspace-permissions.ps1 -All",

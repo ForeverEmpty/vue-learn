@@ -32,6 +32,11 @@ import { renderMappedTypesPage } from './pages/vue/typescript/mapped-types'
 import { renderConditionalTypesPage } from './pages/vue/typescript/conditional-types'
 import { renderJavaHomePage } from './pages/java/home'
 import { renderJavaThreadBasicsPage } from './pages/java/thread-basics'
+import { renderJavaSharedStatePage } from './pages/java/shared-state'
+import { renderJavaBoundedBufferPage } from './pages/java/bounded-buffer'
+import { renderSpringHomePage } from './pages/spring/home'
+import { renderSpringBootstrapPage } from './pages/spring/bootstrap'
+import { renderSpringConfigurationPage } from './pages/spring/configuration'
 
 type PageRenderer = (container: HTMLElement) => void
 
@@ -69,6 +74,11 @@ const routes: Record<string, PageRenderer> = {
   '/chapter-21': renderWatchSourcesPage,
   '/java': renderJavaHomePage,
   '/java/chapter-1': renderJavaThreadBasicsPage,
+  '/java/chapter-2': renderJavaSharedStatePage,
+  '/java/chapter-3': renderJavaBoundedBufferPage,
+  '/spring': renderSpringHomePage,
+  '/spring/chapter-1': renderSpringBootstrapPage,
+  '/spring/chapter-2': renderSpringConfigurationPage,
 }
 
 const app = document.querySelector<HTMLElement>('#app')!

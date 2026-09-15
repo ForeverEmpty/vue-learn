@@ -20,6 +20,7 @@
 | 10 | [`record` 数据载体](./10-record-data-carriers.md) | 按需学习 | 为 Spring MVC 的响应对象声明不可变数据结构。 |
 | 11 | [`Optional` 表达可能缺失的结果](./11-optional.md) | 按需学习 | 让查询服务明确表达“可能找不到”，再由 Web 层决定 HTTP 404。 |
 | 12 | [`Stream`、`filter` 与 `findFirst`](./12-stream-filter-and-find-first.md) | 已补充 | 看懂 Spring 首章中以查询流水线实现的主题查找。 |
+| 13 | [record 紧凑构造器与对象不变量](./13-record-compact-constructor-and-invariants.md) | 按需学习 | 让配置 record 在创建时拒绝空名称和非正数时长。 |
 
 ## 学习方式
 
