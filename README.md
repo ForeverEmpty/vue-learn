@@ -7,7 +7,7 @@
 | 优先级 | 课程 | 入口 | 当前定位 |
 | --- | --- | --- | --- |
 | 主线 | TypeScript / Vue：Mini Vue | [Vue 学习区](./courses/vue/README.md) | 当前主要学习内容 |
-| 支线 | Java 21：并发编程 | [Java 学习区](./courses/java/README.md) | 基础只做快速复习，从多线程开始 |
+| 支线 | Java 21：核心机制与高级应用 | [Java 学习区](./courses/java/README.md) | 并发模块已完成，后续进入反射、代理、JVM、I/O 等高级主题 |
 | 后端 | Spring / Spring Boot | [Spring 学习区](./courses/spring/README.md) | 独立推进 Spring Boot、Web 与后端工程知识 |
 
 ## 通用目录

@@ -18,9 +18,10 @@ const languageModules: Record<CourseLanguage, ModuleItem[]> = {
     { label: "组件与编译器", status: "规划中" },
   ],
   java: [
-    { label: "基础复习", status: "辅助" },
-    { label: "并发编程", status: "当前", active: true },
-    { label: "JVM 与工程化", status: "规划中" },
+    { label: "基础查询", status: "15 主题" },
+    { label: "并发与协作", status: "3 章完成" },
+    { label: "反射与代理", status: "下一模块", active: true },
+    { label: "JVM / I/O", status: "后续" },
   ],
   spring: [
     { label: "Spring 基础", status: "查询" },
@@ -40,8 +41,8 @@ const courseContext: Record<
   },
   java: {
     label: "Java 21",
-    route: "Java 并发编程",
-    description: "并发前三章已完成，基础知识继续按需补充。",
+    route: "Java 核心机制与高级应用",
+    description: "并发基础已完成，下一模块进入反射、运行时注解与动态代理。",
   },
   spring: {
     label: "Spring Boot 4",
@@ -122,7 +123,7 @@ export function renderCourseLayout(
               <span class="language-icon">JV</span>
               <span class="language-copy">
                 <strong>Java</strong>
-                <small>独立支线 · 从多线程开始</small>
+                <small>独立课程 · 核心机制与高级应用</small>
               </span>
               <span class="language-arrow" aria-hidden="true">→</span>
             </a>

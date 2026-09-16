@@ -1,50 +1,88 @@
-# Java 21：并发编程
+# Java 21：核心机制与高级应用
 
-这是独立的 Java 学习区。当前仍以 Vue 为主线，Java 作为支线推进；Java 的章节状态、源码和测试不会写入 Vue README。
+这是与 Vue、Spring 同级的独立 Java 学习区。课程不再限定为并发编程：并发是第一个已经完成的正式模块，后续将继续学习反射、注解元数据、动态代理、泛型类型系统、I/O/NIO、JVM、类加载、SPI 与模块化等高级主题。
 
-## 学习起点
+课程目标不是罗列 API，而是通过逐步扩展的程序理解 Java 的运行机制，并把这些机制组合成可以解释、调试和维护的实际工具。
 
-- 不把基础语法设为固定前置课程，直接从正式章节开始。
-- 学习中如果出现必要的前置知识，就临时进入对应的基础知识章；基础知识章不安排复习题。
-- 正式第一章是“线程创建与生命周期”。
-- 当前使用本机 Java 21 LTS 与原生 `javac`。
-- 暂不引入 Maven、Gradle 和 JUnit，先看清编译、线程与测试本身。
+## 课程边界
 
-## 目录
+- `00-foundation/` 保存按需补充的语言基础，每个知识点独立成章，不自动设置复习题。
+- 正式模块负责完整的机制、实现检查点、综合应用和复习题。
+- 已完成的并发代码继续位于 `study.concurrency`，未来模块使用各自独立包，例如 `study.reflection`。
+- Java 课程不依赖 Spring；反射、注解和代理会先用纯 Java 实现，再帮助理解框架为何能够工作。
+- 测试用于自动验收程序行为；复习题不考测试框架，除非学习者主动要求。
+
+## 课程结构
 
 ```text
 courses/java/
   docs/
-    00-foundation/  按需插入的 Java 基础小章
-    01-concurrency/ Java 并发主课程
-  src/main/java/    课程源码
-  src/test/java/    不依赖第三方库的学习测试
-  scripts/          编译、运行和测试脚本
-  review_questions/
-    01-concurrency/ 并发章节的复习题与批改
+    00-foundation/                 按需插入的 Java 基础小章
+    01-concurrency/                线程、共享状态与协作（已完成）
+    02-reflection-and-metaprogramming/
+                                   反射、运行时注解、动态代理与迷你容器（下一模块）
+  src/main/java/study/
+    concurrency/                   已完成的并发源码
+    reflection/                    后续反射模块源码
+  src/test/java/study/             不依赖第三方测试框架的行为验收
+  scripts/                         编译、运行和测试脚本
+  review_questions/                正式章节复习题与批改
 ```
 
-## 当前章节
+后续模块会在真正开启时创建目录和起始代码，不提前堆放空章节。
 
-1. [第一章：线程创建与生命周期](./docs/01-concurrency/01-thread-creation-and-lifecycle.md) 已完成。
-2. [第二章：共享变量、竞态条件与 synchronized](./docs/01-concurrency/02-shared-state-race-and-synchronized.md) 已完成。
-3. [第三章：wait、notifyAll 与有界缓冲区](./docs/01-concurrency/03-wait-notify-and-bounded-buffer.md) 已完成：7 项实现测试全部通过，6 道复习题已完成修正复核。
-4. 本章按需补充了无复习题的 [00·07：泛型与 Deque、List](./docs/00-foundation/07-generics-and-deque.md)、[00·08：AtomicReference](./docs/00-foundation/08-atomic-reference.md)，并扩充 [00·03：@FunctionalInterface 与 lambda](./docs/00-foundation/03-runnable-functional-interface-and-lambda.md)。
-5. 为独立的 Spring 课程按需增加了 [00·09：注解与元注解](./docs/00-foundation/09-annotations-and-meta-annotations.md)、[00·10：record](./docs/00-foundation/10-record-data-carriers.md)、[00·11：Optional](./docs/00-foundation/11-optional.md) 和 [00·12：Stream、filter 与 findFirst](./docs/00-foundation/12-stream-filter-and-find-first.md)；这些仍属于 Java 语言基础，不计入 Spring 正式章节。
-6. Spring Boot 第二章继续按需增加 [00·13：record 紧凑构造器与对象不变量](./docs/00-foundation/13-record-compact-constructor-and-invariants.md)，用于在配置进入业务代码前固定有效条件。
-7. Spring Boot 第三章按需增加 [00·14：Map、ConcurrentHashMap 与 putIfAbsent](./docs/00-foundation/14-map-concurrent-hash-map-and-put-if-absent.md)，用于实现按唯一 slug 写入且不被并发请求静默覆盖的内存目录。
-8. 同章补充 [00·15：正则表达式](./docs/00-foundation/15-regular-expressions.md)，从 slug 规则出发讲解字符类、量词、分组、整串匹配以及 Java 字符串的双层转义。
+## 当前进度
+
+### 00 · 基础查询
+
+已经按学习需要积累 15 个独立主题，包括函数式接口、异常与中断、泛型集合、原子类、注解、record、Optional、Stream、并发 Map 和正则表达式。它们仍是整个 Java 课程共享的查询手册，不只服务于并发模块。
+
+### 01 · 线程、共享状态与协作
+
+1. [01·01：线程创建与生命周期](./docs/01-concurrency/01-thread-creation-and-lifecycle.md)——已完成。
+2. [01·02：共享变量、竞态条件与 synchronized](./docs/01-concurrency/02-shared-state-race-and-synchronized.md)——已完成。
+3. [01·03：wait、notifyAll 与有界缓冲区](./docs/01-concurrency/03-wait-notify-and-bounded-buffer.md)——已完成。
+
+本模块形成了最小并发基础：创建线程 → 识别竞态 → 使用对象锁 → 根据条件等待和通知。`volatile`、CAS、锁框架、线程池和异步编排会在后续“现代并发”模块中继续深化。
+
+### 02 · 反射与运行时元编程
+
+[模块路线](./docs/02-reflection-and-metaprogramming/README.md)已经规划，尚未开启第一章。它会从 `Class<?>` 和运行时类型信息开始，逐步进入成员访问、运行时注解、动态代理，最终组合成一个纯 Java 迷你对象容器。
+
+## 完整高级路线
+
+| 模块 | 主题 | 状态 | 综合应用方向 |
+| --- | --- | --- | --- |
+| 00 | 按需基础查询 | 持续扩充 | 为正式模块补齐最小前置知识 |
+| 01 | 线程、共享状态与协作 | 前三章已完成 | 有界生产者—消费者缓冲区 |
+| 02 | 反射、注解元数据与动态代理 | 下一模块 | 迷你对象容器与方法拦截链 |
+| 03 | 泛型类型系统与可复用 API | 规划中 | 类型安全注册表、通配符与运行时 `Type` |
+| 04 | 现代并发与异步编排 | 规划中 | JMM、`volatile`、CAS、Lock、线程池、Future |
+| 05 | I/O、NIO 与网络编程 | 规划中 | 文件处理流水线、Channel/Buffer 与基础 Socket |
+| 06 | JVM、类加载与诊断 | 规划中 | 类加载隔离、内存与 GC、字节码和运行诊断 |
+| 07 | 扩展机制与工程集成 | 规划中 | `ServiceLoader`、SPI、JPMS、JDBC 与插件化 |
+
+路线可以根据实际理解调整顺序，但每个正式章节必须建立在已掌握机制之上，并产生可以运行和观察的结果。
+
+## 正式章节设计标准
+
+- 常规章节安排约 4～6 个递进检查点，不把一两行修改包装成整章。
+- 推进顺序优先采用“建立基础行为 → 暴露真实限制 → 引入机制 → 处理失败边界 → 综合应用”。
+- 每章至少包含一项需要多个方法或对象协作的任务，并让自动验收随检查点逐步改善。
+- 新的语言前置知识进入 `00-foundation/`；新的设计思想或模式在首次使用处单独详细解释。
+- 复习题可以是理论题、编程题或混合题。编程题通常聚焦 1～3 个函数或约 10～40 行核心代码，避免过少或过量。
 
 ## 命令
 
 在仓库根目录执行：
 
 ```bash
-npm run java:compile  # 只编译，起点应成功
-npm run java:run      # 运行第一章的线程创建演示
-npm run java:test     # 运行当前全部 Java 章节测试
-npm run java:test:chapter-02  # 只运行第二章测试
-npm run java:test:chapter-03  # 只运行第三章测试
+npm run java:compile
+npm run java:run
+npm run java:test
+npm run java:test:chapter-01
+npm run java:test:chapter-02
+npm run java:test:chapter-03
 ```
 
-生成的 `.class` 文件位于 `courses/java/.build/`，不会提交到 Git。
+当前脚本会自动发现 `src/main/java` 和 `src/test/java` 下的 Java 文件，因此未来模块可以继续使用同一套编译与验收入口。生成的 `.class` 文件位于 `courses/java/.build/`，不会提交到 Git。
