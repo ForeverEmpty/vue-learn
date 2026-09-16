@@ -32,6 +32,8 @@ courses/java/
 4. 本章按需补充了无复习题的 [00·07：泛型与 Deque、List](./docs/00-foundation/07-generics-and-deque.md)、[00·08：AtomicReference](./docs/00-foundation/08-atomic-reference.md)，并扩充 [00·03：@FunctionalInterface 与 lambda](./docs/00-foundation/03-runnable-functional-interface-and-lambda.md)。
 5. 为独立的 Spring 课程按需增加了 [00·09：注解与元注解](./docs/00-foundation/09-annotations-and-meta-annotations.md)、[00·10：record](./docs/00-foundation/10-record-data-carriers.md)、[00·11：Optional](./docs/00-foundation/11-optional.md) 和 [00·12：Stream、filter 与 findFirst](./docs/00-foundation/12-stream-filter-and-find-first.md)；这些仍属于 Java 语言基础，不计入 Spring 正式章节。
 6. Spring Boot 第二章继续按需增加 [00·13：record 紧凑构造器与对象不变量](./docs/00-foundation/13-record-compact-constructor-and-invariants.md)，用于在配置进入业务代码前固定有效条件。
+7. Spring Boot 第三章按需增加 [00·14：Map、ConcurrentHashMap 与 putIfAbsent](./docs/00-foundation/14-map-concurrent-hash-map-and-put-if-absent.md)，用于实现按唯一 slug 写入且不被并发请求静默覆盖的内存目录。
+8. 同章补充 [00·15：正则表达式](./docs/00-foundation/15-regular-expressions.md)，从 slug 规则出发讲解字符类、量词、分组、整串匹配以及 Java 字符串的双层转义。
 
 ## 命令
 

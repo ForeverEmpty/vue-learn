@@ -37,6 +37,7 @@ courses/spring/
 1. [00：Spring 基础查询手册](./docs/00-foundation/README.md)——按首次出现顺序记录注解、核心类型和设计思想；每个主题独立成章。
 2. [01·01：应用启动、IoC/依赖注入与第一个 HTTP API](./docs/01-spring-boot/01-bootstrap-ioc-di-and-http-api.md)——已完成：实现、7 项测试、真实 HTTP 调用、可执行 jar 与复习题均已验证。
 3. [01·02：外部化配置、类型安全绑定与 Profile](./docs/01-spring-boot/02-externalized-configuration-binding-and-profiles.md)——已完成：6 个检查点、自动验收 9/9、全量 16/16、配置优先级实践与复习均已完成。
+4. [01·03：REST 写操作、请求校验与一致错误响应](./docs/01-spring-boot/03-rest-write-validation-and-consistent-errors.md)——已完成：6 个检查点、自动验收 10/10、全量 26/26、真实 HTTP 闭环与复习题批改均已完成。
 
 ## 命令
 
@@ -46,6 +47,7 @@ courses/spring/
 npm run spring:compile
 npm run spring:test:chapter-01
 npm run spring:test:chapter-02
+npm run spring:test:chapter-03
 npm run spring:test
 npm run spring:run
 npm run spring:example:di

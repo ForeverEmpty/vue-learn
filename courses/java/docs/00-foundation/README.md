@@ -21,6 +21,8 @@
 | 11 | [`Optional` 表达可能缺失的结果](./11-optional.md) | 按需学习 | 让查询服务明确表达“可能找不到”，再由 Web 层决定 HTTP 404。 |
 | 12 | [`Stream`、`filter` 与 `findFirst`](./12-stream-filter-and-find-first.md) | 已补充 | 看懂 Spring 首章中以查询流水线实现的主题查找。 |
 | 13 | [record 紧凑构造器与对象不变量](./13-record-compact-constructor-and-invariants.md) | 按需学习 | 让配置 record 在创建时拒绝空名称和非正数时长。 |
+| 14 | [`Map`、`ConcurrentHashMap` 与 `putIfAbsent`](./14-map-concurrent-hash-map-and-put-if-absent.md) | 按需学习 | 为 Spring 写接口按唯一 slug 保存主题，并原子拒绝重复键。 |
+| 15 | [正则表达式](./15-regular-expressions.md) | 按需学习 | 读懂 slug 格式规则，掌握字符类、量词、分组、整串匹配与 Java 转义。 |
 
 ## 学习方式
 

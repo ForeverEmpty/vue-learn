@@ -7,14 +7,14 @@ export function renderSpringHomePage(container: HTMLElement): void {
       <header class="course-hero spring-hero">
         <div class="course-hero-meta">
           <p class="eyebrow spring-eyebrow">SPRING BOOT 4.1.1 · JAVA 21</p>
-          <span class="course-badge spring-badge">前两章完成</span>
+          <span class="course-badge spring-badge">前三章完成</span>
         </div>
         <h1>Spring Boot 后端学习路径</h1>
         <p class="lead">从应用启动、IoC 与 HTTP API 开始，逐步进入外部化配置、数据访问、安全与生产化能力。重要注解和设计思想会拆到独立基础章节。</p>
         <div class="course-summary spring-summary" aria-label="Spring Boot 学习进度">
-          <div><strong>2</strong><span>已完成章节</span></div>
-          <div><strong>16 / 16</strong><span>Spring 全量测试</span></div>
-          <div><strong>12</strong><span>基础知识主题</span></div>
+          <div><strong>3</strong><span>已完成章节</span></div>
+          <div><strong>26 / 26</strong><span>全量验收</span></div>
+          <div><strong>16</strong><span>基础知识主题</span></div>
         </div>
       </header>
 
@@ -39,7 +39,7 @@ export function renderSpringHomePage(container: HTMLElement): void {
             <p class="eyebrow spring-eyebrow">SPRING BOOT</p>
             <h2>主课程</h2>
           </div>
-          <p>前两章全部完成</p>
+          <p>3 章全部完成</p>
         </div>
 
         <nav class="lesson-grid foundation-grid" aria-label="Spring Boot 章节">
@@ -56,6 +56,14 @@ export function renderSpringHomePage(container: HTMLElement): void {
             <span class="status complete">9 / 9</span>
             <h2>外部化配置、类型安全绑定与 Profile</h2>
             <p>把散落的配置收束为有约束的 Java 对象，并观察不同配置来源的覆盖顺序。</p>
+            <span class="enter-link">回顾章节与接口 →</span>
+          </a>
+
+          <a class="lesson-card spring-card" href="#/spring/chapter-3">
+            <span class="chapter-number">SPRING · CHAPTER 03</span>
+            <span class="status complete">10 / 10</span>
+            <h2>REST 写操作、校验与一致错误响应</h2>
+            <p>从不可信 JSON 创建资源，逐步加入字段约束、唯一性、201、409 和统一字段错误。</p>
             <span class="enter-link">回顾章节与接口 →</span>
           </a>
         </nav>

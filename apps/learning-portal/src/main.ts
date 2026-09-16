@@ -37,6 +37,7 @@ import { renderJavaBoundedBufferPage } from './pages/java/bounded-buffer'
 import { renderSpringHomePage } from './pages/spring/home'
 import { renderSpringBootstrapPage } from './pages/spring/bootstrap'
 import { renderSpringConfigurationPage } from './pages/spring/configuration'
+import { renderSpringTopicCreationPage } from './pages/spring/topic-creation'
 
 type PageRenderer = (container: HTMLElement) => void
 
@@ -79,6 +80,7 @@ const routes: Record<string, PageRenderer> = {
   '/spring': renderSpringHomePage,
   '/spring/chapter-1': renderSpringBootstrapPage,
   '/spring/chapter-2': renderSpringConfigurationPage,
+  '/spring/chapter-3': renderSpringTopicCreationPage,
 }
 
 const app = document.querySelector<HTMLElement>('#app')!

@@ -14,7 +14,7 @@ export function renderJavaHomePage(container: HTMLElement): void {
         <div class="course-summary java-summary" aria-label="Java 学习进度">
           <div><strong>3</strong><span>已完成章节</span></div>
           <div><strong>12 / 12</strong><span>章节测试</span></div>
-          <div><strong>13</strong><span>基础知识主题</span></div>
+          <div><strong>15</strong><span>基础知识主题</span></div>
         </div>
       </header>
 
@@ -28,7 +28,7 @@ export function renderJavaHomePage(container: HTMLElement): void {
         </div>
 
         <div class="test-card compact-card java-panel">
-          <p class="lead">包含函数式接口、方法引用、异常与中断、泛型、Deque、AtomicReference、注解、record、Optional、Stream 等独立主题。</p>
+          <p class="lead">包含函数式接口、异常与中断、泛型、并发集合、AtomicReference、注解、record、Optional、Stream、正则表达式等独立主题。</p>
           <p class="resource-path"><code>courses/java/docs/00-foundation/README.md</code></p>
         </div>
       </section>

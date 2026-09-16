@@ -20,6 +20,10 @@
 | 10 | 配置 | [Profile 与 Profile 特定配置文件](./10-profiles-and-profile-specific-configuration.md) | `application-local.properties` |
 | 11 | 设计 | [类型化配置边界与快速失败](./11-typed-configuration-boundary-and-fail-fast.md) | 配置对象注入 `StudyPlanService` |
 | 12 | 设计 | [数据变化、行为变化与条件 Bean](./12-data-variation-behavior-variation-and-conditional-beans.md) | Profile 数据覆盖与 `@Profile` 实现选择 |
+| 13 | 设计 | [Web 请求 DTO 与领域边界](./13-web-request-dto-and-domain-boundaries.md) | `CreateTopicRequest` 与 `StudyTopic` |
+| 14 | 校验 | [Bean Validation 约束与 `@Valid`](./14-bean-validation-constraints-and-valid.md) | 创建主题的字段约束 |
+| 15 | Web | [`POST`、`@RequestBody`、`201 Created` 与 `Location`](./15-post-request-body-created-and-location.md) | `POST /api/topics` |
+| 16 | 设计 | [校验错误与稳定错误契约](./16-validation-errors-and-stable-error-contracts.md) | 400、409 与字段级错误 |
 
 ## 每篇基础说明回答什么
 

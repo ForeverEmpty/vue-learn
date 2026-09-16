@@ -46,7 +46,7 @@ const courseContext: Record<
   spring: {
     label: "Spring Boot 4",
     route: "Spring Boot 后端",
-    description: "前两章已完成，下一章将继续扩展后端能力。",
+    description: "前三章已完成，下一阶段将进入数据库与事务。",
   },
 };
 
@@ -135,7 +135,7 @@ export function renderCourseLayout(
               <span class="language-icon">SB</span>
               <span class="language-copy">
                 <strong>Spring Boot</strong>
-                <small>后端课程 · 前两章完成</small>
+                <small>后端课程 · 前三章完成</small>
               </span>
               <span class="language-arrow" aria-hidden="true">→</span>
             </a>

@@ -12,6 +12,7 @@
 | --- | --- | --- | --- |
 | 01·01 | [应用启动、IoC/依赖注入与第一个 HTTP API](./01-spring-boot/01-bootstrap-ioc-di-and-http-api.md) | 已完成 | 一个普通 Java 调用怎样经过容器装配、MVC 路由和 JSON 序列化成为 HTTP API？ |
 | 01·02 | [外部化配置、类型安全绑定与 Profile](./01-spring-boot/02-externalized-configuration-binding-and-profiles.md) | 已完成 | 同一个 jar 怎样从不同配置来源得到类型安全、可覆盖的运行参数？ |
+| 01·03 | [REST 写操作、请求校验与一致错误响应](./01-spring-boot/03-rest-write-validation-and-consistent-errors.md) | 已完成 | 如何从不可信 JSON 创建资源，并稳定表达字段错误与状态冲突？ |
 
 ## 章节设计约定
 
